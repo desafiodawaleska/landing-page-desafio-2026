@@ -17,9 +17,9 @@ export default function Hero({ ctaHref }) {
           só para manter a ordem da pilha (ele fica sob as camadas de multiply).
           Textos, quadrados e CTA seguem ancorados no canvas de 1440. */}
       <div className="hero__bleed">
-        <img className="hero__bg" src="/assets/hero-fundo-wide.png" alt="" />
+        <img className="hero__bg" src="/assets/logo-fundo.png" alt="" />
         <div className="hero__grid" />
-        <img className="hero__light" src="/assets/hero-luz-wide.png" alt="" />
+        <img className="hero__light" src="/assets/luz.png" alt="" />
         <div className="hero__warm" aria-hidden="true" />
         <img className="hero__photo" src="/assets/hero-foto-wide.png" alt="Waleska" />
       </div>

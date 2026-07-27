@@ -22,24 +22,28 @@
   overflow: hidden;
 }
 
-/* Nunca abaixo de 2040px — encolher comprimiria o degradê e mudaria a hero em
-   1440. Acima disso estica na horizontal, o que é invisível num degradê difuso
-   e é o que evita a barra escura em ultrawide. */
+/* O fundo é o recorte de 1440 esticado para a largura da faixa, não uma versão
+   estendida do asset. O Logo-fundo é o "W" da marca desfocado: alargar o
+   recorte revelava os lóbulos externos dele, onde o brilho cai para o preto, e
+   isso aparecia como manchas escuras nas pontas da tela. Esticando, a borda da
+   janela sempre mostra o mesmo tom que a borda do design de 1440. O degradê é
+   difuso, então o alongamento não se percebe. */
 .hero__bg {
   position: absolute;
-  left: 50%;
+  left: 0;
   top: 0;
-  transform: translateX(-50%);
-  width: max(2040px, 100%);
+  width: 100%;
   height: 1024px;
 }
 
+/* Acompanha o mesmo alongamento do fundo: 224/1440 e 1216/1440 do original,
+   então a luz continua colada na borda direita como no design. */
 .hero__light {
   position: absolute;
-  left: calc(224px + var(--vw, 1440px) / 2 - 720px);
+  left: 15.5556%;
   top: 364px;
-  width: 2071px;
-  height: 1590px;
+  width: 84.4444%;
+  height: 660px;
   mix-blend-mode: multiply;
 }
 
@@ -68,10 +72,18 @@
 }
 
 /* O grid era um PNG de 1271x855 parado no meio do canvas, o que em ultrawide
-   virava um retângulo solto no centro da tela. Agora é desenhado em CSS e
-   repete por toda a faixa. Medidas tiradas do PNG original: linha de 1px em
-   rgba(33,0,0,0.149), célula de 141 x 142,5, origem em (85,85) do canvas — é
-   dela que dependem os quadrados soltos, que caem nas células. */
+   virava um retângulo solto no centro da tela. Agora é o próprio desenho
+   original repetido: grid-tile.png é o grid.png sem a última coluna e a última
+   linha, que estavam duplicando o traço a cada emenda. Passo de 141 x 142,5
+   confirmado inclusive na emenda entre tiles.
+
+   Tentei antes desenhar as linhas com repeating-linear-gradient e ficou ruim:
+   com origem fracionária e ~17 repetições sob uma escala não inteira, as linhas
+   caem em pixels quebrados e saem com espessuras irregulares. O tile do
+   desenho original não tem esse problema — o anti-aliasing já vem embutido.
+
+   Fica em px de canvas, sem esticar junto com o fundo: a célula de 141 é
+   estrutural, é nela que os quadrados soltos se encaixam. */
 .hero__grid {
   position: absolute;
   left: 0;
@@ -79,14 +91,10 @@
   width: 100%;
   height: 855px;
   opacity: 0.9;
-  background-image: repeating-linear-gradient(
-      to right,
-      rgba(33, 0, 0, 0.149) 0 1px,
-      transparent 1px 141px
-    ),
-    repeating-linear-gradient(to bottom, rgba(33, 0, 0, 0.149) 0 1px, transparent 1px 142.5px);
-  /* ancora as colunas em x=85 do canvas para as células baterem com os
-     quadrados; as linhas horizontais já começam no topo do elemento */
+  background-image: url('/assets/grid-tile.png');
+  background-repeat: repeat;
+  background-size: 1270px 854px;
+  /* ancora a coluna em x=85 do canvas para as células baterem com os quadrados */
   background-position: calc(85px + var(--vw, 1440px) / 2 - 720px) 0;
 }
 
