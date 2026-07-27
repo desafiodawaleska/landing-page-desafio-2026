@@ -23,17 +23,12 @@ body {
   padding: 0;
   background: #160100;
   font-family: 'Red Hat Display', system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 a {
   color: #ff3300;
   text-decoration: none;
-}
-
-.canvas {
-  width: 1440px;
-  margin: 0 auto;
-  background: #160100;
 }
 
 .cta {

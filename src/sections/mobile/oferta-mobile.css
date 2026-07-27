@@ -1,0 +1,164 @@
+.oferta-m {
+  position: relative;
+  width: 390px;
+  height: 780px;
+  overflow: hidden;
+  background: #ff2801;
+  --cta-bg: #ff2801;
+  --cta-fg: #200400;
+}
+
+.oferta-m__card {
+  position: absolute;
+  left: 20px;
+  top: 120px;
+  width: 350px;
+  height: 580px;
+  background: #ffffff;
+}
+
+.oferta-m__photos {
+  position: absolute;
+  left: 20px;
+  top: 58px;
+  width: 350px;
+  height: 362px;
+  overflow: hidden;
+}
+
+.oferta-m__photo-box {
+  position: absolute;
+  left: 0;
+  top: 62px;
+  width: 350px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.oferta-m__photo-bg {
+  position: absolute;
+  left: -11px;
+  top: -21px;
+  width: 371px;
+  height: 355px;
+  transition: transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.oferta-m__photo-cut {
+  position: absolute;
+  left: -35px;
+  top: 26px;
+  width: 385px;
+  height: 370px;
+  transition: transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.oferta-m__kicker {
+  position: absolute;
+  left: 30px;
+  top: 455px;
+  width: 330px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 700;
+  letter-spacing: 0.149em;
+  text-indent: 0.149em;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+.oferta-m__price,
+.oferta-m__price-shine {
+  position: absolute;
+  left: 30px;
+  top: 475px;
+  width: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  line-height: 80px;
+  letter-spacing: 0.1033em;
+  animation: price-weight 5.6s ease-in-out infinite;
+}
+
+.oferta-m__price span,
+.oferta-m__price-shine span {
+  padding-left: 0.1033em;
+  white-space: nowrap;
+}
+
+.oferta-m__price {
+  color: #ff2801;
+  will-change: font-variation-settings;
+}
+
+.oferta-m__price-shine {
+  pointer-events: none;
+  background-image: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 41%,
+    rgba(255, 190, 160, 0.85) 47%,
+    #fff2ea 50%,
+    rgba(255, 190, 160, 0.85) 53%,
+    rgba(255, 255, 255, 0) 59%
+  );
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: price-weight 5.6s ease-in-out infinite,
+    shine-sweep 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) 1.6s infinite;
+}
+
+.oferta-m__cta {
+  left: 30px;
+  top: 585px;
+  width: 330px;
+  height: 62px;
+}
+
+.oferta-m__cta span {
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 330px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 17px;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.0937em;
+  text-indent: 0.0937em;
+  text-transform: uppercase;
+}
+
+.oferta-m__note {
+  position: absolute;
+  left: 30px;
+  top: 668px;
+  width: 330px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 11px;
+  font-weight: 700;
+  letter-spacing: 0.046em;
+  text-indent: 0.046em;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+.oferta-m__ring {
+  position: absolute;
+  left: -15px;
+  top: 730px;
+  width: 420px;
+  height: 420px;
+  pointer-events: none;
+  animation: ring-spin 34s linear infinite;
+}
