@@ -12,12 +12,17 @@ const SQUARES = [
 export default function Hero({ ctaHref }) {
   return (
     <section className="hero">
-      <img className="hero__bg" src="/assets/logo-fundo.png" alt="" />
-      <img className="hero__grid" src="/assets/grid.png" alt="" />
-      <img className="hero__light" src="/assets/luz.png" alt="" />
-      <div className="hero__warm" aria-hidden="true" />
-
-      <img className="hero__photo" src="/assets/foto-waleska.png" alt="Waleska" />
+      {/* Faixa de sangria de 2040px centrada no canvas: é ela que cobre a
+          janela em telas largas. Fundo, luz e foto sangram; o grid entra aqui
+          só para manter a ordem da pilha (ele fica sob as camadas de multiply).
+          Textos, quadrados e CTA seguem ancorados no canvas de 1440. */}
+      <div className="hero__bleed">
+        <img className="hero__bg" src="/assets/hero-fundo-wide.png" alt="" />
+        <img className="hero__grid" src="/assets/grid.png" alt="" />
+        <img className="hero__light" src="/assets/hero-luz-wide.png" alt="" />
+        <div className="hero__warm" aria-hidden="true" />
+        <img className="hero__photo" src="/assets/hero-foto-wide.png" alt="Waleska" />
+      </div>
 
       {SQUARES.map((s) => (
         <img

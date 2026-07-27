@@ -1,38 +1,40 @@
+/* Sem overflow:hidden aqui — ele recortaria a faixa de sangria de volta aos
+   1440px. Quem recorta agora é .hero__bleed, que já tem a altura da seção. */
 .hero {
   position: relative;
   width: 1440px;
   height: 1024px;
-  overflow: hidden;
   background: #f6efe9;
   isolation: isolate;
   --cta-bg: #ff3300;
   --cta-fg: #260100;
 }
 
+/* Faixa de 2040px centrada no canvas de 1440 — sobra 300px para cada lado.
+   As coordenadas de dentro dela são as do canvas somadas de 300. */
+.hero__bleed {
+  position: absolute;
+  left: -300px;
+  top: 0;
+  width: 2040px;
+  height: 1024px;
+  overflow: hidden;
+}
+
 .hero__bg {
   position: absolute;
   left: 0;
   top: 0;
-  width: 1440px;
+  width: 2040px;
   height: 1024px;
-  object-fit: cover;
-}
-
-.hero__grid {
-  position: absolute;
-  left: 85px;
-  top: 85px;
-  width: 1271px;
-  height: 855px;
-  opacity: 0.9;
 }
 
 .hero__light {
   position: absolute;
-  left: 224px;
+  left: 524px; /* 224 no canvas */
   top: 364px;
-  width: 1216px;
-  height: 660px;
+  width: 2071px;
+  height: 1590px;
   mix-blend-mode: multiply;
 }
 
@@ -40,18 +42,31 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 1440px;
+  width: 2040px;
   height: 1024px;
   background: rgb(255, 245, 215);
   mix-blend-mode: multiply;
 }
 
+/* A silhueta dela termina em 1531 no canvas, ou seja, sai cortada pela direita
+   em 1440. Acima de ~1622px de janela a borda visível passaria desse ponto e
+   abriria um vazio ao lado dela — então a foto acompanha a borda, no máximo até
+   encostar. Em 1440 o deslocamento é zero e nada muda. */
 .hero__photo {
   position: absolute;
-  left: 499px;
-  top: 0;
-  width: 943px;
-  height: 1024px;
+  left: calc(799px + max(0px, var(--vw, 1440px) / 2 - 811px)); /* 499 no canvas */
+  top: -15px;
+  width: 1218px;
+  height: 1500px;
+}
+
+.hero__grid {
+  position: absolute;
+  left: 385px; /* 85 no canvas */
+  top: 85px;
+  width: 1271px;
+  height: 855px;
+  opacity: 0.9;
 }
 
 .hero__square {

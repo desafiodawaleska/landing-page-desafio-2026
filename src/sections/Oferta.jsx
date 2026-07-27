@@ -25,6 +25,9 @@ export default function Oferta({ ctaHref }) {
       onMouseMove={onMouseMove}
       onMouseLeave={() => setTransform('translate3d(0,0,0)')}
     >
+      {/* Fundo laranja até as bordas da tela. */}
+      <div className="oferta__bleed" aria-hidden="true" />
+
       <div className="oferta__card" />
 
       <div className="oferta__photos">
@@ -54,7 +57,12 @@ export default function Oferta({ ctaHref }) {
 
       <div className="oferta__note">As vagas da turma são limitadas. Garanta a sua.</div>
 
-      <img className="oferta__ring" src="/assets/s5/ring-text.svg" alt="" aria-hidden="true" />
+      {/* Último no DOM, como no original: o anel passa por cima do card branco
+          e da foto. A faixa em volta só existe para recortá-lo na altura da
+          seção — papel que era do overflow da .oferta. */}
+      <div className="oferta__ring-band" aria-hidden="true">
+        <img className="oferta__ring" src="/assets/s5/ring-text.svg" alt="" />
+      </div>
     </section>
   );
 }

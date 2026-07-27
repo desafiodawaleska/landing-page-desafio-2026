@@ -15,10 +15,20 @@ const CTA_HREF = '#inscricao';
 // escalado para caber na janela.
 const MOBILE_BREAKPOINT = 768;
 
+// Largura da faixa de sangria que as seções desktop pintam além do canvas.
+// Vem dos assets estendidos da hero (Logo-fundo de 2040px de largura) — é até
+// onde dá para cobrir a tela sem ampliar nada. Passando disso, o canvas
+// inteiro escala junto.
+const DESKTOP_BLEED = 2040;
+
+// clientWidth, não innerWidth: innerWidth conta a barra de rolagem, e os ~15px
+// de diferença apareceriam como uma tira escura na direita quando a página
+// passa a escalar pela sangria.
 function useViewportWidth() {
-  const [width, setWidth] = useState(() => window.innerWidth);
+  const read = () => document.documentElement.clientWidth;
+  const [width, setWidth] = useState(read);
   useEffect(() => {
-    const onResize = () => setWidth(window.innerWidth);
+    const onResize = () => setWidth(read());
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -40,7 +50,7 @@ export default function App() {
   }
 
   return (
-    <ScaledCanvas designWidth={1440} viewportWidth={viewportWidth}>
+    <ScaledCanvas designWidth={1440} viewportWidth={viewportWidth} bleedWidth={DESKTOP_BLEED}>
       <Hero ctaHref={CTA_HREF} />
       <Beneficios />
       <Trajetoria />

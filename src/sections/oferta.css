@@ -1,11 +1,29 @@
+/* Sem overflow:hidden — quem recorta é .oferta__bleed. */
 .oferta {
   position: relative;
   width: 1440px;
   height: 712px;
-  overflow: hidden;
   background: #ff2801;
   --cta-bg: #ff2801;
   --cta-fg: #200400;
+}
+
+.oferta__bleed,
+.oferta__ring-band {
+  position: absolute;
+  left: -300px;
+  top: 0;
+  width: 2040px;
+  height: 712px;
+  overflow: hidden;
+}
+
+.oferta__bleed {
+  background: #ff2801;
+}
+
+.oferta__ring-band {
+  pointer-events: none;
 }
 
 .oferta__card {
@@ -153,9 +171,14 @@
   text-transform: uppercase;
 }
 
+/* O anel foi desenhado saindo 276px pela direita do canvas de 1440. Ancorar em
+   `left` fixo faria ele aparecer inteiro, flutuando, assim que a tela passasse
+   de 1440. Então a posição segue a borda visível: fica sempre 276px para fora
+   dela. Em 1440 a conta devolve os 1043px originais (1020 + 720 - 397, já em
+   coordenadas da faixa). */
 .oferta__ring {
   position: absolute;
-  left: 1043px;
+  left: calc(623px + var(--vw, 1440px) / 2);
   top: 303px;
   width: 673px;
   height: 673px;

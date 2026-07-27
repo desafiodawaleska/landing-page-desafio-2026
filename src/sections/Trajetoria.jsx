@@ -20,6 +20,11 @@ const CLOSE = 300;
 
 const RAIL = SLIDES.concat(SLIDES, SLIDES);
 
+// O viewport do carrossel começa 300px à esquerda do canvas (faixa de sangria),
+// então o centro do canvas cai em 1020 nas coordenadas dele.
+const BLEED = 300;
+const CENTER = 720 + BLEED;
+
 export default function Trajetoria() {
   const [index, setIndex] = useState(N);
   const [open, setOpen] = useState(false);
@@ -66,6 +71,8 @@ export default function Trajetoria() {
 
   return (
     <section className="trajetoria">
+      <div className="trajetoria__bleed" aria-hidden="true" />
+
       <div className="trajetoria__kicker">Toda a minha</div>
       <h2 className="trajetoria__title">Trajetória</h2>
 
@@ -73,7 +80,7 @@ export default function Trajetoria() {
         <div
           className="trajetoria__rail"
           style={{
-            transform: `translate3d(${720 - CARD_W / 2 - index * PITCH}px,0,0)`,
+            transform: `translate3d(${CENTER - CARD_W / 2 - index * PITCH}px,0,0)`,
             transition: jump ? 'none' : `transform ${TRAVEL}ms cubic-bezier(.65,0,.2,1)`,
           }}
         >

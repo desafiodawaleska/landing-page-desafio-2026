@@ -75,7 +75,12 @@ const BENEFITS = [
 export default function Beneficios() {
   return (
     <section className="beneficios">
-      <img className="beneficios__glow" src="/assets/s2/gradiente.png" alt="" />
+      {/* Fundo e marquee vão de ponta a ponta na faixa de sangria; a moldura
+          continua ancorada no canvas de 1440. */}
+      <div className="beneficios__bleed" aria-hidden="true">
+        <img className="beneficios__glow" src="/assets/s2/gradiente-wide.png" alt="" />
+      </div>
+
       <img className="beneficios__frame" src="/assets/s2/borda.png" alt="" />
 
       <div className="marquee">

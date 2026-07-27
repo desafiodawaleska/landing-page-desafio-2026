@@ -1,6 +1,18 @@
+/* Sem overflow:hidden — ele recortaria as faixas de sangria de volta aos
+   1440px. Cada faixa recorta o que precisa. */
 .beneficios {
   position: relative;
   width: 1440px;
+  height: 1024px;
+  background: #1e0100;
+}
+
+/* Faixa de 2040px centrada no canvas: pinta o fundo até as bordas da tela. */
+.beneficios__bleed {
+  position: absolute;
+  left: -300px;
+  top: 0;
+  width: 2040px;
   height: 1024px;
   overflow: hidden;
   background: #1e0100;
@@ -10,7 +22,7 @@
   position: absolute;
   left: 0;
   top: 162px;
-  width: 1440px;
+  width: 2040px;
   height: 862px;
   animation: glow-breathe 7.5s ease-in-out infinite;
 }
@@ -25,9 +37,9 @@
 
 .marquee {
   position: absolute;
-  left: 0;
+  left: -300px;
   top: 0;
-  width: 1440px;
+  width: 2040px;
   height: 85px;
   background: #160100;
   overflow: hidden;

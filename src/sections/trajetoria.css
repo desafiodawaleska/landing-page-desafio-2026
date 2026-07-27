@@ -1,8 +1,19 @@
+/* Sem overflow:hidden — quem recorta é .trajetoria__viewport, que já é a
+   faixa de sangria inteira. */
 .trajetoria {
   position: relative;
   width: 1440px;
   height: 715px;
-  overflow: hidden;
+  background: #1e0100;
+}
+
+/* Faixa de 2040px centrada no canvas, só para o fundo cobrir a tela. */
+.trajetoria__bleed {
+  position: absolute;
+  left: -300px;
+  top: 0;
+  width: 2040px;
+  height: 715px;
   background: #1e0100;
 }
 
@@ -37,11 +48,13 @@
   text-transform: uppercase;
 }
 
+/* Também sangra: os cards precisam entrar e sair pela borda da tela, não pela
+   do canvas, senão aparecem e somem no meio do fundo. */
 .trajetoria__viewport {
   position: absolute;
-  left: 0;
+  left: -300px;
   top: 174px;
-  width: 1440px;
+  width: 2040px;
   height: 500px;
   overflow: hidden;
 }
