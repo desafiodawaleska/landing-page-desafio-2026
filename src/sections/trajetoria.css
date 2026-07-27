@@ -1,0 +1,89 @@
+.trajetoria {
+  position: relative;
+  width: 1440px;
+  height: 715px;
+  overflow: hidden;
+  background: #1e0100;
+}
+
+.trajetoria__kicker {
+  position: absolute;
+  left: 0;
+  top: 47px;
+  width: 1440px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: 600;
+  letter-spacing: 0.486em;
+  text-indent: 0.486em;
+  color: #ff3300;
+  text-transform: uppercase;
+}
+
+.trajetoria__title {
+  position: absolute;
+  left: 0;
+  top: 68px;
+  width: 1440px;
+  margin: 0;
+  text-align: center;
+  font-size: 48px;
+  line-height: 60px;
+  font-weight: 800;
+  letter-spacing: 0.0766em;
+  text-indent: 0.0766em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.trajetoria__viewport {
+  position: absolute;
+  left: 0;
+  top: 174px;
+  width: 1440px;
+  height: 500px;
+  overflow: hidden;
+}
+
+.trajetoria__rail {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  will-change: transform;
+}
+
+.trajetoria__card {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.trajetoria__photo {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  background-size: cover;
+  background-position: center top;
+}
+
+.trajetoria__frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.trajetoria__word {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  text-align: center;
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 800;
+  letter-spacing: 0.51em;
+  text-indent: 0.51em;
+  color: #ff3300;
+  text-transform: uppercase;
+}
