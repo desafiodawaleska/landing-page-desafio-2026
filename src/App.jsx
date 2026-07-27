@@ -21,22 +21,42 @@ const MOBILE_BREAKPOINT = 768;
 // inteiro escala junto.
 const DESKTOP_BLEED = 2040;
 
-// clientWidth, não innerWidth: innerWidth conta a barra de rolagem, e os ~15px
-// de diferença apareceriam como uma tira escura na direita quando a página
-// passa a escalar pela sangria.
-function useViewportWidth() {
-  const read = () => document.documentElement.clientWidth;
-  const [width, setWidth] = useState(read);
+// Altura da hero. Em telas muito largas a escala fica limitada por ela, senão
+// a primeira dobra passa da altura da janela e o CTA fica abaixo do corte —
+// era o que acontecia em ultrawide 2560x1080.
+const HERO_HEIGHT = 1024;
+
+// clientWidth/clientHeight, não innerWidth/innerHeight: innerWidth conta a
+// barra de rolagem, e os ~15px de diferença apareceriam como uma tira escura
+// na direita quando a página passa a escalar pela sangria.
+function useViewport() {
+  const read = () => ({
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+  });
+  const [size, setSize] = useState(read);
   useEffect(() => {
-    const onResize = () => setWidth(read());
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    // ResizeObserver além do evento de resize: quando a barra de rolagem
+    // aparece, ela come ~15px de clientWidth sem disparar `resize`, e a faixa
+    // de sangria ficava larga demais, jogando a moldura para fora da tela.
+    const update = () =>
+      setSize((prev) => {
+        const next = read();
+        return prev.width === next.width && prev.height === next.height ? prev : next;
+      });
+    const observer = new ResizeObserver(update);
+    observer.observe(document.documentElement);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
   }, []);
-  return width;
+  return size;
 }
 
 export default function App() {
-  const viewportWidth = useViewportWidth();
+  const { width: viewportWidth, height: viewportHeight } = useViewport();
 
   if (viewportWidth < MOBILE_BREAKPOINT) {
     return (
@@ -50,7 +70,13 @@ export default function App() {
   }
 
   return (
-    <ScaledCanvas designWidth={1440} viewportWidth={viewportWidth} bleedWidth={DESKTOP_BLEED}>
+    <ScaledCanvas
+      designWidth={1440}
+      viewportWidth={viewportWidth}
+      viewportHeight={viewportHeight}
+      bleedWidth={DESKTOP_BLEED}
+      fitHeight={HERO_HEIGHT}
+    >
       <Hero ctaHref={CTA_HREF} />
       <Beneficios />
       <Trajetoria />

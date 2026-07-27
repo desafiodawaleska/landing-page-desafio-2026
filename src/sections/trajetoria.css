@@ -7,12 +7,12 @@
   background: #1e0100;
 }
 
-/* Faixa de 2040px centrada no canvas, só para o fundo cobrir a tela. */
+/* Faixa de sangria, só para o fundo cobrir a tela. */
 .trajetoria__bleed {
   position: absolute;
-  left: -300px;
+  left: calc(720px - var(--vw, 1440px) / 2);
   top: 0;
-  width: 2040px;
+  width: var(--vw, 1440px);
   height: 715px;
   background: #1e0100;
 }
@@ -52,14 +52,19 @@
    do canvas, senão aparecem e somem no meio do fundo. */
 .trajetoria__viewport {
   position: absolute;
-  left: -300px;
+  left: calc(720px - var(--vw, 1440px) / 2);
   top: 174px;
-  width: 2040px;
+  width: var(--vw, 1440px);
   height: 500px;
   overflow: hidden;
 }
 
+/* Ancorado no meio do viewport, para o JS não precisar saber a largura da
+   faixa: ele só desloca o trilho pelo índice do card. */
 .trajetoria__rail {
+  position: absolute;
+  left: 50%;
+  top: 0;
   display: flex;
   align-items: flex-start;
   width: max-content;

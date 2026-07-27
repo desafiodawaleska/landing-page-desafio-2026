@@ -5,6 +5,11 @@ const MARQUEE_ITEMS = Array.from({ length: 5 }).flatMap(() => [
   'Desafio da Waleska',
 ]);
 
+// `left` é a posição original no canvas de 1440. Ela vira uma fração da
+// largura para os itens se espalharem junto com a moldura em telas largas, em
+// vez de ficarem agrupados no meio. Em 1440 a conta devolve o valor original.
+const ITEM_W = 340;
+
 const BENEFITS = [
   {
     left: 136,
@@ -75,13 +80,13 @@ const BENEFITS = [
 export default function Beneficios() {
   return (
     <section className="beneficios">
-      {/* Fundo e marquee vão de ponta a ponta na faixa de sangria; a moldura
-          continua ancorada no canvas de 1440. */}
+      {/* Fundo, degradê, moldura e marquee vão de ponta a ponta. O degradê e a
+          moldura são desenhados em CSS — como PNG de largura fixa eles não
+          acompanhavam a tela. */}
       <div className="beneficios__bleed" aria-hidden="true">
-        <img className="beneficios__glow" src="/assets/s2/gradiente-wide.png" alt="" />
+        <div className="beneficios__glow" />
+        <div className="beneficios__frame" />
       </div>
-
-      <img className="beneficios__frame" src="/assets/s2/borda.png" alt="" />
 
       <div className="marquee">
         <div className="marquee__track">
@@ -99,7 +104,15 @@ export default function Beneficios() {
       <h2 className="beneficios__title">Participando</h2>
 
       {BENEFITS.map((b) => (
-        <div className="benefit" key={b.icon} style={{ left: `${b.left}px`, top: `${b.top}px` }}>
+        <div
+          className="benefit"
+          key={b.icon}
+          style={{
+            left: `calc(var(--vw, 1440px) * ${((b.left + ITEM_W / 2) / 1440).toFixed(6)}` +
+              ` + 720px - var(--vw, 1440px) / 2 - ${ITEM_W / 2}px)`,
+            top: `${b.top}px`,
+          }}
+        >
           <div className="benefit__icon" style={{ height: `${b.boxHeight}px` }}>
             <img
               src={`/assets/s2/${b.icon}`}

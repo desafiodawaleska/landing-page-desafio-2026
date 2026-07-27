@@ -11,9 +11,9 @@
 .oferta__bleed,
 .oferta__ring-band {
   position: absolute;
-  left: -300px;
+  left: calc(720px - var(--vw, 1440px) / 2);
   top: 0;
-  width: 2040px;
+  width: var(--vw, 1440px);
   height: 712px;
   overflow: hidden;
 }
@@ -26,18 +26,24 @@
   pointer-events: none;
 }
 
+/* A composição da Oferta é fluida: o card estica, a foto fica ancorada na
+   direita e o anel acompanha a foto. Sem isso, em tela larga o bloco inteiro
+   virava um retângulo parado no meio do laranja e o anel deixava de cruzar a
+   foto — que é justamente a disposição que precisa se manter. Em 1440 todas as
+   contas devolvem os valores originais. */
 .oferta__card {
   position: absolute;
-  left: 85px;
+  left: calc(805px - var(--vw, 1440px) / 2); /* 85 no canvas */
   top: 85px;
-  width: 1270px;
+  width: calc(var(--vw, 1440px) - 170px);
   height: 543px;
   background: #ffffff;
 }
 
+/* mantém os 68px de folga que ela tem até a borda direita do canvas em 1440 */
 .oferta__photos {
   position: absolute;
-  left: 778px;
+  left: calc(58px + var(--vw, 1440px) / 2); /* 778 no canvas */
   top: 0;
   width: 594px;
   height: 628px;
@@ -75,7 +81,7 @@
 
 .oferta__kicker {
   position: absolute;
-  left: 170px;
+  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
   top: 200px;
   width: 524px;
   text-align: center;
@@ -91,7 +97,7 @@
 .oferta__price,
 .oferta__price-shine {
   position: absolute;
-  left: 170px;
+  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
   top: 222px;
   width: 524px;
   display: flex;
@@ -135,7 +141,7 @@
 }
 
 .oferta__cta {
-  left: 170px;
+  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
   top: 385px;
   width: 524px;
   height: 93px;
@@ -158,7 +164,7 @@
 
 .oferta__note {
   position: absolute;
-  left: 170px;
+  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
   top: 496px;
   width: 524px;
   text-align: center;
@@ -171,14 +177,14 @@
   text-transform: uppercase;
 }
 
-/* O anel foi desenhado saindo 276px pela direita do canvas de 1440. Ancorar em
-   `left` fixo faria ele aparecer inteiro, flutuando, assim que a tela passasse
-   de 1440. Então a posição segue a borda visível: fica sempre 276px para fora
-   dela. Em 1440 a conta devolve os 1043px originais (1020 + 720 - 397, já em
-   coordenadas da faixa). */
+/* O anel anda junto com a foto, não com a borda da tela: é o cruzamento do
+   texto sobre ela que precisa se manter igual em qualquer largura. Como a foto
+   fica ancorada na direita, o anel continua saindo pela borda e o centro do
+   círculo nunca entra em cena. Valor em coordenadas da faixa; em 1440 devolve
+   os 1043px originais. */
 .oferta__ring {
   position: absolute;
-  left: calc(623px + var(--vw, 1440px) / 2);
+  left: calc(var(--vw, 1440px) - 397px);
   top: 303px;
   width: 673px;
   height: 673px;

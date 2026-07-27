@@ -7,39 +7,71 @@
   background: #1e0100;
 }
 
-/* Faixa de 2040px centrada no canvas: pinta o fundo até as bordas da tela. */
+/* Faixa de sangria: acompanha a largura da janela, centrada no canvas. */
 .beneficios__bleed {
   position: absolute;
-  left: -300px;
+  left: calc(720px - var(--vw, 1440px) / 2);
   top: 0;
-  width: 2040px;
+  width: var(--vw, 1440px);
   height: 1024px;
   overflow: hidden;
   background: #1e0100;
 }
 
+/* Recriação do gradiente.png em CSS. Elipse centrada no meio de baixo, com
+   raios e rampa ajustados numericamente contra o PNG original: erro médio de
+   1,1/255 por canal (0,4%). Os raios em % dos lados fazem o brilho se espalhar
+   junto com a tela, em vez de ficar preso aos 1440px do PNG. As cores já vêm
+   compostas sobre o #1e0100 do fundo da seção. */
 .beneficios__glow {
   position: absolute;
   left: 0;
   top: 162px;
-  width: 2040px;
+  width: 100%;
   height: 862px;
+  background-image: radial-gradient(
+    ellipse 144.1% 99.2% at 50% 100%,
+    #cc3401 0%,
+    #c52f01 5%,
+    #ba2801 10%,
+    #aa2000 15%,
+    #981700 20%,
+    #831000 25%,
+    #6c0a00 30%,
+    #550600 35%,
+    #410400 40%,
+    #320200 45%,
+    #270100 50%,
+    #1f0100 55%,
+    #1b0100 60%,
+    #190100 65%,
+    #190100 75%,
+    #1b0100 80%,
+    #1c0100 85%,
+    #1d0100 90%,
+    #1e0100 95%
+  );
   animation: glow-breathe 7.5s ease-in-out infinite;
 }
 
+/* Era borda.png, de 1440px fixos — em tela larga sobrava fundo escuro dos dois
+   lados dela. Traço de 20px em #ff2801, medido do PNG, agora rente às bordas
+   da tela. */
 .beneficios__frame {
   position: absolute;
   left: 0;
   top: 85px;
-  width: 1440px;
+  width: 100%;
   height: 939px;
+  box-sizing: border-box;
+  border: 20px solid #ff2801;
 }
 
 .marquee {
   position: absolute;
-  left: -300px;
+  left: calc(720px - var(--vw, 1440px) / 2);
   top: 0;
-  width: 2040px;
+  width: var(--vw, 1440px);
   height: 85px;
   background: #160100;
   overflow: hidden;
@@ -74,14 +106,21 @@
   font-weight: 500;
 }
 
+/* Centralizados na largura visível, não numa posição fixa do canvas de 1440 —
+   assim continuam no meio da tela quando a moldura se abre. */
 .beneficios__kicker {
   position: absolute;
-  left: 571px;
+  left: calc(720px - var(--vw, 1440px) / 2);
+  width: var(--vw, 1440px);
+  text-align: center;
   top: 212px;
   font-size: 21px;
   line-height: 21px;
   font-weight: 600;
   letter-spacing: 0.273em;
+  /* compensa o espaço que o tracking deixa depois do último caractere, senão
+     o texto centralizado fica visivelmente deslocado para a esquerda */
+  text-indent: 0.273em;
   color: #ff3300;
   text-transform: uppercase;
   white-space: nowrap;
@@ -89,13 +128,16 @@
 
 .beneficios__title {
   position: absolute;
-  left: 520px;
+  left: calc(720px - var(--vw, 1440px) / 2);
+  width: var(--vw, 1440px);
+  text-align: center;
   top: 243px;
   margin: 0;
   font-size: 48px;
   line-height: 48px;
   font-weight: 800;
   letter-spacing: 0.07em;
+  text-indent: 0.07em;
   color: #ffffff;
   text-transform: uppercase;
   white-space: nowrap;

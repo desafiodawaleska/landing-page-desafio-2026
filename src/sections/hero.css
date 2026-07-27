@@ -10,28 +10,33 @@
   --cta-fg: #260100;
 }
 
-/* Faixa de 2040px centrada no canvas de 1440 — sobra 300px para cada lado.
-   As coordenadas de dentro dela são as do canvas somadas de 300. */
+/* Faixa de sangria: acompanha a largura da janela (--vw), centrada no canvas.
+   Para converter uma coordenada do canvas para dentro dela:
+   left: calc(<x>px + var(--vw) / 2 - 720px). */
 .hero__bleed {
   position: absolute;
-  left: -300px;
+  left: calc(720px - var(--vw, 1440px) / 2);
   top: 0;
-  width: 2040px;
+  width: var(--vw, 1440px);
   height: 1024px;
   overflow: hidden;
 }
 
+/* Nunca abaixo de 2040px — encolher comprimiria o degradê e mudaria a hero em
+   1440. Acima disso estica na horizontal, o que é invisível num degradê difuso
+   e é o que evita a barra escura em ultrawide. */
 .hero__bg {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
-  width: 2040px;
+  transform: translateX(-50%);
+  width: max(2040px, 100%);
   height: 1024px;
 }
 
 .hero__light {
   position: absolute;
-  left: 524px; /* 224 no canvas */
+  left: calc(224px + var(--vw, 1440px) / 2 - 720px);
   top: 364px;
   width: 2071px;
   height: 1590px;
@@ -42,7 +47,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 2040px;
+  width: 100%;
   height: 1024px;
   background: rgb(255, 245, 215);
   mix-blend-mode: multiply;
@@ -54,19 +59,35 @@
    encostar. Em 1440 o deslocamento é zero e nada muda. */
 .hero__photo {
   position: absolute;
-  left: calc(799px + max(0px, var(--vw, 1440px) / 2 - 811px)); /* 499 no canvas */
+  /* 499 no canvas, mais o quanto ela precisa andar para continuar encostada
+     na borda visível (a silhueta termina em 1531 no canvas) */
+  left: calc(499px + var(--vw, 1440px) / 2 - 720px + max(0px, var(--vw, 1440px) / 2 - 811px));
   top: -15px;
   width: 1218px;
   height: 1500px;
 }
 
+/* O grid era um PNG de 1271x855 parado no meio do canvas, o que em ultrawide
+   virava um retângulo solto no centro da tela. Agora é desenhado em CSS e
+   repete por toda a faixa. Medidas tiradas do PNG original: linha de 1px em
+   rgba(33,0,0,0.149), célula de 141 x 142,5, origem em (85,85) do canvas — é
+   dela que dependem os quadrados soltos, que caem nas células. */
 .hero__grid {
   position: absolute;
-  left: 385px; /* 85 no canvas */
+  left: 0;
   top: 85px;
-  width: 1271px;
+  width: 100%;
   height: 855px;
   opacity: 0.9;
+  background-image: repeating-linear-gradient(
+      to right,
+      rgba(33, 0, 0, 0.149) 0 1px,
+      transparent 1px 141px
+    ),
+    repeating-linear-gradient(to bottom, rgba(33, 0, 0, 0.149) 0 1px, transparent 1px 142.5px);
+  /* ancora as colunas em x=85 do canvas para as células baterem com os
+     quadrados; as linhas horizontais já começam no topo do elemento */
+  background-position: calc(85px + var(--vw, 1440px) / 2 - 720px) 0;
 }
 
 .hero__square {
