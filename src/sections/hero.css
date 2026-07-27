@@ -123,7 +123,8 @@
 
 .hero__kicker span:last-child {
   font-weight: 800;
-  letter-spacing: 0.2445em;
+  /* calibrado com a fonte local para fechar os 487px da arte de referência */
+  letter-spacing: 0.2482em;
 }
 
 .hero__days-wrap {
