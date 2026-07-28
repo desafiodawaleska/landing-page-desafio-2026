@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #160100; font-family: "Red Hat Display", system-ui, sans-serif; }
+  a { color: #ff3300; text-decoration: none; }
+  a:hover { color: #c41c00; }
+  @keyframes sq-pulse {
+    0%, 100% { opacity: var(--o1, 1); }
+    50% { opacity: calc(var(--o1, 1) - var(--dim, 0.3) * var(--k, 1)); }
+  }
+  @keyframes cta-shake {
+    0%, 62%, 100% { transform: translate3d(0,0,0) rotate(0deg); }
+    66% { transform: translate3d(calc(-2px * var(--shk, 1)), calc(1px * var(--shk, 1)), 0) rotate(calc(-0.22deg * var(--shk, 1))); }
+    70% { transform: translate3d(calc(2px * var(--shk, 1)), calc(-1px * var(--shk, 1)), 0) rotate(calc(0.22deg * var(--shk, 1))); }
+    74% { transform: translate3d(calc(-2px * var(--shk, 1)), calc(-1px * var(--shk, 1)), 0) rotate(calc(-0.16deg * var(--shk, 1))); }
+    78% { transform: translate3d(calc(2px * var(--shk, 1)), calc(1px * var(--shk, 1)), 0) rotate(calc(0.16deg * var(--shk, 1))); }
+    82% { transform: translate3d(calc(-1px * var(--shk, 1)), 0, 0) rotate(calc(-0.09deg * var(--shk, 1))); }
+    86% { transform: translate3d(calc(1px * var(--shk, 1)), 0, 0) rotate(calc(0.09deg * var(--shk, 1))); }
+  }
+  @keyframes shine-sweep {
+    0% { background-position: -70% 0; }
+    22% { background-position: 170% 0; }
+    100% { background-position: 170% 0; }
+  }
+  @keyframes marquee-run {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+  @keyframes ring-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes price-weight {
+    0%, 100% { font-weight: 900; font-variation-settings: "wght" 900; }
+    50% { font-weight: 600; font-variation-settings: "wght" 600; }
+  }
+  @keyframes glow-breathe {
+    0%, 100% { opacity: 0.78; }
+    50% { opacity: 1; }
+  }
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="width: 390px; margin: 0 auto; background: #160100; overflow: hidden;">
+
+  <section data-screen-label="Hero mobile" style="width: 390px; height: 812px; position: relative; overflow: hidden; background: #f6efe9; isolation: isolate;">
+
+    <img src="assets/logo-fundo.png" alt="" style="position: absolute; left: -430px; top: -30px; width: 1250px; height: 889px; object-fit: cover;" />
+
+    <div aria-hidden="true" style="position: absolute; left: 20px; top: 22px; width: 350px; height: 768px; background-image: url(assets/grid.png); background-size: 585px 394px; background-repeat: repeat; opacity: 0.75;"></div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 812px; background: rgb(255, 245, 215); mix-blend-mode: multiply;"></div>
+
+    <img src="assets/quad-1.png" alt="" style="position: absolute; left: 150px; top: 22px; width: 65px; height: 65px; --o1: 1; --dim: 0.42; animation: sq-pulse 6.4s ease-in-out -0.2s infinite;" />
+    <img src="assets/borda-1.png" alt="" style="position: absolute; left: 215px; top: 87px; width: 65px; height: 65px; --o1: 0.95; --dim: 0.55; animation: sq-pulse 5.6s ease-in-out -1.4s infinite;" />
+    <img src="assets/borda-3.png" alt="" style="position: absolute; left: 20px; top: 283px; width: 65px; height: 65px; --o1: 0.88; --dim: 0.5; animation: sq-pulse 7.1s ease-in-out -2.6s infinite;" />
+    <img src="assets/quad-2.png" alt="" style="position: absolute; left: 280px; top: 218px; width: 65px; height: 65px; --o1: 1; --dim: 0.3; animation: sq-pulse 7.9s ease-in-out -3.1s infinite;" />
+    <img src="assets/borda-4.png" alt="" style="position: absolute; left: 305px; top: 348px; width: 65px; height: 65px; --o1: 0.92; --dim: 0.58; animation: sq-pulse 6.9s ease-in-out -4.4s infinite;" />
+
+    <p style="position: absolute; left: 24px; top: 42px; margin: 0; font-size: 13px; line-height: 17px; color: #2b0700; text-transform: uppercase; white-space: nowrap;">
+      <span style="display: block; font-weight: 500; letter-spacing: 0.24em;">Sem fórmula mágica!</span>
+      <span style="display: block; font-weight: 800; letter-spacing: 0.2445em;">Apenas hábito &amp; constância</span>
+    </p>
+
+    <div style="position: absolute; left: 24px; top: 96px; width: 342px; height: 145px;">
+      <img src="assets/titulo.png" alt="Desafio da Waleska" style="position: absolute; left: 0; top: 0; width: 342px; height: 145px;" />
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 342px; height: 145px; background-image: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.28) 46%, rgba(255,247,225,0.85) 50%, rgba(255,255,255,0.28) 54%, rgba(255,255,255,0) 62%); background-size: 260% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/titulo.png); mask-image: url(assets/titulo.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep 9s cubic-bezier(.45,.05,.55,.95) 2.4s infinite;"></div>
+    </div>
+
+    <div style="position: absolute; left: 24px; top: 250px; width: 137px; height: 36px;">
+      <img src="assets/30-dias.png" alt="30 dias" style="position: absolute; left: 0; top: 0; width: 137px; height: 36px;" />
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 137px; height: 36px; background-image: linear-gradient(100deg, rgba(255,255,255,0) 36%, rgba(255,236,190,0.35) 45%, rgba(255,252,240,0.95) 50%, rgba(255,236,190,0.35) 55%, rgba(255,255,255,0) 64%); background-size: 280% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/30-dias.png); mask-image: url(assets/30-dias.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep 7.5s cubic-bezier(.45,.05,.55,.95) 0.8s infinite;"></div>
+    </div>
+
+    <p style="position: absolute; left: 24px; top: 304px; margin: 0; font-size: 13px; line-height: 19px; letter-spacing: 0.3em; font-weight: 500; color: #2b0700; text-transform: uppercase; white-space: nowrap;">O desafio que muda<br />seus hábitos, com médico<br />e nutri ao seu lado</p>
+
+    <a href="{{ ctaHref }}" style="position: absolute; left: 24px; top: 386px; width: 268px; height: 64px; display: block; background: #ff3300; color: #260100; transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease; animation: cta-shake 5.2s ease-in-out infinite;" style-hover="background: #260100; color: #ff3300; box-shadow: inset 0 0 0 2px #ff3300;"><span style="position: absolute; left: 22px; top: 26px; font-size: 17px; line-height: 17px; font-style: italic; font-weight: 800; letter-spacing: 0.2408em; text-transform: uppercase; white-space: nowrap;">Quero participar</span></a>
+
+    <div style="position: absolute; left: 0; bottom: 0; width: 390px; height: 360px; overflow: hidden;">
+      <img src="assets/foto-waleska.png" alt="Waleska" style="position: absolute; left: -71px; top: -62px; width: 532px; height: 578px;" />
+      <img src="assets/luz.png" alt="" style="position: absolute; left: -70px; bottom: -40px; width: 560px; height: 304px; mix-blend-mode: multiply;" />
+    </div>
+
+  </section>
+
+  <section data-screen-label="Benefícios mobile" style="width: 390px; position: relative; overflow: hidden; background: #1e0100; padding-bottom: 56px;">
+
+    <img src="assets/s2/gradiente.png" alt="" style="position: absolute; left: -60px; bottom: -80px; width: 510px; height: 620px; animation: glow-breathe 7.5s ease-in-out infinite;" />
+
+    <div aria-hidden="true" style="position: absolute; left: 12px; top: 68px; right: 12px; bottom: 12px; border: 1px solid rgba(255, 51, 0, 0.4);"></div>
+
+    <div style="position: relative; width: 390px; height: 56px; background: #160100; overflow: hidden; display: flex; align-items: center;">
+      <div style="display: flex; width: max-content; animation: marquee-run 26s linear infinite; will-change: transform;">
+        <div style="display: flex; align-items: center; gap: 34px; padding-right: 34px; font-size: 13px; letter-spacing: 0.32em; color: #8a1400; text-transform: uppercase; white-space: nowrap;">
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+        </div>
+        <div aria-hidden="true" style="display: flex; align-items: center; gap: 34px; padding-right: 34px; font-size: 13px; letter-spacing: 0.32em; color: #8a1400; text-transform: uppercase; white-space: nowrap;">
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; padding: 58px 30px 0; text-align: center;">
+      <div style="font-size: 12px; line-height: 12px; font-weight: 600; letter-spacing: 0.273em; color: #ff3300; text-transform: uppercase;">O que você ganha</div>
+      <h2 style="margin: 16px 0 0; font-size: 30px; line-height: 30px; font-weight: 800; letter-spacing: 0.07em; color: #ffffff; text-transform: uppercase;">Participando</h2>
+    </div>
+
+    <div style="position: relative; margin-top: 46px; padding: 0 26px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 18px; row-gap: 42px; justify-items: center;">
+
+      <div style="display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-1.png" alt="" style="width: 64px; height: 64px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Consulta com<br />endocrinologista</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-5.png" alt="" style="width: 64px; height: 64px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Consulta com nutri e plano alimentar individualizado</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-2.png" alt="" style="width: 64px; height: 64px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Grupo exclusivo<br />da turma</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-3.png" alt="" style="width: 64px; height: 64px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Treinos para<br />fazer em casa</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-7.png" alt="" style="width: 64px; height: 64px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Cardápio, lista de substituição e receitas</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-6.svg" alt="" style="width: 64px; height: 65px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Suporte da equipe<br />durante os 30 dias</p>
+      </div>
+
+      <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-4.png" alt="" style="width: 60px; height: 60px;" /></div>
+        <p style="margin: 14px 0 0; font-size: 14px; line-height: 19px; color: #ffffff; text-align: center;">Check-ins semanais<br />e sistema de selos</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section data-screen-label="Trajetória mobile" style="width: 390px; height: 520px; position: relative; overflow: hidden; background: #1e0100;">
+
+    <div style="position: absolute; left: 0; top: 42px; width: 390px; text-align: center; font-size: 12px; line-height: 12px; font-weight: 600; letter-spacing: 0.486em; color: #ff3300; text-transform: uppercase; text-indent: 0.486em;">Toda a minha</div>
+
+    <h2 style="position: absolute; left: 0; top: 60px; width: 390px; margin: 0; text-align: center; font-size: 30px; line-height: 38px; font-weight: 800; letter-spacing: 0.0766em; color: #ffffff; text-transform: uppercase; text-indent: 0.0766em;">Trajetória</h2>
+
+    <div style="position: absolute; left: 0; top: 132px; width: 390px; height: 360px; overflow: hidden;">
+      <div style="{{ railStyle }}">
+        <sc-for list="{{ cards }}" as="c" hint-placeholder-count="4">
+          <div style="{{ c.box }}">
+            <div role="img" style="{{ c.img }}"></div>
+            <div style="{{ c.frameWrap }}"><img src="assets/s3/moldura.png" alt="" style="{{ c.frameImg }}" /></div>
+            <div style="{{ c.word }}">{{ c.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+  </section>
+
+  <section data-screen-label="Oferta mobile" onMouseMove="{{ onParallax }}" onMouseLeave="{{ onParallaxOut }}" style="width: 390px; height: 780px; position: relative; overflow: hidden; background: #ff2801;">
+
+    <div style="position: absolute; left: 20px; top: 120px; width: 350px; height: 580px; background: #ffffff;"></div>
+
+    <div style="position: absolute; left: 20px; top: 58px; width: 350px; height: 362px; overflow: hidden;">
+      <div style="position: absolute; left: 0; top: 62px; width: 350px; height: 300px; overflow: hidden;">
+        <img ref="{{ cfRef }}" src="assets/s5/foto-cf-ext.png" alt="" style="position: absolute; left: -11px; top: -21px; width: 371px; height: 355px; transition: transform 620ms cubic-bezier(.2,.8,.2,1); will-change: transform;" />
+      </div>
+      <img ref="{{ sfRef }}" src="assets/s5/foto-sf.png" alt="Waleska" style="position: absolute; left: -35px; top: 26px; width: 385px; height: 370px; transition: transform 620ms cubic-bezier(.2,.8,.2,1); will-change: transform;" />
+    </div>
+
+    <div style="position: absolute; left: 30px; top: 455px; width: 330px; text-align: center; font-size: 13px; line-height: 13px; font-weight: 700; letter-spacing: 0.149em; text-indent: 0.149em; color: #200400; text-transform: uppercase;">Faça parte do desafio, por apenas</div>
+
+    <div style="position: absolute; left: 30px; top: 475px; width: 330px; display: flex; align-items: center; justify-content: center; font-size: 80px; line-height: 80px; letter-spacing: 0.1033em; color: #ff2801; animation: price-weight 5.6s ease-in-out infinite; will-change: font-variation-settings;"><span style="padding-left: 0.1033em; white-space: nowrap;">R$297</span></div>
+
+    <div aria-hidden="true" style="position: absolute; left: 30px; top: 475px; width: 330px; display: flex; align-items: center; justify-content: center; font-size: 80px; line-height: 80px; letter-spacing: 0.1033em; pointer-events: none; background-image: linear-gradient(100deg, rgba(255,255,255,0) 41%, rgba(255,190,160,0.85) 47%, #fff2ea 50%, rgba(255,190,160,0.85) 53%, rgba(255,255,255,0) 59%); background-size: 260% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: price-weight 5.6s ease-in-out infinite, shine-sweep 9s cubic-bezier(.45,.05,.55,.95) 1.6s infinite;"><span style="padding-left: 0.1033em; white-space: nowrap;">R$297</span></div>
+
+    <a href="{{ ctaHref }}" style="position: absolute; left: 30px; top: 585px; width: 330px; height: 62px; display: block; background: #ff2801; color: #200400; transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease; animation: cta-shake 5.2s ease-in-out infinite;" style-hover="background: #200400; color: #ff2801; box-shadow: inset 0 0 0 2px #ff2801;"><span style="position: absolute; left: 0; top: 22px; width: 330px; text-align: center; font-size: 17px; line-height: 17px; font-style: italic; font-weight: 800; letter-spacing: 0.0937em; text-indent: 0.0937em; text-transform: uppercase;">Quero entrar agora</span></a>
+
+    <div style="position: absolute; left: 30px; top: 668px; width: 330px; text-align: center; font-size: 11px; line-height: 11px; font-weight: 700; letter-spacing: 0.046em; text-indent: 0.046em; color: #200400; text-transform: uppercase;">As vagas da turma são limitadas. Garanta a sua.</div>
+
+    <img src="assets/s5/ring-text.svg" alt="" aria-hidden="true" style="position: absolute; left: -15px; top: 730px; width: 420px; height: 420px; pointer-events: none; animation: ring-spin 34s linear infinite;" />
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:812},&quot;ctaHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#inscricao&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;CTA&quot;},&quot;shakeIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;fadeAmount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;}}">
+const SLIDES = [
+  { src: 'assets/s3/antes-1.png', label: 'Antes' },
+  { src: 'assets/s3/depois-1.png', label: 'Depois' },
+  { src: 'assets/s3/antes-2.png', label: 'Antes' },
+  { src: 'assets/s3/depois-2.png', label: 'Depois' },
+  { src: 'assets/s3/antes-3.png', label: 'Antes' },
+  { src: 'assets/s3/depois-3.png', label: 'Depois' }
+];
+const N = SLIDES.length;
+const CARD_W = 230;
+const PITCH = 252;
+const H_SMALL = 283;
+const H_BIG = 341;
+const IMG_SMALL = 279;
+const IMG_BIG = 313;
+const FRAME_H = 341;
+const TRAVEL = 800;
+const OPEN = 560;
+const HOLD = 2000;
+const CLOSE = 280;
+
+class Component extends DCLogic {
+  root = React.createRef();
+  cf = React.createRef();
+  sf = React.createRef();
+  state = { i: N, open: false, jump: false };
+  timers = [];
+
+  moveParallax = (e) => {
+    const box = e.currentTarget.getBoundingClientRect();
+    const dx = ((e.clientX - box.left) / box.width - 0.5) * -14;
+    const dy = ((e.clientY - box.top) / box.height - 0.5) * -8;
+    const t = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+    if (this.cf.current) this.cf.current.style.transform = t;
+    if (this.sf.current) this.sf.current.style.transform = t;
+  };
+  resetParallax = () => {
+    const t = 'translate3d(0,0,0)';
+    if (this.cf.current) this.cf.current.style.transform = t;
+    if (this.sf.current) this.sf.current.style.transform = t;
+  };
+  componentWillUnmount() { this.timers.forEach(clearTimeout); }
+  expand() {
+    this.setState({ open: true });
+    this.timers.push(setTimeout(() => this.collapse(), OPEN + HOLD));
+  }
+  collapse() {
+    this.setState({ open: false });
+    this.timers.push(setTimeout(() => this.advance(), CLOSE));
+  }
+  advance() {
+    const next = this.state.i + 1;
+    this.setState({ i: next, jump: false });
+    if (next >= N * 2) {
+      this.timers.push(setTimeout(() => {
+        this.setState({ i: next - N, jump: true });
+        this.timers.push(setTimeout(() => this.setState({ jump: false }, () => this.expand()), 40));
+      }, TRAVEL));
+    } else {
+      this.timers.push(setTimeout(() => this.expand(), TRAVEL));
+    }
+  }
+  apply() {
+    const el = this.root.current;
+    if (!el) return;
+    const p = this.props;
+    el.style.setProperty('--k', String(p.fadeAmount ?? 1));
+    el.style.setProperty('--shk', String(p.shakeIntensity ?? 1));
+  }
+  componentDidMount() {
+    this.apply();
+    this.timers.push(setTimeout(() => this.expand(), 500));
+  }
+  componentDidUpdate() { this.apply(); }
+  renderVals() {
+    const { i, open, jump } = this.state;
+    const list = [];
+    for (let r = 0; r < 3; r++) SLIDES.forEach((s) => list.push(s));
+    const cards = list.map((s, idx) => {
+      const on = idx === i && open;
+      return {
+        src: s.src,
+        label: s.label,
+        box: {
+          position: 'relative', flex: '0 0 auto', width: CARD_W + 'px',
+          height: (on ? H_BIG : H_SMALL) + 'px', marginRight: (PITCH - CARD_W) + 'px',
+          transition: 'height ' + (on ? OPEN : CLOSE) + 'ms cubic-bezier(.3,.9,.3,1)'
+        },
+        img: {
+          position: 'absolute', left: '2px', top: '2px', width: (CARD_W - 4) + 'px',
+          height: (on ? IMG_BIG : IMG_SMALL) + 'px', backgroundImage: 'url(' + s.src + ')', backgroundSize: 'cover', backgroundPosition: 'center top',
+          filter: on ? 'none' : 'brightness(0.8) saturate(0.85)',
+          transition: 'height ' + (on ? OPEN : CLOSE) + 'ms cubic-bezier(.3,.9,.3,1), filter 400ms ease'
+        },
+        frameWrap: {
+          position: 'absolute', left: 0, top: 0, width: CARD_W + 'px',
+          height: (on ? FRAME_H : 0) + 'px', overflow: 'hidden', pointerEvents: 'none',
+          transition: on ? 'height 520ms cubic-bezier(.2,.7,.3,1) 160ms' : 'height 200ms ease-in'
+        },
+        frameImg: {
+          position: 'absolute', left: 0, top: 0, width: CARD_W + 'px', height: FRAME_H + 'px'
+        },
+        word: {
+          position: 'absolute', left: 0, bottom: '-4px', width: CARD_W + 'px', textAlign: 'center',
+          fontSize: '15px', lineHeight: '15px', fontWeight: 800, letterSpacing: '0.51em',
+          textIndent: '0.51em', color: '#ff3300', textTransform: 'uppercase',
+          opacity: on ? 1 : 0,
+          transition: on ? 'opacity 300ms ease 640ms' : 'opacity 140ms ease'
+        }
+      };
+    });
+    return {
+      rootRef: this.root,
+      ctaHref: this.props.ctaHref ?? '#inscricao',
+      cfRef: this.cf,
+      sfRef: this.sf,
+      onParallax: this.moveParallax,
+      onParallaxOut: this.resetParallax,
+      cards,
+      railStyle: {
+        display: 'flex', alignItems: 'flex-start', width: 'max-content',
+        transform: 'translate3d(' + (195 - CARD_W / 2 - i * PITCH) + 'px,0,0)',
+        transition: jump ? 'none' : 'transform ' + TRAVEL + 'ms cubic-bezier(.65,0,.2,1)',
+        willChange: 'transform'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
