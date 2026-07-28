@@ -9,10 +9,18 @@
 
 .loading {
   /* Distância do centro da janela até o centro do título, em px de canvas: é
-     de onde o título parte antes de viajar para o lugar dele na hero. O título
-     ocupa 137..866 x 268..578, logo o centro é 501,5 x 423. Em 1440x1024 estas
-     contas dão 218,5 x 89 — exatamente os valores do design. */
-  --ld-x: calc(var(--vw, 1440px) / 2 - 501.5px);
+     de onde o título parte antes de viajar para o lugar dele na hero.
+
+     Na horizontal o centro da janela é sempre o canvas 720 — o canvas é
+     centralizado, então o meio dele é o meio da tela, independente de --vw.
+     (Usar --vw/2 aqui estava errado: é a meia-largura, não a posição do
+     centro. As duas contas só coincidem em --vw: 1440, que por azar era o
+     único caso que eu tinha conferido.) O título em repouso fica em
+     137 + --lead, com centro em 501,5 + --lead, daí 720 - 501,5 = 218,5.
+
+     Na vertical vale --vh/2, porque ali a origem fica no topo: o canvas
+     começa em y=0 da janela e a escala parte dali. */
+  --ld-x: calc(218.5px - var(--lead, 0px));
   --ld-y: calc(var(--vh, 1024px) / 2 - 423px);
 }
 
@@ -45,9 +53,11 @@
   object-fit: cover;
 }
 
+/* Mesmo --lead da .hero__title-wrap: é sobre ela que este título tem de
+   pousar, com 0px de diferença. */
 .loading__logo {
   position: absolute;
-  left: 137px;
+  left: calc(137px + var(--lead, 0px));
   top: 268px;
   width: 729px;
   height: 310px;

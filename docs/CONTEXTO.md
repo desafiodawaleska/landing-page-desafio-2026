@@ -97,6 +97,24 @@ custar o CTA (sobram 20 a 24px de folga).
 Se for mexer na escala de novo, olhe o `--vw` resultante junto: é ele, não a
 escala, que diz o quanto a composição vai esticar.
 
+**O bloco de texto da hero acompanha a borda visível (`--lead`).** Ele estava
+ancorado no canvas de 1440, que é centralizado, então não acompanhava o
+crescimento do `--vw`: a margem esquerda ia dos 9,5% do design a 24% em tela
+grande e o bloco ficava encalhado no meio, com uma faixa vazia à esquerda.
+
+`--lead` (definida no `styles.css`) desloca kicker, título, "30 dias", texto
+de apoio e CTA — todos pelo mesmo valor, para o bloco se mover inteiro e as
+posições relativas entre eles não mudarem. A margem fica em 9,5% da largura
+visível em qualquer janela. O coeficiente 583/1440 é exato (583 = 720 − 137),
+então em `--vw: 1440` a conta dá 0 e o design de referência não se mexe.
+
+O grid e os quadrados **não** recebem `--lead`: eles seguem contidos e
+centrados, que é o que o cliente aprovou. O CTA deixa de se alinhar à borda
+esquerda do grid acima de 1440, o que é aceitável — o grid é textura de fundo.
+
+**O título do loading usa o mesmo `--lead`**, senão não pousaria sobre o
+título de verdade.
+
 Em 1440x1024 a conta devolve escala 1, então o design de referência não mudou.
 
 Efeito colateral conhecido: encolher a escala aumenta `--vw`, e o grid, que

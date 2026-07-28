@@ -116,9 +116,11 @@
   animation-iteration-count: infinite;
 }
 
+/* Os cinco elementos a seguir formam o bloco de texto e todos recebem o mesmo
+   --lead, para se moverem juntos. Ver a definição em styles.css. */
 .hero__title-wrap {
   position: absolute;
-  left: 137px;
+  left: calc(137px + var(--lead, 0px));
   top: 268px;
   width: 729px;
   height: 310px;
@@ -155,7 +157,7 @@
 
 .hero__kicker {
   position: absolute;
-  left: 406px;
+  left: calc(406px + var(--lead, 0px));
   top: 133px;
   margin: 0;
   width: 620px;
@@ -184,7 +186,7 @@
 
 .hero__days-wrap {
   position: absolute;
-  left: 393px;
+  left: calc(393px + var(--lead, 0px));
   top: 572px;
   width: 217px;
   height: 57px;
@@ -221,7 +223,7 @@
 
 .hero__support {
   position: absolute;
-  left: 137px;
+  left: calc(137px + var(--lead, 0px));
   top: 689px;
   margin: 0;
   font-size: 20px;
@@ -240,7 +242,7 @@
    `animation`, tem a mesma especificidade e vem depois na cascata — sozinho,
    .hero__cta perdia o fade-rise e o botão entrava visível. */
 .cta.hero__cta {
-  left: 85px;
+  left: calc(85px + var(--lead, 0px));
   top: 797px;
   width: 424px;
   height: 143px;

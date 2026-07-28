@@ -6,6 +6,52 @@ caminhos errados — para ninguém refazê-los.
 
 ---
 
+## 28/07/2026 (noite) — Desalinhamento do desktop em tela grande
+
+O cliente reportou o desktop "bem quebrado" depois da mudança de escala.
+
+### A sonda primeiro
+
+Antes de mexer, rodei contra o protótipo do desktop em coordenadas de canvas,
+forçando `--vw: 1440px` para isolar a geometria da escala. **10 dos 11 pontos
+com diferença zero.** O único diferente é a foto, que usa `hero-foto-wide.png`
+de propósito. A estrutura não estava quebrada — o problema era só a escala.
+
+Vale como método: a sonda evitou que eu saísse mexendo em posicionamento que
+estava certo.
+
+### A causa
+
+`--vw` é `larguraDaJanela / escala`. Toda redução de escala infla a largura
+visível em px de canvas, e o conteúdo ancorado no canvas de 1440 — que é
+centralizado — não acompanha. A margem esquerda do texto ia de 9,5% para 24%.
+
+Dois erros meus empilhados:
+
+1. **O alvo do ajuste era a hero inteira (1024).** O CTA termina em 940 e o
+   resto é fundo. Passou para 964, o que devolveu de 110 a 160px de `--vw`.
+2. **O texto não acompanhava a borda.** Corrigido com `--lead`.
+
+### `--ld-x` do loading estava errado
+
+Achado ao derivar o `--lead`: `--ld-x` usava `var(--vw)/2` como centro da
+janela. Mas na horizontal o centro é sempre o canvas 720, porque o canvas é
+centralizado — `--vw/2` é a meia-largura, não a posição do centro. As duas
+contas só coincidem em `--vw: 1440`, que por azar foi o único caso que testei
+quando implementei o loading. Em `--vw: 2142` o erro era de **351px**.
+
+Lição: conferir só o caso de referência não prova fórmula nenhuma. O valor de
+referência é onde as contas erradas também acertam — é preciso testar pelo
+menos um caso fora dele.
+
+### Conferido
+
+Margem do texto em 9,5% da largura visível em `--vw` 1440, 1757, 2142 e 2598.
+Pouso do título do loading sobre o título real com 0px de diferença nas
+quatro. Em 1440, CTA no canvas 85 e `--lead` em 0 — a referência não se mexeu.
+
+---
+
 ## 28/07/2026 (fim do dia) — Conferência do tablet e ordem da luz
 
 ### Como conferi o tablet contra o protótipo
