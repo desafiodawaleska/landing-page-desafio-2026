@@ -9,9 +9,13 @@ const SQUARES = [
   { src: 'borda-4.png', left: 1215, top: 797, o1: 0.92, dim: 0.58, dur: 6.9, delay: -4.4 },
 ];
 
-export default function Hero({ ctaHref }) {
+export default function Hero({ ctaHref, intro = false }) {
   return (
-    <section className="hero">
+    // --ld vale 1 com a intro ligada e 0 sem ela; é por onde passam todos os
+    // atrasos de entrada dos elementos. Com 0 eles caem para zero e a hero
+    // aparece direto. O valor não muda depois da montagem — mexer nele no meio
+    // faria as animações recalcularem e reiniciarem.
+    <section className="hero" style={{ '--ld': intro ? 1 : 0 }}>
       {/* Faixa de sangria de 2040px centrada no canvas: é ela que cobre a
           janela em telas largas. Fundo, luz e foto sangram; o grid entra aqui
           só para manter a ordem da pilha (ele fica sob as camadas de multiply).
@@ -24,22 +28,24 @@ export default function Hero({ ctaHref }) {
         <img className="hero__photo" src="/assets/hero-foto-wide.png" alt="Waleska" />
       </div>
 
-      {SQUARES.map((s) => (
-        <img
-          key={s.src}
-          className="hero__square"
-          src={`/assets/${s.src}`}
-          alt=""
-          style={{
-            left: `${s.left}px`,
-            top: `${s.top}px`,
-            '--o1': s.o1,
-            '--dim': s.dim,
-            animationDuration: `${s.dur}s`,
-            animationDelay: `${s.delay}s`,
-          }}
-        />
-      ))}
+      <div className="hero__squares" aria-hidden="true">
+        {SQUARES.map((s) => (
+          <img
+            key={s.src}
+            className="hero__square"
+            src={`/assets/${s.src}`}
+            alt=""
+            style={{
+              left: `${s.left}px`,
+              top: `${s.top}px`,
+              '--o1': s.o1,
+              '--dim': s.dim,
+              animationDuration: `${s.dur}s`,
+              animationDelay: `${s.delay}s`,
+            }}
+          />
+        ))}
+      </div>
 
       <div className="hero__title-wrap">
         <img className="hero__title" src="/assets/titulo.png" alt="Desafio da Waleska" />

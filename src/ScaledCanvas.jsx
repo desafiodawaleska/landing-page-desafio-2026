@@ -63,6 +63,11 @@ export default function ScaledCanvas({
           // faixas de sangria acompanharem a tela e ancorar elementos na borda
           // real dela (foto da hero, moldura da S2, anel da Oferta).
           '--vw': `${viewportWidth / scale}px`,
+          // A altura pelo mesmo critério. A tela de loading precisa dela: a
+          // hero tem 1024px de canvas, mas em janela alta (1280x1024, por
+          // exemplo) isso não chega a preencher a tela, e a Benefícios
+          // apareceria por baixo do fundo do loading.
+          ...(viewportHeight ? { '--vh': `${viewportHeight / scale}px` } : {}),
         }}
       >
         {children}

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #160100; font-family: "Red Hat Display", system-ui, sans-serif; }
+  a { color: #ff3300; text-decoration: none; }
+  a:hover { color: #c41c00; }
+  @keyframes sq-pulse {
+    0%, 100% { opacity: var(--o1, 1); }
+    50% { opacity: calc(var(--o1, 1) - var(--dim, 0.3) * var(--k, 1)); }
+  }
+  @keyframes cta-shake {
+    0%, 62%, 100% { transform: translate3d(0,0,0) rotate(0deg); }
+    66% { transform: translate3d(calc(-2px * var(--shk, 1)), calc(1px * var(--shk, 1)), 0) rotate(calc(-0.25deg * var(--shk, 1))); }
+    70% { transform: translate3d(calc(2px * var(--shk, 1)), calc(-1px * var(--shk, 1)), 0) rotate(calc(0.25deg * var(--shk, 1))); }
+    74% { transform: translate3d(calc(-2px * var(--shk, 1)), calc(-1px * var(--shk, 1)), 0) rotate(calc(-0.18deg * var(--shk, 1))); }
+    78% { transform: translate3d(calc(2px * var(--shk, 1)), calc(1px * var(--shk, 1)), 0) rotate(calc(0.18deg * var(--shk, 1))); }
+    82% { transform: translate3d(calc(-1px * var(--shk, 1)), 0, 0) rotate(calc(-0.1deg * var(--shk, 1))); }
+    86% { transform: translate3d(calc(1px * var(--shk, 1)), 0, 0) rotate(calc(0.1deg * var(--shk, 1))); }
+  }
+  @keyframes shine-sweep {
+    0% { background-position: -70% 0; }
+    22% { background-position: 170% 0; }
+    100% { background-position: 170% 0; }
+  }
+  @keyframes marquee-run {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+  @keyframes ring-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes price-weight {
+    0%, 100% { font-weight: 900; font-variation-settings: "wght" 900; }
+    50% { font-weight: 600; font-variation-settings: "wght" 600; }
+  }
+  @keyframes glow-breathe {
+    0%, 100% { opacity: 0.78; }
+    50% { opacity: 1; }
+  }
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="width: 100%; max-width: 1024px; margin: 0 auto; background: #160100;">
+
+  <section data-screen-label="Hero" style="position: relative; overflow: hidden; background: #f6efe9; isolation: isolate; min-height: 100svh; display: flex; align-items: center; padding: clamp(32px, 5vh, 64px) clamp(28px, 5.5vw, 68px);">
+
+    <img src="assets/logo-fundo.png" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover;">
+
+    <img src="assets/luz.png" alt="" style="position: absolute; right: 0; bottom: 0; width: 118%; height: auto; mix-blend-mode: multiply;">
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: rgb(255, 245, 215); mix-blend-mode: multiply;"></div>
+
+    <img src="assets/foto-waleska.png" alt="Waleska" style="position: absolute; right: -7%; bottom: 0; height: clamp(430px, 68%, 860px); width: auto;">
+
+    <div aria-hidden="true" style="position: absolute; left: 5.9%; top: 8.3%; width: 88.3%; aspect-ratio: 1271 / 855;">
+      <img src="assets/grid.png" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: var(--grid-o, 0.9); transition: opacity 300ms ease;">
+      <img src="assets/quad-1.png" alt="" style="position: absolute; left: 11.17%; top: 0%; width: 11.17%; height: auto; --o1: 1; --dim: 0.42; animation: sq-pulse 6.4s ease-in-out -0.2s infinite;">
+      <img src="assets/quad-2.png" alt="" style="position: absolute; left: 55.55%; top: 66.67%; width: 11.17%; height: auto; --o1: 1; --dim: 0.3; animation: sq-pulse 7.9s ease-in-out -3.1s infinite;">
+      <img src="assets/borda-1.png" alt="" style="position: absolute; left: 22.19%; top: 16.61%; width: 11.17%; height: auto; --o1: 0.95; --dim: 0.55; animation: sq-pulse 5.6s ease-in-out -1.4s infinite;">
+      <img src="assets/borda-2.png" alt="" style="position: absolute; left: 66.64%; top: 49.94%; width: 11.17%; height: auto; --o1: 0.92; --dim: 0.6; animation: sq-pulse 8.6s ease-in-out -5.2s infinite;">
+      <img src="assets/borda-3.png" alt="" style="position: absolute; left: 11.09%; top: 66.67%; width: 11.17%; height: auto; --o1: 0.88; --dim: 0.5; animation: sq-pulse 7.1s ease-in-out -2.6s infinite;">
+      <img src="assets/borda-4.png" alt="" style="position: absolute; left: 88.9%; top: 83.27%; width: 11.17%; height: auto; --o1: 0.92; --dim: 0.58; animation: sq-pulse 6.9s ease-in-out -4.4s infinite;">
+    </div>
+
+    <div style="position: relative; width: min(100%, 560px); display: flex; flex-direction: column; align-items: flex-start; gap: clamp(14px, 2.2vh, 26px);">
+
+      <p style="margin: 0; font-size: clamp(13px, 1.85vw, 19px); line-height: 1.35; color: #2b0700; text-transform: uppercase;">
+        <span style="display: block; font-weight: 500; letter-spacing: 0.22em;">Sem fórmula mágica!</span>
+        <span style="display: block; font-weight: 800; letter-spacing: 0.22em;">Apenas hábito &amp; constância</span>
+      </p>
+
+      <div style="position: relative; width: min(100%, clamp(360px, 46vw, 500px)); aspect-ratio: 729 / 310;">
+        <img src="assets/titulo.png" alt="Desafio da Waleska" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;">
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.28) 46%, rgba(255,247,225,0.85) 50%, rgba(255,255,255,0.28) 54%, rgba(255,255,255,0) 62%); background-size: 260% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/titulo.png); mask-image: url(assets/titulo.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep 9s cubic-bezier(.45,.05,.55,.95) 2.4s infinite;"></div>
+      </div>
+
+      <div style="position: relative; width: clamp(140px, 21vw, 200px); aspect-ratio: 217 / 57;">
+        <img src="assets/30-dias.png" alt="30 dias" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;">
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: linear-gradient(100deg, rgba(255,255,255,0) 36%, rgba(255,236,190,0.35) 45%, rgba(255,252,240,0.95) 50%, rgba(255,236,190,0.35) 55%, rgba(255,255,255,0) 64%); background-size: 280% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/30-dias.png); mask-image: url(assets/30-dias.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep 7.5s cubic-bezier(.45,.05,.55,.95) 0.8s infinite;"></div>
+      </div>
+
+      <p style="margin: 0; max-width: 22ch; font-size: clamp(13px, 1.75vw, 18px); line-height: 1.5; letter-spacing: 0.3em; font-weight: 500; color: #2b0700; text-transform: uppercase; text-wrap: pretty;">O desafio que muda seus hábitos, com médico e nutri ao seu lado</p>
+
+      <a href="{{ ctaHref }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 64px; padding: 20px clamp(28px, 4.5vw, 48px); background: #ff3300; color: #260100; font-size: clamp(16px, 2.2vw, 23px); line-height: 1; font-style: italic; font-weight: 800; letter-spacing: 0.2em; text-indent: 0.2em; text-transform: uppercase; transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease; animation: cta-shake 5.2s ease-in-out infinite;" style-hover="background: #260100; color: #ff3300; box-shadow: inset 0 0 0 2px #ff3300;">Quero participar</a>
+
+    </div>
+
+  </section>
+
+  <section data-screen-label="Benefícios" style="position: relative; overflow: hidden; background: #1e0100; padding-bottom: clamp(56px, 8vh, 96px);">
+
+    <div style="position: relative; height: clamp(56px, 8vw, 76px); background: #160100; overflow: hidden; display: flex; align-items: center; z-index: 2;">
+      <div style="display: flex; width: max-content; animation: marquee-run 34s linear infinite; will-change: transform;">
+        <div style="display: flex; align-items: center; gap: clamp(28px, 5vw, 52px); padding-right: clamp(28px, 5vw, 52px); font-size: clamp(13px, 1.8vw, 19px); letter-spacing: 0.3em; color: #8a1400; text-transform: uppercase; white-space: nowrap;">
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+        </div>
+        <div aria-hidden="true" style="display: flex; align-items: center; gap: clamp(28px, 5vw, 52px); padding-right: clamp(28px, 5vw, 52px); font-size: clamp(13px, 1.8vw, 19px); letter-spacing: 0.3em; color: #8a1400; text-transform: uppercase; white-space: nowrap;">
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+          <span style="font-weight: 800;">30 dias</span>
+          <span style="font-weight: 500;">Desafio da Waleska</span>
+        </div>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: clamp(56px, 8vw, 76px); bottom: 0; overflow: hidden;">
+      <img src="assets/s2/gradiente.png" alt="" style="position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; animation: glow-breathe 7.5s ease-in-out infinite;">
+      <img src="assets/s2/borda.png" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;">
+    </div>
+
+    <div style="position: relative; padding: clamp(44px, 7vh, 80px) clamp(28px, 5.5vw, 68px) 0; display: flex; flex-direction: column; align-items: center; gap: clamp(36px, 6vh, 64px);">
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
+        <div style="font-size: clamp(12px, 1.6vw, 17px); line-height: 1; font-weight: 600; letter-spacing: 0.4em; text-indent: 0.4em; color: #ff3300; text-transform: uppercase;">O que você ganha</div>
+        <h2 style="margin: 0; font-size: clamp(28px, 5vw, 46px); line-height: 1.1; font-weight: 800; letter-spacing: 0.07em; text-indent: 0.07em; color: #ffffff; text-transform: uppercase;">Participando</h2>
+      </div>
+
+      <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(28px, 4vh, 46px) clamp(20px, 3vw, 32px);">
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-1.png" alt="" style="height: 100%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Consulta com endocrinologista</p>
+        </div>
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-2.png" alt="" style="height: 100%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Grupo exclusivo da turma</p>
+        </div>
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-3.png" alt="" style="height: 100%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Treinos para fazer em casa</p>
+        </div>
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-4.png" alt="" style="height: 92%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Check-ins semanais e sistema de selos</p>
+        </div>
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-5.png" alt="" style="height: 100%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Consulta com nutricionista e plano alimentar individualizado</p>
+        </div>
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-6.svg" alt="" style="height: 100%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Suporte da equipe durante os 30 dias</p>
+        </div>
+
+        <div style="flex: 0 1 clamp(190px, 21vw, 232px); display: flex; flex-direction: column; align-items: center; transition: transform 300ms cubic-bezier(.2,.8,.2,1);" style-hover="transform: scale(1.07);">
+          <div style="height: clamp(66px, 9vw, 96px); display: flex; align-items: center; justify-content: center;"><img src="assets/s2/icone-7.png" alt="" style="height: 100%; width: auto;"></div>
+          <p style="margin: 18px 0 0; font-size: clamp(14px, 1.85vw, 19px); line-height: 1.25; color: #ffffff; text-align: center; text-wrap: pretty;">Cardápio, lista de substituição e receitas</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section data-screen-label="Trajetória" style="position: relative; overflow: hidden; background: #1e0100; padding: clamp(40px, 6vh, 68px) 0 clamp(44px, 7vh, 76px);">
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 0 clamp(28px, 5.5vw, 68px); margin-bottom: clamp(28px, 4vh, 44px);">
+      <div style="font-size: clamp(11px, 1.5vw, 16px); line-height: 1; font-weight: 600; letter-spacing: 0.45em; text-indent: 0.45em; color: #ff3300; text-transform: uppercase;">Toda a minha</div>
+      <h2 style="margin: 0; font-size: clamp(28px, 5vw, 46px); line-height: 1.15; font-weight: 800; letter-spacing: 0.0766em; text-indent: 0.0766em; color: #ffffff; text-transform: uppercase;">Trajetória</h2>
+    </div>
+
+    <div ref="{{ railBoxRef }}" style="{{ railBoxStyle }}">
+      <div style="{{ railStyle }}">
+        <sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+          <div style="{{ c.box }}">
+            <div role="img" style="{{ c.img }}"></div>
+            <div style="{{ c.frameWrap }}"><img src="assets/s3/moldura.png" alt="" style="{{ c.frameImg }}"></div>
+            <div style="{{ c.word }}">{{ c.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+  </section>
+
+  <section data-screen-label="Oferta" onPointerMove="{{ onParallax }}" onPointerLeave="{{ onParallaxOut }}" style="position: relative; overflow: hidden; background: #ff2801; padding: clamp(44px, 7vh, 76px) clamp(28px, 5.5vw, 60px) clamp(36px, 5vh, 56px);">
+
+    <div style="position: relative; z-index: 1; background: #ffffff; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(24px, 4vw, 44px); padding: clamp(32px, 5vw, 52px);">
+
+      <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: clamp(16px, 2.5vh, 26px);">
+
+        <div style="font-size: clamp(12px, 1.65vw, 18px); line-height: 1.2; font-weight: 700; letter-spacing: 0.149em; text-indent: 0.149em; color: #200400; text-transform: uppercase; text-align: center;">Faça parte do desafio, por apenas</div>
+
+        <div style="display: grid; justify-items: center; width: 100%;">
+          <div style="grid-area: 1 / 1; font-size: clamp(74px, 13vw, 132px); line-height: 1; letter-spacing: 0.1033em; color: #ff2801; animation: price-weight 5.6s ease-in-out infinite; will-change: font-variation-settings;"><span style="padding-left: 0.1033em; white-space: nowrap;">R$297</span></div>
+          <div aria-hidden="true" style="grid-area: 1 / 1; font-size: clamp(74px, 13vw, 132px); line-height: 1; letter-spacing: 0.1033em; pointer-events: none; background-image: linear-gradient(100deg, rgba(255,255,255,0) 41%, rgba(255,190,160,0.85) 47%, #fff2ea 50%, rgba(255,190,160,0.85) 53%, rgba(255,255,255,0) 59%); background-size: 260% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: price-weight 5.6s ease-in-out infinite, shine-sweep 9s cubic-bezier(.45,.05,.55,.95) 1.6s infinite;"><span style="padding-left: 0.1033em; white-space: nowrap;">R$297</span></div>
+        </div>
+
+        <a href="{{ ctaHref }}" style="width: 100%; min-height: 68px; display: inline-flex; align-items: center; justify-content: center; padding: 18px 24px; background: #ff2801; color: #200400; font-size: clamp(15px, 2.1vw, 22px); line-height: 1; font-style: italic; font-weight: 800; letter-spacing: 0.0937em; text-indent: 0.0937em; text-transform: uppercase; transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease; animation: cta-shake 5.2s ease-in-out infinite;" style-hover="background: #200400; color: #ff2801; box-shadow: inset 0 0 0 2px #ff2801;">Quero entrar agora</a>
+
+        <div style="font-size: clamp(10px, 1.35vw, 14px); line-height: 1.3; font-weight: 700; letter-spacing: 0.132em; text-indent: 0.132em; color: #200400; text-transform: uppercase; text-align: center;">As vagas da turma são limitadas. Garanta a sua.</div>
+
+      </div>
+
+      <div style="flex: 0 1 clamp(300px, 40vw, 400px); position: relative; overflow: hidden; aspect-ratio: 594 / 628; align-self: flex-end;">
+        <div style="position: absolute; left: 0; bottom: 0; width: 100%; height: 86.46%; overflow: hidden;">
+          <img ref="{{ cfRef }}" src="assets/s5/foto-cf-ext.png" alt="" style="position: absolute; left: -3.03%; top: -5.52%; width: 106.06%; height: auto; transition: transform 620ms cubic-bezier(.2,.8,.2,1); will-change: transform;">
+        </div>
+        <img ref="{{ sfRef }}" src="assets/s5/foto-sf.png" alt="Waleska" style="position: absolute; left: -9.93%; top: 4.78%; width: 109.93%; height: auto; transition: transform 620ms cubic-bezier(.2,.8,.2,1); will-change: transform;">
+      </div>
+
+    </div>
+
+    <div aria-hidden="true" style="position: relative; height: clamp(104px, 13vh, 136px); margin-top: clamp(24px, 4vh, 40px); overflow: hidden;">
+      <img src="assets/s5/ring-text.svg" alt="" style="position: absolute; top: 0; right: clamp(4px, 2vw, 32px); width: clamp(200px, 26vw, 268px); height: auto; pointer-events: none; animation: ring-spin 44s linear infinite;">
+    </div>
+
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:768,&quot;height&quot;:1024},&quot;ctaHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#inscricao&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;CTA&quot;},&quot;shakeIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;fadeAmount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fundo&quot;}}">
+const SLIDES = [
+  { src: 'assets/s3/antes-1.png', label: 'Antes' },
+  { src: 'assets/s3/depois-1.png', label: 'Depois' },
+  { src: 'assets/s3/antes-2.png', label: 'Antes' },
+  { src: 'assets/s3/depois-2.png', label: 'Depois' },
+  { src: 'assets/s3/antes-3.png', label: 'Antes' },
+  { src: 'assets/s3/depois-3.png', label: 'Depois' }
+];
+const N = SLIDES.length;
+const TRAVEL = 900;
+const OPEN = 620;
+const HOLD = 2000;
+const CLOSE = 300;
+// ratios taken from the desktop card (329 x 405 closed / 488 open)
+const R_CLOSED = 405 / 329, R_OPEN = 488 / 329;
+const R_IMG_CLOSED = 399 / 329, R_IMG_OPEN = 448 / 329;
+const R_INSET = 3 / 329, R_PITCH = 354 / 329;
+
+class Component extends DCLogic {
+  root = React.createRef();
+  railBox = React.createRef();
+  cf = React.createRef();
+  sf = React.createRef();
+  state = { i: N, open: false, jump: false, w: 768 };
+  timers = [];
+
+  moveParallax = (e) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const box = e.currentTarget.getBoundingClientRect();
+    const dx = ((e.clientX - box.left) / box.width - 0.5) * -16;
+    const dy = ((e.clientY - box.top) / box.height - 0.5) * -10;
+    const t = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+    if (this.cf.current) this.cf.current.style.transform = t;
+    if (this.sf.current) this.sf.current.style.transform = t;
+  };
+  resetParallax = () => {
+    const t = 'translate3d(0,0,0)';
+    if (this.cf.current) this.cf.current.style.transform = t;
+    if (this.sf.current) this.sf.current.style.transform = t;
+  };
+
+  measure = () => {
+    const el = this.railBox.current;
+    const w = el ? el.clientWidth : 0;
+    if (w && w !== this.state.w) this.setState({ w });
+  };
+
+  expand() {
+    this.setState({ open: true });
+    this.timers.push(setTimeout(() => this.collapse(), OPEN + HOLD));
+  }
+  collapse() {
+    this.setState({ open: false });
+    this.timers.push(setTimeout(() => this.advance(), CLOSE));
+  }
+  advance() {
+    const next = this.state.i + 1;
+    if (next >= N * 2) {
+      this.setState({ i: next, jump: false });
+      this.timers.push(setTimeout(() => {
+        this.setState({ i: next - N, jump: true });
+        this.timers.push(setTimeout(() => this.setState({ jump: false }, () => this.expand()), 40));
+      }, TRAVEL));
+    } else {
+      this.setState({ i: next, jump: false });
+      this.timers.push(setTimeout(() => this.expand(), TRAVEL));
+    }
+  }
+  apply() {
+    const el = this.root.current;
+    if (!el) return;
+    const p = this.props;
+    el.style.setProperty('--k', String(p.fadeAmount ?? 1));
+    el.style.setProperty('--shk', String(p.shakeIntensity ?? 1));
+    el.style.setProperty('--grid-o', String(p.showGrid === false ? 0 : 0.9));
+  }
+  componentDidMount() {
+    this.apply();
+    this.measure();
+    window.addEventListener('resize', this.measure);
+    this.timers.push(setTimeout(() => this.expand(), 500));
+  }
+  componentDidUpdate() { this.apply(); }
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout);
+    window.removeEventListener('resize', this.measure);
+  }
+
+  renderVals() {
+    const { i, open, jump, w } = this.state;
+    const cardW = Math.round(Math.min(300, Math.max(186, w * 0.31)));
+    const pitch = Math.round(cardW * R_PITCH);
+    const list = [];
+    for (let r = 0; r < 3; r++) SLIDES.forEach((s, k) => list.push({ ...s, key: r + '-' + k }));
+
+    const cards = list.map((s, idx) => {
+      const on = idx === i && open;
+      return {
+        src: s.src,
+        label: s.label,
+        box: {
+          position: 'relative', flex: '0 0 auto', width: cardW + 'px',
+          height: Math.round(cardW * (on ? R_OPEN : R_CLOSED)) + 'px',
+          marginRight: (pitch - cardW) + 'px',
+          transition: 'height ' + (on ? OPEN : CLOSE) + 'ms cubic-bezier(.3,.9,.3,1)'
+        },
+        img: {
+          position: 'absolute', left: Math.round(cardW * R_INSET) + 'px', top: Math.round(cardW * R_INSET) + 'px',
+          width: Math.round(cardW * (1 - R_INSET * 2)) + 'px',
+          height: Math.round(cardW * (on ? R_IMG_OPEN : R_IMG_CLOSED)) + 'px',
+          backgroundImage: 'url(' + s.src + ')', backgroundSize: 'cover', backgroundPosition: 'center top',
+          filter: on ? 'none' : 'brightness(0.8) saturate(0.85)',
+          transition: 'height ' + (on ? OPEN : CLOSE) + 'ms cubic-bezier(.3,.9,.3,1), filter 400ms ease'
+        },
+        frameWrap: {
+          position: 'absolute', left: 0, top: 0, width: cardW + 'px',
+          height: (on ? Math.round(cardW * R_OPEN) : 0) + 'px', overflow: 'hidden', pointerEvents: 'none',
+          transition: on ? 'height 560ms cubic-bezier(.2,.7,.3,1) 180ms' : 'height 200ms ease-in'
+        },
+        frameImg: {
+          position: 'absolute', left: 0, top: 0, width: cardW + 'px',
+          height: Math.round(cardW * R_OPEN) + 'px'
+        },
+        word: {
+          position: 'absolute', left: 0, bottom: '-4px', width: cardW + 'px', textAlign: 'center',
+          fontSize: Math.max(13, Math.round(cardW * 0.067)) + 'px', lineHeight: 1,
+          fontWeight: 800, letterSpacing: '0.45em', textIndent: '0.45em',
+          color: '#ff3300', textTransform: 'uppercase',
+          opacity: on ? 1 : 0,
+          transition: on ? 'opacity 300ms ease 700ms' : 'opacity 140ms ease'
+        }
+      };
+    });
+
+    return {
+      rootRef: this.root,
+      railBoxRef: this.railBox,
+      ctaHref: this.props.ctaHref ?? '#inscricao',
+      cfRef: this.cf,
+      sfRef: this.sf,
+      onParallax: this.moveParallax,
+      onParallaxOut: this.resetParallax,
+      cards,
+      railBoxStyle: {
+        position: 'relative', width: '100%',
+        height: Math.round(cardW * R_OPEN + 14) + 'px',
+        overflow: 'hidden'
+      },
+      railStyle: {
+        display: 'flex', alignItems: 'flex-start', width: 'max-content',
+        transform: 'translate3d(' + Math.round(w / 2 - cardW / 2 - i * pitch) + 'px,0,0)',
+        transition: jump ? 'none' : 'transform ' + TRAVEL + 'ms cubic-bezier(.65,0,.2,1)',
+        willChange: 'transform'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

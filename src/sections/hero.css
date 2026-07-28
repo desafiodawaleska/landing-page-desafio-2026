@@ -40,6 +40,7 @@
   top: 0;
   width: 100%;
   height: 1024px;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(1.95s * var(--ld, 1)) both;
 }
 
 /* Acompanha o mesmo alongamento do fundo: 224/1440 e 1216/1440 do original,
@@ -51,8 +52,11 @@
   width: 84.4444%;
   height: 660px;
   mix-blend-mode: multiply;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.04s * var(--ld, 1)) both;
 }
 
+/* Entra junto com o fundo: é uma camada de multiply sobre ele, e se aparecesse
+   antes escureceria o creme sozinha durante a entrada. */
 .hero__warm {
   position: absolute;
   left: 0;
@@ -61,6 +65,7 @@
   height: 1024px;
   background: rgb(255, 245, 215);
   mix-blend-mode: multiply;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(1.95s * var(--ld, 1)) both;
 }
 
 /* A silhueta dela termina em 1531 no canvas, ou seja, sai cortada pela direita
@@ -75,6 +80,7 @@
   top: -15px;
   width: 1218px;
   height: 1500px;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.13s * var(--ld, 1)) both;
 }
 
 /* O grid fica contido, como no design original — não se espalha pela faixa de
@@ -87,6 +93,18 @@
   width: 1271px;
   height: 855px;
   opacity: 0.9;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.04s * var(--ld, 1)) both;
+}
+
+/* Os quadrados entram como grupo, num fade só: cada um já tem a pulsação
+   própria, e animar a entrada em cada um brigaria com ela. */
+.hero__squares {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1440px;
+  height: 1024px;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.22s * var(--ld, 1)) both;
 }
 
 .hero__square {
@@ -104,6 +122,7 @@
   top: 268px;
   width: 729px;
   height: 310px;
+  animation: fade-hold calc(3s * var(--ld, 1)) linear both;
 }
 
 .hero__title,
@@ -145,6 +164,7 @@
   color: #2b0700;
   text-transform: uppercase;
   white-space: nowrap;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.31s * var(--ld, 1)) both;
 }
 
 .hero__kicker span {
@@ -168,6 +188,7 @@
   top: 572px;
   width: 217px;
   height: 57px;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.4s * var(--ld, 1)) both;
 }
 
 .hero__days,
@@ -206,17 +227,27 @@
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.465em;
-  font-weight: 500;
+  /* 600, não 500: veio assim no handoff de 28/07. Mexer no peso mexe na
+     largura, então a medida da tabela do CONTEXTO.md foi refeita. */
+  font-weight: 600;
   color: #2b0700;
   text-transform: uppercase;
   white-space: nowrap;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.49s * var(--ld, 1)) both;
 }
 
-.hero__cta {
+/* Dois seletores de classe, não um: a regra .cta do styles.css também declara
+   `animation`, tem a mesma especificidade e vem depois na cascata — sozinho,
+   .hero__cta perdia o fade-rise e o botão entrava visível. */
+.cta.hero__cta {
   left: 85px;
   top: 797px;
   width: 424px;
   height: 143px;
+  /* A tremida do CTA só começa depois que o loading termina — senão ela roda
+     por baixo da tela de abertura e o botão entra no meio de um solavanco. */
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.58s * var(--ld, 1)) both,
+    cta-shake 5.2s ease-in-out calc(3s * var(--ld, 1)) infinite;
 }
 
 .hero__cta span {

@@ -133,3 +133,78 @@ a {
     opacity: 1;
   }
 }
+
+/* --- Tela de loading -------------------------------------------------
+
+   Todas as durações e atrasos do loading são multiplicados por --ld, que vale
+   1 com o loading ligado e 0 com ele desligado. Zerando a variável, tudo cai
+   para atraso zero e a página aparece direto — é o mesmo mecanismo do prop
+   `showLoading` do protótipo. */
+
+/* Entrada escalonada dos elementos da hero, depois que o fundo do loading sai.
+   A duração também passa por --ld: com --ld: 0 ela vira 0s, o preenchimento
+   `both` aplica direto o estado final, e não sobra nem o deslocamento de 14px
+   para quem pediu menos animação. */
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* O título de verdade fica invisível até 91% e só então aparece, no ponto em
+   que o título do loading já pousou no lugar dele. É o que faz a troca entre
+   os dois passar despercebida. */
+@keyframes fade-hold {
+  0%,
+  91% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes loader-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* O título entra pequeno no centro da janela, estoura, assenta, e nos últimos
+   8% viaja até a posição final dele na hero em escala 1.
+   --ld-x e --ld-y são a distância entre o centro da janela e o centro do
+   título; em 1440x1024 dão exatamente os 218,5 x 89 do design. */
+@keyframes loader-logo {
+  0% {
+    opacity: 0;
+    transform: translate(var(--ld-x), var(--ld-y)) scale(0.74);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(var(--ld-x), var(--ld-y)) scale(1.35);
+  }
+  28%,
+  58% {
+    opacity: 1;
+    transform: translate(var(--ld-x), var(--ld-y)) scale(1.28);
+  }
+  92%,
+  99% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0, 0) scale(1);
+  }
+}

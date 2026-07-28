@@ -23,12 +23,20 @@ src/
   ScaledCanvas.jsx     escala um canvas de largura fixa para caber na tela
   styles.css           @font-face + animações compartilhadas
   sections/            desktop, canvas de 1440px
+  sections/Loading.jsx tela de abertura (fora da hero — ver seção própria)
+  sections/tablet/     tablet, 768–1024, fluido (não usa ScaledCanvas)
   sections/mobile/     mobile, canvas de 390px
 public/assets/         imagens da identidade visual
 public/fonts/          Red Hat Display variável (WOFF2)
 design/                protótipos .dc.html do Claude Design + transcrições
-docs/                  este arquivo e o histórico de sessões
+docs/                  este arquivo, o histórico de sessões e o inventário
+                       da arte-fonte
 ```
+
+Fora do repositório, em `../arte-fonte/`, fica o export por camadas do
+design — a origem das imagens de `public/assets/`. O `ARTE-FONTE.md` mapeia
+o que já foi importado e o que sobrou, e registra que essa pasta **não é
+versionada**: é a única cópia local dos originais em alta.
 
 ## Decisões que têm motivo
 
@@ -121,10 +129,16 @@ caractere:
 |---|---|
 | Sem fórmula mágica! | 350px |
 | Apenas hábito & constância | 487px |
-| O desafio que muda… (3 linhas) | 476px |
+| O desafio que muda… (3 linhas) | 478px |
 | Quero participar | 357px |
 
-Se mexer em `font-size` ou `letter-spacing` na hero, re-meça.
+Se mexer em `font-size`, `letter-spacing` **ou `font-weight`** na hero, re-meça.
+O peso conta: o handoff de 28/07 trocou o "O desafio que muda…" de 500 para
+600 e a linha mais larga passou de 476 para 478px.
+
+Para medir, use um `Range` sobre o nó de texto, não o `getBoundingClientRect`
+do elemento — os `span` do kicker são `display: block` dentro de um `<p>` de
+620px, então a caixa devolve 620 e não a largura do texto.
 
 ## Trocar as fotos do carrossel
 
@@ -141,6 +155,75 @@ CTAs, com hover invertendo as cores; fade individual dos quadrados soltos
 (cada um com duração e delay próprios); marquee infinito; carrossel que
 expande o card central, segura 2s e fecha; parallax na foto da Oferta;
 peso do preço oscilando entre 600 e 900.
+
+## Tablet (768–1024) — a exceção à regra do canvas
+
+**É a única das três versões que não usa canvas de largura fixa.** O design
+veio fluido: 69 `clamp()`, 54 `vw`, `min-height: 100svh`, flex e grid, contra
+236 medidas em px e 55 `position: absolute` do desktop. Não passa pelo
+`ScaledCanvas`, não tem faixa de sangria e não usa `--vw`.
+
+Fica em `src/sections/tablet/`, com as classes em `-t` (`.hero-t`,
+`.beneficios-t`…), como o mobile usa `-m`.
+
+**Por que para em 1024.** É o `max-width` do container no design. Fechando a
+faixa exatamente nele, o limite nunca chega a travar dentro do intervalo — o
+layout sempre preenche a janela e não sobra barra lateral do `#160100`. O
+custo é a faixa de 1024 a ~1440 continuar como desktop encolhido. Foi escolha
+do cliente, entre as duas.
+
+**Os quadrados soltos ficam em % da caixa do grid**, não do canvas. A caixa
+tem `aspect-ratio: 1271/855` fixo, então a grade não deforma e os quadrados
+continuam caindo nas células — é o que substitui o canvas fixo aqui.
+
+**Moldura e degradê da Benefícios são CSS, como no desktop.** O protótipo
+estica `borda.png` e `gradiente.png` a 100%x100%, mas esticar a moldura deixa
+o traço mais grosso na horizontal que na vertical. A borda usa
+`clamp(11px, 1.39vw, 14px)` — 1,39% é a proporção dos 20px do desktop.
+
+**A tabela de larguras calibradas não vale aqui.** O texto reflui
+(`max-width: 22ch`, sem `nowrap`) em vez de ter as quebras na mão, e o CTA se
+dimensiona pelo conteúdo em vez de ser uma caixa de 424x143.
+
+A largura do card do carrossel sai de `min(300, max(186, largura * 0.31))`,
+medida do próprio trilho com `ResizeObserver`. Tudo que era medida fixa no
+desktop virou razão sobre os 329px do card original.
+
+## Tela de loading (só desktop)
+
+Abertura de 3s: o título entra pequeno no centro da janela, estoura, assenta
+e nos últimos 8% viaja até a posição exata do título da hero, onde o de
+verdade assume. Os elementos da hero entram escalonados atrás, de 1,95s a
+2,58s.
+
+**Tudo passa por `--ld`**, que vale 1 com a intro ligada e 0 sem ela. Durações
+e atrasos são `calc(<valor> * var(--ld, 1))`, então com 0 a duração vira 0s,
+o preenchimento `both` aplica o estado final e a página aparece direto — sem
+sobrar nem o deslocamento de 14px do `fade-rise`. É o mesmo mecanismo do prop
+`showLoading` do protótipo.
+
+**O componente fica fora da `<section>` da hero**, na raiz do canvas e depois
+de todas as seções. A `.hero` tem `isolation: isolate`, que cria um contexto
+de empilhamento: de dentro dela, nenhum `z-index` passa por cima das seções
+seguintes, e a Benefícios aparecia por baixo do fundo do loading. Foi por isso
+que ele saiu de lá.
+
+**O fundo cobre a janela, não o canvas.** Usa `--vw` e `--vh` (esta última
+adicionada ao `ScaledCanvas` para isso). Só a altura da hero não bastaria: em
+janela alta — 1280x1024, por exemplo — os 1024px de canvas não chegam a
+preencher a tela. `position: fixed` não serve como alternativa, porque o
+`transform: scale()` do canvas vira bloco de contenção e o `fixed` passaria a
+se ancorar nele.
+
+**A intro não roda com `prefers-reduced-motion: reduce`** — são 3s de tela
+cheia antes do conteúdo, exatamente o caso que a preferência existe para
+evitar. Também não roda no mobile: o design mobile veio sem ela.
+
+A rolagem fica travada durante os 3s (`App.jsx`). Sem isso, rolar no meio da
+abertura passa por baixo do fundo, que é ancorado no topo do canvas.
+
+O `--ld` serve de câmera lenta para conferir: subir para 10 espalha a intro
+por 30s sem mudar proporção nenhuma.
 
 ## Como verificar mudanças de responsividade
 
@@ -163,9 +246,9 @@ Larguras usadas como referência: 1440, 2545, 3425 e 375.
 
 ## Pendências
 
-- **Tablet** — não existe. Entre 768 e ~1200 a página é o desktop
-  encolhido, sem diagramação própria. Sugestão em aberto: canvas de 834px
-  (iPad retrato). Precisa de decisão do cliente.
+- **Faixa de 1024 a ~1440** — continua sendo o desktop encolhido, sem
+  diagramação própria. É a contrapartida aceita ao fechar o tablet em 1024
+  (ver abaixo); foi decisão do cliente, não esquecimento.
 - **Mobile** — o cliente considerou a versão de 390px fraca e quer refazer.
   É a principal porta de entrada do projeto. Falta decidir se parte do que
   existe ou rediagrama no Claude Design, e quais seções entram.

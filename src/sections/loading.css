@@ -1,0 +1,90 @@
+/* Tela de abertura. Fica fora da <section> da hero de propósito: a .hero tem
+   isolation: isolate, o que cria um contexto de empilhamento, e nada de dentro
+   dela consegue passar por cima das seções seguintes — por maior que fosse o
+   z-index, a Benefícios aparecia por baixo do fundo. Aqui, na raiz do canvas e
+   depois de todas as seções, o z-index vale contra a página inteira.
+
+   As coordenadas continuam as mesmas do design: a hero começa em (0,0) do
+   canvas, então canvas e seção compartilham a origem. */
+
+.loading {
+  /* Distância do centro da janela até o centro do título, em px de canvas: é
+     de onde o título parte antes de viajar para o lugar dele na hero. O título
+     ocupa 137..866 x 268..578, logo o centro é 501,5 x 423. Em 1440x1024 estas
+     contas dão 218,5 x 89 — exatamente os valores do design. */
+  --ld-x: calc(var(--vw, 1440px) / 2 - 501.5px);
+  --ld-y: calc(var(--vh, 1024px) / 2 - 423px);
+}
+
+/* Cobre a janela inteira, não o canvas de 1440: em tela larga a faixa de
+   sangria já mostra conteúdo além dele, e em janela alta a hero não chega a
+   preencher a altura (1280x1024, por exemplo).
+
+   position: fixed não serve — o ScaledCanvas aplica transform: scale() no
+   canvas, e um ancestral com transform vira bloco de contenção, então fixed
+   passaria a se ancorar nele em vez de na janela. */
+.loading__backdrop {
+  position: absolute;
+  left: calc(720px - var(--vw, 1440px) / 2);
+  top: 0;
+  width: var(--vw, 1440px);
+  height: var(--vh, 1024px);
+  z-index: 55;
+  pointer-events: none;
+  overflow: hidden;
+  background: #1a0500;
+  animation: loader-out 560ms ease calc(1.94s * var(--ld, 1)) both;
+}
+
+.loading__bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.loading__logo {
+  position: absolute;
+  left: 137px;
+  top: 268px;
+  width: 729px;
+  height: 310px;
+  z-index: 56;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  animation: loader-logo calc(3s * var(--ld, 1)) cubic-bezier(0.5, 0.05, 0.2, 1) both;
+  will-change: transform;
+}
+
+.loading__logo img,
+.loading__shine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 729px;
+  height: 310px;
+}
+
+/* O mesmo brilho do título da hero, com a rampa mais forte: aqui ele é a única
+   coisa iluminando a peça. */
+.loading__shine {
+  background-image: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 214, 150, 0.55) 42%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 214, 150, 0.55) 58%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  -webkit-mask-image: url(/assets/titulo.png);
+  mask-image: url(/assets/titulo.png);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  animation: shine-sweep calc(5.9s * var(--ld, 1)) cubic-bezier(0.4, 0.1, 0.5, 0.9)
+    calc(0.42s * var(--ld, 1)) both;
+}

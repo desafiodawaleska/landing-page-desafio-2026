@@ -1,0 +1,184 @@
+.beneficios-t {
+  position: relative;
+  overflow: hidden;
+  background: #1e0100;
+  padding-bottom: clamp(56px, 8vh, 96px);
+  /* Altura da barra do marquee. O fundo começa embaixo dela, então os dois
+     precisam da mesma medida. */
+  --bar-h: clamp(56px, 8vw, 76px);
+}
+
+.marquee-t {
+  position: relative;
+  height: var(--bar-h);
+  background: #160100;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.marquee-t__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-run 34s linear infinite;
+  will-change: transform;
+}
+
+.marquee-t__group {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 5vw, 52px);
+  padding-right: clamp(28px, 5vw, 52px);
+  font-size: clamp(13px, 1.8vw, 19px);
+  letter-spacing: 0.3em;
+  color: #8a1400;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.marquee-t__group span:nth-child(odd) {
+  font-weight: 800;
+}
+
+.marquee-t__group span:nth-child(even) {
+  font-weight: 500;
+}
+
+.beneficios-t__bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--bar-h);
+  bottom: 0;
+  overflow: hidden;
+}
+
+/* Mesmo radial-gradient do desktop — elipse no meio de baixo, ajustada
+   numericamente contra o gradiente.png (erro médio de 1,1/255 por canal). Os
+   raios em % fazem o brilho se espalhar junto com a tela. */
+.beneficios-t__glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    ellipse 144.1% 99.2% at 50% 100%,
+    #cc3401 0%,
+    #c52f01 5%,
+    #ba2801 10%,
+    #aa2000 15%,
+    #981700 20%,
+    #831000 25%,
+    #6c0a00 30%,
+    #550600 35%,
+    #410400 40%,
+    #320200 45%,
+    #270100 50%,
+    #1f0100 55%,
+    #1b0100 60%,
+    #190100 65%,
+    #190100 75%,
+    #1b0100 80%,
+    #1c0100 85%,
+    #1d0100 90%,
+    #1e0100 95%
+  );
+  animation: glow-breathe 7.5s ease-in-out infinite;
+}
+
+/* 20px a 1440 de canvas = 1,39% da largura. O clamp mantém a proporção na
+   faixa do tablet sem deixar o traço fino demais em 768. */
+.beneficios-t__frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: clamp(11px, 1.39vw, 14px) solid #ff2801;
+}
+
+.beneficios-t__content {
+  position: relative;
+  padding: clamp(44px, 7vh, 80px) clamp(28px, 5.5vw, 68px) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(36px, 6vh, 64px);
+}
+
+.beneficios-t__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.beneficios-t__kicker {
+  font-size: clamp(12px, 1.6vw, 17px);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: #ff3300;
+  text-transform: uppercase;
+}
+
+.beneficios-t__title {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-indent: 0.07em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.beneficios-t__items {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(28px, 4vh, 46px) clamp(20px, 3vw, 32px);
+}
+
+.benefit-t {
+  flex: 0 1 clamp(190px, 21vw, 232px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.benefit-t:hover {
+  transform: scale(1.07);
+}
+
+.benefit-t__icon {
+  height: clamp(66px, 9vw, 96px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-t__icon img {
+  height: 100%;
+  width: auto;
+}
+
+.benefit-t__icon img.is-short {
+  height: 92%;
+}
+
+.benefit-t p {
+  margin: 18px 0 0;
+  font-size: clamp(14px, 1.85vw, 19px);
+  line-height: 1.25;
+  color: #ffffff;
+  text-align: center;
+  text-wrap: pretty;
+}

@@ -6,6 +6,78 @@ caminhos errados — para ninguém refazê-los.
 
 ---
 
+## 28/07/2026 (tarde) — Tela de loading
+
+Branch `loading-intro`. Veio de um handoff do Claude Design
+(`Landing page hero 5K9 2K25-handoff.zip`).
+
+### O que o handoff trouxe
+
+Duas coisas, não uma: o arquivo novo do **tablet** e uma **tela de loading**
+acrescentada ao desktop. Só o loading foi implementado; o tablet ficou para
+depois da decisão de arquitetura (ver Pendências no `CONTEXTO.md`).
+
+Dos 44 assets do zip, 31 já estavam no repo byte a byte — é o mesmo pipeline
+que gerou `public/assets/`, então o encaixe é direto. Entrou só
+`loading/fundo.png`; o título do loading reusa o `titulo.png` que já existia.
+
+### Dois bugs que a implementação encontrou
+
+**O loading não cobria a página.** Seguindo o protótipo, pus o loader dentro
+da `<section class="hero">`. A `.hero` tem `isolation: isolate`, que cria um
+contexto de empilhamento — de dentro dela nenhum `z-index` passa por cima das
+seções seguintes, e a Benefícios aparecia por baixo. O loader saiu para a raiz
+do canvas, depois de todas as seções. É o caso em que **não** copiar a
+estrutura do protótipo era o certo.
+
+**O CTA entrava visível.** `.hero__cta` e `.cta` (do `styles.css`) têm a mesma
+especificidade e as duas declaram `animation`; a segunda vence na cascata e
+apagava o `fade-rise`. Resolvido com `.cta.hero__cta`. Se aparecer de novo em
+outro elemento com as duas classes, é isso.
+
+### Erro meu, registrado de propósito
+
+Li o gradiente bege do `loading/fundo.png` como sendo o fundo da hero e
+concluí que o loader não estava pintando. Perdi duas rodadas atrás de um bug
+de empilhamento que não existia ali — o loader pintava, o que faltava era
+cobrir **abaixo** da hero. Bastava ter aberto o PNG antes de teorizar. Mesma
+lição das "manchas escuras" da sessão anterior: olhar o asset custa segundos.
+
+### Como conferir a intro
+
+`--ld` multiplica todas as durações e atrasos. Subir para 10 espalha os 3s por
+30s, sem mudar proporção nenhuma. Para conferir quadro a quadro, `pause()` +
+`currentTime` em `document.getAnimations()` e leitura do `getComputedStyle` —
+**não** confie no screenshot com as animações pausadas: opacidade roda no
+compositor e a captura sai dessincronizada da linha do tempo.
+
+Conferido: em 1440x1024 o `--ld-x`/`--ld-y` dão 218,5 e 89, os valores fixos
+do design; no pouso, o título do loading e o real coincidem com 0px de
+diferença nos quatro lados; os 11 elementos da hero saem de 0 e chegam a 1.
+
+### Mudança que pegou carona
+
+O handoff trocou o peso do "O desafio que muda…" de 500 para 600. A largura
+da linha foi de 476 para 478px e a tabela do `CONTEXTO.md` foi corrigida.
+
+### Depois: o tablet
+
+Implementado na sequência, fluido como veio no design — a primeira das três
+versões que não usa o `ScaledCanvas`.
+
+A decisão que faltava era até onde ele vai. As duas opções tinham custo:
+parar em 1024 deixa a faixa de 1024 a ~1440 como desktop encolhido; ir até
+~1280 faz o `max-width: 1024px` do design travar e reaparecerem as barras
+laterais do `#160100` — justamente o bug da sessão anterior. **O cliente
+escolheu parar em 1024**, aceitando o desktop encolhido acima disso.
+
+Duas coisas foram implementadas diferente do protótipo, de propósito:
+moldura e degradê da Benefícios em CSS (esticar `borda.png` a 100%x100%
+engrossa o traço na horizontal), e `ResizeObserver` em vez de evento de
+`resize` para medir o trilho do carrossel.
+
+---
+
 ## 28/07/2026 — Responsividade em telas largas
 
 Commits `6eabad7`, `ff4bfe1`, `b3c693d`, `3b4c06b`. Integrados na `main` e

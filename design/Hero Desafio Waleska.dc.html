@@ -45,6 +45,26 @@
     0%, 100% { font-weight: 900; font-variation-settings: "wght" 900; }
     50% { font-weight: 600; font-variation-settings: "wght" 600; }
   }
+  @keyframes fade-hold {
+    0%, 91% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes loader-logo {
+    0% { opacity: 0; transform: translate(218.5px, 89px) scale(0.74); }
+    20% { opacity: 1; transform: translate(218.5px, 89px) scale(1.35); }
+    28%, 58% { opacity: 1; transform: translate(218.5px, 89px) scale(1.28); }
+    92% { opacity: 1; transform: translate(0px, 0px) scale(1); }
+    99% { opacity: 1; transform: translate(0px, 0px) scale(1); }
+    100% { opacity: 0; visibility: hidden; transform: translate(0px, 0px) scale(1); }
+  }
+  @keyframes loader-out {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+  }
+  @keyframes fade-rise {
+    from { opacity: 0; transform: translate3d(0, 14px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
   @keyframes glow-breathe {
     0%, 100% { opacity: 0.78; }
     50% { opacity: 1; }
@@ -53,43 +73,52 @@
 </helmet>
 <div ref="{{ rootRef }}" style="width: 1440px; margin: 0 auto; background: #160100;">
 
-  <section data-screen-label="Hero" style="width: 1440px; height: 1024px; position: relative; overflow: hidden; background: #f6efe9; isolation: isolate;">
+  <section data-screen-label="Hero" style="width: 1440px; height: 1024px; position: relative; overflow: hidden; background: #f6efe9; isolation: isolate">
 
-    <img src="assets/logo-fundo.png" alt="" style="position: absolute; left: 0; top: 0; width: 1440px; height: 1024px; object-fit: cover;">
+    <img src="assets/logo-fundo.png" alt="" style="position: absolute; left: 0; top: 0; width: 1440px; height: 1024px; object-fit: cover; animation: fade-rise 420ms ease calc(1.95s * var(--ld, 1)) both;">
 
-    <img src="assets/grid.png" alt="" style="position: absolute; left: 85px; top: 85px; width: 1271px; height: 855px; opacity: var(--grid-o, 0.9); transition: opacity 300ms ease;">
+    <img src="assets/grid.png" alt="" style="position: absolute; left: 85px; top: 85px; width: 1271px; height: 855px; opacity: var(--grid-o, 0.9); transition: opacity 300ms ease; animation: fade-rise 420ms ease calc(2.04s * var(--ld, 1)) both;">
 
-    <img src="assets/luz.png" alt="" style="position: absolute; left: 224px; top: 364px; width: 1216px; height: 660px; mix-blend-mode: multiply;">
+    <img src="assets/luz.png" alt="" style="position: absolute; left: 224px; top: 364px; width: 1216px; height: 660px; mix-blend-mode: multiply; animation: fade-rise 420ms ease calc(2.04s * var(--ld, 1)) both;">
 
     <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 1440px; height: 1024px; background: rgb(255, 245, 215); mix-blend-mode: multiply;"></div>
 
-    <img src="assets/foto-waleska.png" alt="Waleska" style="position: absolute; left: 499px; top: 0; width: 943px; height: 1024px;">
+    <img src="assets/foto-waleska.png" alt="Waleska" style="position: absolute; left: 499px; top: 0; width: 943px; height: 1024px; animation: fade-rise 420ms ease calc(2.13s * var(--ld, 1)) both;">
 
-    <img src="assets/quad-1.png" alt="" style="position: absolute; left: 227px; top: 85px; width: 142px; height: 143px; --o1: 1; --dim: 0.42; animation: sq-pulse 6.4s ease-in-out -0.2s infinite;">
-    <img src="assets/quad-2.png" alt="" style="position: absolute; left: 791px; top: 655px; width: 142px; height: 143px; --o1: 1; --dim: 0.3; animation: sq-pulse 7.9s ease-in-out -3.1s infinite;">
-    <img src="assets/borda-1.png" alt="" style="position: absolute; left: 367px; top: 227px; width: 142px; height: 143px; --o1: 0.95; --dim: 0.55; animation: sq-pulse 5.6s ease-in-out -1.4s infinite;">
-    <img src="assets/borda-2.png" alt="" style="position: absolute; left: 932px; top: 512px; width: 142px; height: 143px; --o1: 0.92; --dim: 0.6; animation: sq-pulse 8.6s ease-in-out -5.2s infinite;">
-    <img src="assets/borda-3.png" alt="" style="position: absolute; left: 226px; top: 655px; width: 142px; height: 143px; --o1: 0.88; --dim: 0.5; animation: sq-pulse 7.1s ease-in-out -2.6s infinite;">
-    <img src="assets/borda-4.png" alt="" style="position: absolute; left: 1215px; top: 797px; width: 142px; height: 143px; --o1: 0.92; --dim: 0.58; animation: sq-pulse 6.9s ease-in-out -4.4s infinite;">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 1440px; height: 1024px; animation: fade-rise 420ms ease calc(2.22s * var(--ld, 1)) both;">
+      <img src="assets/quad-1.png" alt="" style="position: absolute; left: 227px; top: 85px; width: 142px; height: 143px; --o1: 1; --dim: 0.42; animation: sq-pulse 6.4s ease-in-out -0.2s infinite;">
+      <img src="assets/quad-2.png" alt="" style="position: absolute; left: 791px; top: 655px; width: 142px; height: 143px; --o1: 1; --dim: 0.3; animation: sq-pulse 7.9s ease-in-out -3.1s infinite;">
+      <img src="assets/borda-1.png" alt="" style="position: absolute; left: 367px; top: 227px; width: 142px; height: 143px; --o1: 0.95; --dim: 0.55; animation: sq-pulse 5.6s ease-in-out -1.4s infinite;">
+      <img src="assets/borda-2.png" alt="" style="position: absolute; left: 932px; top: 512px; width: 142px; height: 143px; --o1: 0.92; --dim: 0.6; animation: sq-pulse 8.6s ease-in-out -5.2s infinite;">
+      <img src="assets/borda-3.png" alt="" style="position: absolute; left: 226px; top: 655px; width: 142px; height: 143px; --o1: 0.88; --dim: 0.5; animation: sq-pulse 7.1s ease-in-out -2.6s infinite;">
+      <img src="assets/borda-4.png" alt="" style="position: absolute; left: 1215px; top: 797px; width: 142px; height: 143px; --o1: 0.92; --dim: 0.58; animation: sq-pulse 6.9s ease-in-out -4.4s infinite;">
+    </div>
 
-    <div style="position: absolute; left: 137px; top: 268px; width: 729px; height: 310px;">
+    <div style="position: absolute; left: 137px; top: 268px; width: 729px; height: 310px; animation: fade-hold calc(3s * var(--ld, 1)) linear both;">
       <img src="assets/titulo.png" alt="Desafio da Waleska" style="position: absolute; left: 0; top: 0; width: 729px; height: 310px;">
       <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 729px; height: 310px; background-image: linear-gradient(100deg, rgba(255,255,255,0) 38%, rgba(255,255,255,0.28) 46%, rgba(255,247,225,0.85) 50%, rgba(255,255,255,0.28) 54%, rgba(255,255,255,0) 62%); background-size: 260% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/titulo.png); mask-image: url(assets/titulo.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep 9s cubic-bezier(.45,.05,.55,.95) 2.4s infinite;"></div>
     </div>
 
-    <p style="position: absolute; left: 406px; top: 133px; margin: 0; width: 620px; font-size: 22px; line-height: 22px; color: #2b0700; text-transform: uppercase; white-space: nowrap;">
+    <p style="animation: fade-rise 420ms ease calc(2.31s * var(--ld, 1)) both; position: absolute; left: 406px; top: 133px; margin: 0; width: 620px; font-size: 22px; line-height: 22px; color: #2b0700; text-transform: uppercase; white-space: nowrap;">
       <span style="display: block; font-weight: 500; letter-spacing: 0.24em;">Sem fórmula mágica!</span>
       <span style="display: block; font-weight: 800; letter-spacing: 0.2445em;">Apenas hábito &amp; constância</span>
     </p>
 
-    <div style="position: absolute; left: 393px; top: 572px; width: 217px; height: 57px;">
+    <div style="animation: fade-rise 420ms ease calc(2.40s * var(--ld, 1)) both; position: absolute; left: 393px; top: 572px; width: 217px; height: 57px;">
       <img src="assets/30-dias.png" alt="30 dias" style="position: absolute; left: 0; top: 0; width: 217px; height: 57px;">
       <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 217px; height: 57px; background-image: linear-gradient(100deg, rgba(255,255,255,0) 36%, rgba(255,236,190,0.35) 45%, rgba(255,252,240,0.95) 50%, rgba(255,236,190,0.35) 55%, rgba(255,255,255,0) 64%); background-size: 280% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/30-dias.png); mask-image: url(assets/30-dias.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep 7.5s cubic-bezier(.45,.05,.55,.95) 0.8s infinite;"></div>
     </div>
 
-    <p style="position: absolute; left: 137px; top: 689px; margin: 0; font-size: 20px; line-height: 23px; letter-spacing: 0.465em; font-weight: 500; color: #2b0700; text-transform: uppercase; white-space: nowrap;">O desafio que muda seus<br>hábitos, com médico e<br>nutri ao seu lado</p>
+    <p style="animation: fade-rise 420ms ease calc(2.49s * var(--ld, 1)) both; position: absolute; left: 137px; top: 689px; margin: 0; font-size: 20px; line-height: 23px; letter-spacing: 0.465em; font-weight: 600; color: #2b0700; text-transform: uppercase; white-space: nowrap">O desafio que muda seus<br>hábitos, com médico e<br>nutri ao seu lado</p>
 
-    <a href="{{ ctaHref }}" style="position: absolute; left: 85px; top: 797px; width: 424px; height: 143px; display: block; background: #ff3300; color: #260100; transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease; animation: cta-shake 5.2s ease-in-out infinite;" style-hover="background: #260100; color: #ff3300; box-shadow: inset 0 0 0 2px #ff3300;"><span style="position: absolute; left: 34px; top: 58px; font-size: 27px; line-height: 27px; font-style: italic; font-weight: 800; letter-spacing: 0.2408em; text-transform: uppercase; white-space: nowrap;">Quero participar</span></a>
+    <a href="{{ ctaHref }}" style="position: absolute; left: 85px; top: 797px; width: 424px; height: 143px; display: block; background: #ff3300; color: #260100; transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease; animation: fade-rise 420ms ease calc(2.58s * var(--ld, 1)) both, cta-shake 5.2s ease-in-out calc(3s * var(--ld, 1)) infinite;" style-hover="background: #260100; color: #ff3300; box-shadow: inset 0 0 0 2px #ff3300;"><span style="position: absolute; left: 34px; top: 58px; font-size: 27px; line-height: 27px; font-style: italic; font-weight: 800; letter-spacing: 0.2408em; text-transform: uppercase; white-space: nowrap;">Quero participar</span></a>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 1440px; height: 1024px; z-index: 55; pointer-events: none; overflow: hidden; background: #1a0500; opacity: var(--ld, 1); animation: loader-out 560ms ease calc(1.94s * var(--ld, 1)) both;"><img src="assets/loading/fundo.png" alt="" style="position: absolute; left: 0; top: 0; width: 1440px; height: 1024px; object-fit: cover;"></div>
+
+    <div aria-hidden="true" style="position: absolute; left: 137px; top: 268px; width: 729px; height: 310px; z-index: 56; pointer-events: none; transform-origin: 50% 50%; animation: loader-logo calc(3s * var(--ld, 1)) cubic-bezier(.5,.05,.2,1) both; will-change: transform;">
+      <img src="assets/titulo.png" alt="" style="position: absolute; left: 0; top: 0; width: 729px; height: 310px;">
+      <div style="position: absolute; left: 0; top: 0; width: 729px; height: 310px; background-image: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,214,150,0.55) 42%, rgba(255,255,255,1) 50%, rgba(255,214,150,0.55) 58%, rgba(255,255,255,0) 70%); background-size: 300% 100%; background-repeat: no-repeat; mix-blend-mode: screen; -webkit-mask-image: url(assets/titulo.png); mask-image: url(assets/titulo.png); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; animation: shine-sweep calc(5.9s * var(--ld, 1)) cubic-bezier(.4,.1,.5,.9) calc(0.42s * var(--ld, 1)) both;"></div>
+    </div>
 
   </section>
 
@@ -210,13 +239,13 @@
 
     <div style="position: absolute; left: 170px; top: 496px; width: 524px; text-align: center; font-size: 15.1px; line-height: 15.1px; font-weight: 700; letter-spacing: 0.132em; text-indent: 0.132em; color: #200400; text-transform: uppercase;">As vagas da turma são limitadas. Garanta a sua.</div>
 
-    <img src="assets/s5/ring-text.svg" alt="" aria-hidden="true" style="position: absolute; left: 1043px; top: 303px; width: 673px; height: 673px; pointer-events: none; animation: ring-spin 44s linear infinite;" />
+    <img src="assets/s5/ring-text.svg" alt="" aria-hidden="true" style="position: absolute; left: 1043px; top: 303px; width: 673px; height: 673px; pointer-events: none; animation: ring-spin 44s linear infinite;">
   </section>
 
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;ctaHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#inscricao&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;CTA&quot;},&quot;shakeIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;fadeAmount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fundo&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;ctaHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#inscricao&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;CTA&quot;},&quot;shakeIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;fadeAmount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animação&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fundo&quot;},&quot;showLoading&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Loading&quot;}}">
 const SLIDES = [
   { src: 'assets/s3/antes-1.png', label: 'Antes' },
   { src: 'assets/s3/depois-1.png', label: 'Depois' },
@@ -284,6 +313,7 @@ class Component extends DCLogic {
     el.style.setProperty('--k', String(p.fadeAmount ?? 1));
     el.style.setProperty('--shk', String(p.shakeIntensity ?? 1));
     el.style.setProperty('--grid-o', String(p.showGrid === false ? 0 : 0.9));
+    el.style.setProperty('--ld', p.showLoading === false ? '0' : '1');
   }
   componentDidMount() {
     this.apply();
