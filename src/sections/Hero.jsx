@@ -12,16 +12,22 @@ const SQUARES = [
 export default function Hero({ ctaHref }) {
   return (
     <section className="hero">
-      {/* Faixa de sangria de 2040px centrada no canvas: é ela que cobre a
-          janela em telas largas. Fundo, luz e foto sangram; o grid entra aqui
-          só para manter a ordem da pilha (ele fica sob as camadas de multiply).
-          Textos, quadrados e CTA seguem ancorados no canvas de 1440. */}
+      {/* A faixa de sangria acompanha a janela e é ela que cobre a tela em
+          telas largas — só o fundo sangra. A composição (grid, foto, textos,
+          quadrados, CTA) fica toda ancorada no canvas de 1440 e centrada, para
+          a foto não descolar do título.
+
+          A luz entra depois da foto de propósito: é a elipse de gradiente
+          vermelho do canto inferior direito, e ela passa por cima dela. Como
+          `multiply` é comutativo, trocar a ordem em relação à camada quente
+          não altera o fundo. Os quadrados laranja vêm depois, então ficam à
+          frente da luz. */}
       <div className="hero__bleed">
         <img className="hero__bg" src="/assets/logo-fundo.png" alt="" />
         <img className="hero__grid" src="/assets/grid.png" alt="" />
-        <img className="hero__light" src="/assets/luz.png" alt="" />
         <div className="hero__warm" aria-hidden="true" />
-        <img className="hero__photo" src="/assets/hero-foto-wide.png" alt="Waleska" />
+        <img className="hero__photo" src="/assets/foto-waleska.png" alt="Waleska" />
+        <img className="hero__light" src="/assets/luz.png" alt="" />
       </div>
 
       {SQUARES.map((s) => (
