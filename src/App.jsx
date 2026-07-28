@@ -45,6 +45,11 @@ const DESKTOP_BLEED = 2040;
 // era o que acontecia em ultrawide 2560x1080.
 const HERO_HEIGHT = 1024;
 
+// Piso da escala do desktop. Abaixo disso o texto de 20px da hero cairia de
+// 12,4px e a legibilidade custaria mais do que o CTA acima da dobra vale — em
+// janela mais baixa que isso, a página volta a rolar.
+const DESKTOP_MIN_SCALE = 0.62;
+
 // clientWidth/clientHeight, não innerWidth/innerHeight: innerWidth conta a
 // barra de rolagem, e os ~15px de diferença apareceriam como uma tira escura
 // na direita quando a página passa a escalar pela sangria.
@@ -142,6 +147,7 @@ export default function App() {
       viewportHeight={viewportHeight}
       bleedWidth={DESKTOP_BLEED}
       fitHeight={HERO_HEIGHT}
+      minScale={DESKTOP_MIN_SCALE}
     >
       <Hero ctaHref={CTA_HREF} intro={intro} />
       <Beneficios />

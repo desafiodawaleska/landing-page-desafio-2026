@@ -71,10 +71,28 @@ compõem sobre o que estiver atrás. Enquanto a cor de base ficou na
 `DESKTOP_BLEED` (2040px) ela volta a crescer. Ampliar antes disso borraria
 os PNGs à toa.
 
-**Quando amplia, a escala respeita a altura da janela.** Em ultrawide
-2560x1080 a hero ficava com 1285px de altura e o CTA caía abaixo do corte.
-O limite (`fitHeight`, a altura da hero) nunca reduz a escala abaixo de 1,
-então telas médias não mudam.
+**A escala respeita a altura da janela nos dois sentidos.** `fitHeight` é a
+altura da hero (1024). A escala nunca deixa a hero passar da altura da tela,
+seja encolhendo, seja limitando o quanto ela cresce.
+
+Isso já valia para cima — em ultrawide 2560x1080 a hero ficava com 1285px e o
+CTA caía fora. Mas até 28/07 **não valia para baixo**: havia um piso em 1, e
+entre 1440 e 2040px de largura a hero ficava travada em 1024px de altura. Como
+quase toda janela de desktop é mais larga e mais baixa que a proporção
+1440x1024 do design, o CTA caía abaixo da dobra em máquinas comuns — MacBook
+13" e 14" incluídos.
+
+O piso agora é `DESKTOP_MIN_SCALE` (0,62), calibrado pela legibilidade: abaixo
+disso o texto de 20px da hero cairia de 12,4px. Em janela mais baixa que isso,
+a página volta a rolar — é o limite onde encolher custa mais do que vale.
+
+Em 1440x1024 a conta devolve escala 1, então o design de referência não mudou.
+
+Efeito colateral conhecido: encolher a escala aumenta `--vw`, e o grid, que
+tem largura fixa em px de canvas, passa a ocupar uma fração menor da tela.
+Medido, a perda vai de 0 a 20 pontos percentuais conforme a janela, e o pior
+caso (68%) ainda fica bem acima dos ~50% que já rodavam em ultrawide antes da
+mudança. Não é regressão — é mais do mesmo que já estava aprovado.
 
 **O fundo da hero é o recorte de 1440 esticado, não uma versão estendida
 do asset.** O `Logo-fundo` é o "W" da marca desfocado; alargar o recorte

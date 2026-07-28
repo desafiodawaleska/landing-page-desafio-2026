@@ -7,9 +7,12 @@ import { useEffect, useRef, useState } from 'react';
 //
 // A escala trava em 1 enquanto a sangria cobre a janela; só acima de
 // bleedWidth ela volta a crescer — assim os PNGs não borram antes da hora.
-// Quando cresce, fica limitada pela altura da janela (fitHeight), senão em
-// monitor ultrawide a primeira seção fica mais alta que a tela e o CTA some.
-// Esse limite nunca reduz a escala abaixo de 1, então telas médias não mudam.
+//
+// `fitHeight` (a altura da hero) limita a escala nos dois sentidos: encolhe
+// quando a janela é mais baixa que a hero e cresce quando é mais alta. É o que
+// mantém o CTA acima da dobra — a maioria das janelas de desktop é mais larga
+// e mais baixa que a proporção 1440x1024 do design. `minScale` põe um piso
+// nisso, para o texto não ficar ilegível em janela muito baixa.
 //
 // O invólucro externo recebe a altura já escalada — sem isso o documento
 // rolaria pela altura original, deixando um vão gigante depois da última
@@ -19,6 +22,7 @@ export default function ScaledCanvas({
   viewportWidth,
   viewportHeight,
   maxScale = 1,
+  minScale = 0,
   bleedWidth,
   fitHeight,
   children,
@@ -38,8 +42,12 @@ export default function ScaledCanvas({
   if (bleedWidth && viewportWidth > bleedWidth) {
     scale = viewportWidth / bleedWidth;
   }
-  if (scale > 1 && fitHeight && viewportHeight) {
-    scale = Math.min(scale, Math.max(viewportHeight / fitHeight, 1));
+  // O ajuste por altura vale nos dois sentidos. Antes ele só agia quando a
+  // escala já estava aumentando (`scale > 1`) e nunca descia de 1 — então
+  // entre 1440 e 2040 de largura a hero ficava travada em 1024px de altura, e
+  // qualquer janela mais baixa que isso cortava o CTA.
+  if (fitHeight && viewportHeight) {
+    scale = Math.min(scale, Math.max(viewportHeight / fitHeight, minScale));
   }
 
   return (

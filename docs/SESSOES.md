@@ -6,6 +6,47 @@ caminhos errados — para ninguém refazê-los.
 
 ---
 
+## 28/07/2026 (fim do dia) — CTA abaixo da dobra
+
+O cliente reportou que o botão da hero só aparecia depois de rolar, e que
+usuários acharam a interface grande demais.
+
+### A causa
+
+Não era ajuste fino de tamanho: era uma trava. O `fitHeight` do `ScaledCanvas`
+só agia quando a escala já estava acima de 1 (`if (scale > 1 && ...)`) e ainda
+tinha um piso em 1 (`Math.max(..., 1)`). Ou seja, a escala **nunca descia**.
+Entre 1440 e 2040px de largura ela ficava fixa em 1 e a hero, rígida em 1024px
+de altura.
+
+O design tem proporção 1440x1024 (1,41). Quase toda janela de desktop é mais
+larga e mais baixa que isso. Então o corte não era caso raro — pegava MacBook
+Air 13" e Pro 14", que são das máquinas mais comuns.
+
+### A correção
+
+O ajuste por altura passou a valer nos dois sentidos, com piso em 0,62
+(`DESKTOP_MIN_SCALE`), calibrado para o texto de 20px não cair abaixo de
+12,4px. Como efeito, a interface encolhe entre 8% e 23% conforme a janela —
+que é a "leve diminuída" que o cliente também pediu. As duas queixas tinham a
+mesma causa.
+
+Conferido em 8 resoluções: antes, três cortavam o CTA; depois, nenhuma. Em
+1440x1024 a escala continua exatamente 1.
+
+### Efeito colateral, medido antes de aceitar
+
+Encolher a escala aumenta `--vw`, e o grid tem largura fixa em px de canvas —
+logo ele passa a ocupar uma fração menor da tela. Antes de dar por resolvido,
+comparei a proporção do grid antes e depois em cada resolução: a perda vai de
+0 a 20 pontos percentuais, e o pior caso fica em 68% da largura. Como já
+rodavam ~50% em ultrawide com aprovação do cliente, 68% não é território novo.
+
+Foi o passo que evitou trocar um problema por outro: o grid virando box no
+centro já tinha sido rejeitado uma vez.
+
+---
+
 ## 28/07/2026 (tarde) — Tela de loading
 
 Branch `loading-intro`. Veio de um handoff do Claude Design
