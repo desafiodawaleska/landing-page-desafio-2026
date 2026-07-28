@@ -103,7 +103,11 @@
   letter-spacing: 0.0937em;
   text-indent: 0.0937em;
   text-transform: uppercase;
-  box-sizing: border-box;
+  /* Sem box-sizing: border-box de propósito. O padding soma sobre os 68px, o
+     que dá 104px de altura — a mesma do CTA da hero, que usa a mesma conta. Com
+     border-box este aqui ficava com 68px e destoava do outro. O botão também
+     fica 48px mais largo que a coluna de texto e avança sobre o padding do
+     card branco, que é como o design o desenha. */
   transition: background 260ms ease, color 260ms ease, box-shadow 260ms ease;
   animation: cta-shake 5.2s ease-in-out infinite;
 }

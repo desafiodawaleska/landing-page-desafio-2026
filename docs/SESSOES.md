@@ -6,6 +6,54 @@ caminhos errados — para ninguém refazê-los.
 
 ---
 
+## 28/07/2026 (fim do dia) — Conferência do tablet e ordem da luz
+
+### Como conferi o tablet contra o protótipo
+
+Screenshot não serviu: o painel do navegador do agente captura de forma
+instável e chegou a mostrar a página sem preencher a largura, quando o DOM
+dizia 885px em tudo. Perdi tempo tratando artefato de captura como bug.
+
+O que funcionou foi servir o `.dc.html` do protótipo pelo próprio Vite —
+copiado para a raiz do `public/`, onde os caminhos relativos (`assets/…`)
+resolvem sozinhos — e rodar a mesma sonda de medição nas duas páginas, na
+mesma janela, comparando retângulo a retângulo. Os arquivos temporários saíram
+depois.
+
+**Uma única diferença real em 17 pontos medidos:** o CTA da Oferta. Eu tinha
+acrescentado `box-sizing: border-box`, que não está no design, e ele ficava com
+68px de altura em vez de 104. Corrigido — o `min-height: 68px` mais os 18px de
+padding em cima e embaixo é justamente o que dá os 104px do CTA da hero, que
+usa a mesma conta. Com `border-box` os dois botões destoavam.
+
+O botão fica 48px mais largo que a coluna de texto e avança sobre o padding do
+card branco. Parece descuido do protótipo, mas é consistente com o CTA da hero
+e mantém os dois iguais.
+
+### Dois falsos positivos, registrados para não perseguir de novo
+
+- **O anel da Oferta** media 329px numa página e 316px na outra. É o mesmo
+  elemento: ele gira (`ring-spin`), e a caixa de um quadrado rotacionado muda
+  de tamanho com o ângulo. A largura computada é 234px nas duas.
+- **O preço** media 435 contra 428. A animação `price-weight` oscila o peso
+  entre 600 e 900, e isso muda a largura do texto de 427 a 440. Os dois valores
+  caem dentro da faixa.
+
+Ao medir algo animado, congele a animação antes de comparar.
+
+### Ordem da luz
+
+A pedido do cliente, `luz.png` passou a vir **depois** da foto no DOM, na hero
+do desktop e do tablet — a forma do canto inferior direito agora passa por
+cima dela em vez de por baixo. Os quadrados soltos continuam acima da luz, que
+é onde o cliente queria: entre a foto e o quadrado em outline.
+
+O mobile não entra: aquela hero não usa `luz.png`.
+
+Isso é desvio deliberado do protótipo, onde a luz vem antes da foto.
+
+---
+
 ## 28/07/2026 (fim do dia) — CTA abaixo da dobra
 
 O cliente reportou que o botão da hero só aparecia depois de rolar, e que
