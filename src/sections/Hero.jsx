@@ -18,7 +18,7 @@ export default function Hero({ ctaHref }) {
           Textos, quadrados e CTA seguem ancorados no canvas de 1440. */}
       <div className="hero__bleed">
         <img className="hero__bg" src="/assets/logo-fundo.png" alt="" />
-        <div className="hero__grid" />
+        <img className="hero__grid" src="/assets/grid.png" alt="" />
         <img className="hero__light" src="/assets/luz.png" alt="" />
         <div className="hero__warm" aria-hidden="true" />
         <img className="hero__photo" src="/assets/hero-foto-wide.png" alt="Waleska" />

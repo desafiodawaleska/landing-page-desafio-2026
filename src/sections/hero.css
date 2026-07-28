@@ -13,6 +13,11 @@
 /* Faixa de sangria: acompanha a largura da janela (--vw), centrada no canvas.
    Para converter uma coordenada do canvas para dentro dela:
    left: calc(<x>px + var(--vw) / 2 - 720px). */
+/* O creme fica aqui, não na .hero. O logo-fundo.png é semitransparente (alfa
+   ~57/255 nas pontas), então ele compõe sobre o que estiver atrás. Enquanto a
+   base de cor estava na .hero, que tem 1440px, tudo fora dessa largura caía
+   sobre o #160100 do body — e isso desenhava um retângulo visível em canvas
+   0..1440. A base precisa cobrir a faixa inteira. */
 .hero__bleed {
   position: absolute;
   left: calc(720px - var(--vw, 1440px) / 2);
@@ -20,6 +25,7 @@
   width: var(--vw, 1440px);
   height: 1024px;
   overflow: hidden;
+  background: #f6efe9;
 }
 
 /* O fundo é o recorte de 1440 esticado para a largura da faixa, não uma versão
@@ -71,31 +77,16 @@
   height: 1500px;
 }
 
-/* O grid era um PNG de 1271x855 parado no meio do canvas, o que em ultrawide
-   virava um retângulo solto no centro da tela. Agora é o próprio desenho
-   original repetido: grid-tile.png é o grid.png sem a última coluna e a última
-   linha, que estavam duplicando o traço a cada emenda. Passo de 141 x 142,5
-   confirmado inclusive na emenda entre tiles.
-
-   Tentei antes desenhar as linhas com repeating-linear-gradient e ficou ruim:
-   com origem fracionária e ~17 repetições sob uma escala não inteira, as linhas
-   caem em pixels quebrados e saem com espessuras irregulares. O tile do
-   desenho original não tem esse problema — o anti-aliasing já vem embutido.
-
-   Fica em px de canvas, sem esticar junto com o fundo: a célula de 141 é
-   estrutural, é nela que os quadrados soltos se encaixam. */
+/* O grid fica contido, como no design original — não se espalha pela faixa de
+   sangria. Em px de canvas, na posição de sempre: é nas células dele que os
+   quadrados soltos se encaixam. */
 .hero__grid {
   position: absolute;
-  left: 0;
+  left: calc(85px + var(--vw, 1440px) / 2 - 720px);
   top: 85px;
-  width: 100%;
+  width: 1271px;
   height: 855px;
   opacity: 0.9;
-  background-image: url('/assets/grid-tile.png');
-  background-repeat: repeat;
-  background-size: 1270px 854px;
-  /* ancora a coluna em x=85 do canvas para as células baterem com os quadrados */
-  background-position: calc(85px + var(--vw, 1440px) / 2 - 720px) 0;
 }
 
 .hero__square {
