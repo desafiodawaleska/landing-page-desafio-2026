@@ -40,10 +40,13 @@ const TABLET_MAX = 1024;
 // inteiro escala junto.
 const DESKTOP_BLEED = 2040;
 
-// Altura da hero. Em telas muito largas a escala fica limitada por ela, senão
-// a primeira dobra passa da altura da janela e o CTA fica abaixo do corte —
-// era o que acontecia em ultrawide 2560x1080.
-const HERO_HEIGHT = 1024;
+// O que precisa caber na janela — não a hero inteira, mas até um pouco abaixo
+// do CTA. Ele termina em 940 no canvas (797 + 143 de altura) e os 84px
+// restantes até os 1024 da seção são só fundo. Pedir a hero toda encolhia mais
+// do que o necessário, e encolher infla o `--vw`: a largura visível em px de
+// canvas é `larguraDaJanela / escala`, então quanto menor a escala, mais o
+// desenho se espalha e mais o conteúdo se afasta das bordas.
+const HERO_FIT_HEIGHT = 964;
 
 // Piso da escala do desktop. Abaixo disso o texto de 20px da hero cairia de
 // 12,4px e a legibilidade custaria mais do que o CTA acima da dobra vale — em
@@ -146,7 +149,7 @@ export default function App() {
       viewportWidth={viewportWidth}
       viewportHeight={viewportHeight}
       bleedWidth={DESKTOP_BLEED}
-      fitHeight={HERO_HEIGHT}
+      fitHeight={HERO_FIT_HEIGHT}
       minScale={DESKTOP_MIN_SCALE}
     >
       <Hero ctaHref={CTA_HREF} intro={intro} />

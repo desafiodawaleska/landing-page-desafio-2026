@@ -86,6 +86,17 @@ O piso agora é `DESKTOP_MIN_SCALE` (0,62), calibrado pela legibilidade: abaixo
 disso o texto de 20px da hero cairia de 12,4px. Em janela mais baixa que isso,
 a página volta a rolar — é o limite onde encolher custa mais do que vale.
 
+**O alvo do ajuste é 964, não 1024** (`HERO_FIT_HEIGHT`). O CTA termina em 940
+no canvas e os 84px restantes até o fim da seção são só fundo — exigir a hero
+inteira encolhia mais do que o necessário. E encolher tem preço: `--vw` é
+`larguraDaJanela / escala`, então **toda redução de escala infla a largura
+visível em px de canvas**, o desenho se espalha e o conteúdo se afasta das
+bordas. Mirar em 964 devolve de 110 a 160px de `--vw` conforme a janela, sem
+custar o CTA (sobram 20 a 24px de folga).
+
+Se for mexer na escala de novo, olhe o `--vw` resultante junto: é ele, não a
+escala, que diz o quanto a composição vai esticar.
+
 Em 1440x1024 a conta devolve escala 1, então o design de referência não mudou.
 
 Efeito colateral conhecido: encolher a escala aumenta `--vw`, e o grid, que
