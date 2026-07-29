@@ -27,6 +27,21 @@ Os protótipos em `design/` são a fonte da verdade do visual. São arquivos
 que eles referenciam não acompanham o export — para ver a arte, use o
 projeto rodando.
 
+## Ferramentas de medição
+
+Vários valores no CSS não foram escolhidos a olho — saíram de medição sobre
+os PNGs originais. Os scripts em `tools/` reproduzem essas contas, para não
+virarem números mágicos:
+
+```bash
+npm i --no-save sharp
+node tools/medir-assets.mjs        # célula do grid, traço da moldura, opacidade dos fundos
+node tools/ajustar-gradiente.mjs   # deriva o radial-gradient da seção Benefícios
+```
+
+`sharp` fica fora do `package.json` de propósito: só serve para a análise e
+pesaria no install de quem só quer buildar o site.
+
 ## Ponto de atenção
 
 Este projeto **não é layout fluido**. É um canvas de largura fixa (1440px

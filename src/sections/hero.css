@@ -68,18 +68,17 @@
   animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(1.95s * var(--ld, 1)) both;
 }
 
-/* A silhueta dela termina em 1531 no canvas, ou seja, sai cortada pela direita
-   em 1440. Acima de ~1622px de janela a borda visível passaria desse ponto e
-   abriria um vazio ao lado dela — então a foto acompanha a borda, no máximo até
-   encostar. Em 1440 o deslocamento é zero e nada muda. */
+/* Fica na posição do design e acompanha o canvas, sem ancorar na borda da
+   tela. Chegou a ser ancorada à direita para encostar na borda em telas
+   largas, mas isso a descolava do título — a composição precisa andar junta.
+   Por isso volta também a foto do design (943x1024) no lugar da versão com
+   mais corpo, que só existia para servir a essa ancoragem. */
 .hero__photo {
   position: absolute;
-  /* 499 no canvas, mais o quanto ela precisa andar para continuar encostada
-     na borda visível (a silhueta termina em 1531 no canvas) */
-  left: calc(499px + var(--vw, 1440px) / 2 - 720px + max(0px, var(--vw, 1440px) / 2 - 811px));
-  top: -15px;
-  width: 1218px;
-  height: 1500px;
+  left: calc(499px + var(--vw, 1440px) / 2 - 720px);
+  top: 0;
+  width: 943px;
+  height: 1024px;
   animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.13s * var(--ld, 1)) both;
 }
 

@@ -1,4 +1,3 @@
-/* Sem overflow:hidden — quem recorta é .oferta__bleed. */
 .oferta {
   position: relative;
   width: 1440px;
@@ -8,42 +7,159 @@
   --cta-fg: #200400;
 }
 
-.oferta__bleed,
-.oferta__ring-band {
+/* O palco ocupa a largura visível e centraliza no canvas. Com ele, as posições
+   viram simples afastamentos das bordas em vez de contas com --vw espalhadas
+   por todo o arquivo — e, por ser um container de consulta, o layout largo sai
+   em CSS puro, sem o React precisar saber a largura. */
+.oferta__stage {
   position: absolute;
   left: calc(720px - var(--vw, 1440px) / 2);
   top: 0;
   width: var(--vw, 1440px);
   height: 712px;
   overflow: hidden;
-}
-
-.oferta__bleed {
   background: #ff2801;
+  container-type: inline-size;
 }
 
-.oferta__ring-band {
-  pointer-events: none;
-}
-
-/* A composição da Oferta é fluida: o card estica, a foto fica ancorada na
-   direita e o anel acompanha a foto. Sem isso, em tela larga o bloco inteiro
-   virava um retângulo parado no meio do laranja e o anel deixava de cruzar a
-   foto — que é justamente a disposição que precisa se manter. Em 1440 todas as
-   contas devolvem os valores originais. */
 .oferta__card {
   position: absolute;
-  left: calc(805px - var(--vw, 1440px) / 2); /* 85 no canvas */
+  left: 85px;
+  right: 85px;
   top: 85px;
-  width: calc(var(--vw, 1440px) - 170px);
   height: 543px;
   background: #ffffff;
 }
 
-/* mantém os 68px de folga que ela tem até a borda direita do canvas em 1440 */
+/* ---- bloco de texto ------------------------------------------------------
+   Em coluna, reproduzindo o empilhamento do design: as margens abaixo são as
+   distâncias exatas entre os blocos em 1440 (200 / 222 / 385 / 496 no canvas). */
+.oferta__content {
+  position: absolute;
+  left: 170px;
+  top: 200px;
+  width: 524px;
+  display: flex;
+  flex-direction: column;
+}
+
+.oferta__col {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+.oferta__col--acao {
+  margin-top: 11.5px;
+}
+
+.oferta__kicker {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0.149em;
+  text-indent: 0.149em;
+  text-align: center;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+.oferta__price-wrap {
+  position: relative;
+  width: 524px;
+  height: 151.5px;
+  margin-top: 2px;
+}
+
+.oferta__price,
+.oferta__price-shine {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 151.5px;
+  line-height: 151.5px;
+  letter-spacing: 0.1033em;
+  animation: price-weight 5.6s ease-in-out infinite;
+}
+
+.oferta__price span,
+.oferta__price-shine span {
+  /* compensa o tracking depois do último caractere, para o número crescer a
+     partir do centro exato quando o peso anima */
+  padding-left: 0.1033em;
+  white-space: nowrap;
+}
+
+.oferta__price {
+  color: #ff2801;
+  will-change: font-variation-settings;
+}
+
+.oferta__price-shine {
+  pointer-events: none;
+  background-image: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 41%,
+    rgba(255, 190, 160, 0.85) 47%,
+    #fff2ea 50%,
+    rgba(255, 190, 160, 0.85) 53%,
+    rgba(255, 255, 255, 0) 59%
+  );
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: price-weight 5.6s ease-in-out infinite,
+    shine-sweep 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) 1.6s infinite;
+}
+
+/* Precisa de dois seletores para vencer o `position: absolute` de .cta: com um
+   só a especificidade empata e quem decide é a ordem dos arquivos no bundle —
+   o botão continuava fora do fluxo e a nota subia para o lugar dele. */
+.oferta__col > .oferta__cta {
+  position: relative;
+  width: 524px;
+  height: 93px;
+}
+
+.oferta__cta span {
+  position: absolute;
+  left: 0;
+  top: 33px;
+  width: 524px;
+  text-align: center;
+  font-size: 26.4px;
+  line-height: 26.4px;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.0937em;
+  text-indent: 0.0937em;
+  text-transform: uppercase;
+}
+
+.oferta__note {
+  margin-top: 18px;
+  width: 524px;
+  text-align: center;
+  font-size: 15.1px;
+  line-height: 15.1px;
+  font-weight: 700;
+  letter-spacing: 0.132em;
+  text-indent: 0.132em;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+/* ---- foto ---------------------------------------------------------------
+   Ancorada na direita, mantendo os 68px de folga que ela tem até a borda do
+   canvas em 1440. */
 .oferta__photos {
   position: absolute;
-  left: calc(58px + var(--vw, 1440px) / 2); /* 778 no canvas */
+  right: 68px;
   top: 0;
   width: 594px;
   height: 628px;
@@ -79,115 +195,72 @@
   will-change: transform;
 }
 
-.oferta__kicker {
-  position: absolute;
-  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
-  top: 200px;
-  width: 524px;
-  text-align: center;
-  font-size: 20px;
-  line-height: 20px;
-  font-weight: 700;
-  letter-spacing: 0.149em;
-  text-indent: 0.149em;
-  color: #200400;
-  text-transform: uppercase;
-}
-
-.oferta__price,
-.oferta__price-shine {
-  position: absolute;
-  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
-  top: 222px;
-  width: 524px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 151.5px;
-  line-height: 151.5px;
-  letter-spacing: 0.1033em;
-  animation: price-weight 5.6s ease-in-out infinite;
-}
-
-.oferta__price span,
-.oferta__price-shine span {
-  padding-left: 0.1033em;
-  white-space: nowrap;
-}
-
-.oferta__price {
-  color: #ff2801;
-  will-change: font-variation-settings;
-}
-
-.oferta__price-shine {
-  pointer-events: none;
-  background-image: linear-gradient(
-    100deg,
-    rgba(255, 255, 255, 0) 41%,
-    rgba(255, 190, 160, 0.85) 47%,
-    #fff2ea 50%,
-    rgba(255, 190, 160, 0.85) 53%,
-    rgba(255, 255, 255, 0) 59%
-  );
-  background-size: 260% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: price-weight 5.6s ease-in-out infinite,
-    shine-sweep 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) 1.6s infinite;
-}
-
-.oferta__cta {
-  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
-  top: 385px;
-  width: 524px;
-  height: 93px;
-}
-
-.oferta__cta span {
-  position: absolute;
-  left: 0;
-  top: 33px;
-  width: 524px;
-  text-align: center;
-  font-size: 26.4px;
-  line-height: 26.4px;
-  font-style: italic;
-  font-weight: 800;
-  letter-spacing: 0.0937em;
-  text-indent: 0.0937em;
-  text-transform: uppercase;
-}
-
-.oferta__note {
-  position: absolute;
-  left: calc(890px - var(--vw, 1440px) / 2); /* 170 no canvas, colado no card */
-  top: 496px;
-  width: 524px;
-  text-align: center;
-  font-size: 15.1px;
-  line-height: 15.1px;
-  font-weight: 700;
-  letter-spacing: 0.132em;
-  text-indent: 0.132em;
-  color: #200400;
-  text-transform: uppercase;
-}
-
-/* O anel anda junto com a foto, não com a borda da tela: é o cruzamento do
-   texto sobre ela que precisa se manter igual em qualquer largura. Como a foto
-   fica ancorada na direita, o anel continua saindo pela borda e o centro do
-   círculo nunca entra em cena. Valor em coordenadas da faixa; em 1440 devolve
-   os 1043px originais. */
+/* Sai 276px pela direita do palco, que é o quanto ele passava da borda do
+   canvas no design. Como acompanha a borda do palco e a foto também está
+   ancorada nela, o texto continua cruzando a foto e o centro do círculo nunca
+   entra em cena. O recorte é do palco. */
 .oferta__ring {
   position: absolute;
-  left: calc(var(--vw, 1440px) - 397px);
+  right: -276px;
   top: 303px;
   width: 673px;
   height: 673px;
   pointer-events: none;
   animation: ring-spin 44s linear infinite;
+}
+
+/* ---- telas largas -------------------------------------------------------
+   Com o card muito largo, a coluna única deixava um vazio branco enorme entre
+   o texto e a foto. Aqui os dois blocos ficam lado a lado, agrupados e
+   centralizados na área branca que sobra à esquerda da foto.
+
+   O limiar é 1920: abaixo disso as duas colunas (524 + 110 + 524) não caberiam
+   no espaço livre (largura - 85 - 68 - 594). */
+@container (min-width: 1920px) {
+  .oferta__content {
+    left: 85px;
+    right: calc(68px + 594px);
+    top: 85px;
+    width: auto;
+    height: 543px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 110px;
+  }
+
+  .oferta__col {
+    flex: 0 0 524px;
+  }
+
+  .oferta__col--acao {
+    margin-top: 0;
+  }
+}
+
+/* Mais largo ainda: com o card muito grande, mesmo as duas colunas deixam
+   sobra. Aqui a foto cresce para ocupar parte dela.
+
+   É `scale`, não largura nova: ampliar uniformemente não deforma a Waleska nem
+   o cenário, que era a condição. O teto vem da cabeça dela — o conteúdo opaco
+   do recorte começa a 3px do topo da imagem, e a imagem fica em y=30, então a
+   cabeça está em y=33. Com a origem no topo direito e `top: 85 * (1 - k)`, a
+   caixa branca continua nascendo em 85 (colada no topo do card) e a cabeça vai
+   para `85 - 52k`, que zera em k = 1,635. Em 1,3 ela fica a 17px do topo da
+   seção, contra 33 no design — perto, mas sem corte.
+
+   A altura do container encolhe na mesma proporção para o recorte continuar
+   fechando exatamente na base do card, senão ela vazaria para o laranja. */
+@container (min-width: 2200px) {
+  .oferta__photos {
+    top: -25.5px; /* 85 * (1 - 1.3) */
+    height: 502.7px; /* (628 + 25,5) / 1,3 */
+    transform: scale(1.3);
+    transform-origin: right top;
+  }
+
+  /* a foto passa a ocupar 594 * 1,3 = 772 */
+  .oferta__content {
+    right: calc(68px + 772px);
+  }
 }

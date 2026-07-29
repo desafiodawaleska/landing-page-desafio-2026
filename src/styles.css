@@ -33,23 +33,24 @@ a {
 
 /* Deslocamento do bloco de texto da hero, para a esquerda.
    ------------------------------------------------------------------
-   O texto fica ancorado no canvas de 1440, que é centralizado. Quando a
-   largura visível em px de canvas (--vw) cresce, ele não acompanha: a margem
-   esquerda ia de 9,5% do design para 24% em tela grande, e o bloco acabava
-   encalhado no meio com uma faixa vazia à esquerda.
+   Hoje vale zero: o cliente decidiu que em tela larga a hero fica com tudo
+   centralizado — texto, foto e grid andando juntos como um bloco só. A foto
+   voltou junto ao título pelo mesmo motivo.
 
-   Esta variável recoloca a margem em 9,5% da largura visível, qualquer que
-   seja ela. O texto se move como um bloco só — as posições relativas entre
-   kicker, título, "30 dias", apoio e CTA não mudam.
+   A variável continua existindo porque os cinco elementos do texto e o título
+   do loading a consomem, e é por ela que o pouso do loading sobre o título
+   real se mantém alinhado. Zerar aqui move os dois juntos, então o pouso
+   continua batendo.
 
-   O coeficiente 583/1440 é exato: 583 é 720 - 137, a distância do centro do
-   canvas até a borda esquerda do texto. Por isso a conta dá exatamente 0 em
-   --vw: 1440 e o design de referência não se mexe.
-
-   Nunca é positivo: --vw nunca fica abaixo de 1440 no desktop. */
+   O valor anterior era `min(0px, calc(583px - var(--vw) * 583 / 1440))`, que
+   recolocava a margem esquerda em 9,5% da largura visível em qualquer janela —
+   o texto acompanhava a borda em vez de ficar encalhado no meio. Fica
+   registrado caso a decisão volte atrás: 583 é 720 - 137, a distância do
+   centro do canvas até a borda esquerda do texto, e por isso a conta dava
+   exatamente 0 em --vw: 1440. */
 .hero,
 .loading {
-  --lead: min(0px, calc(583px - var(--vw, 1440px) * 583 / 1440));
+  --lead: 0px;
 }
 
 .cta {

@@ -14,8 +14,10 @@ export default function Loading() {
       <div className="loading__backdrop">
         <img className="loading__bg" src="/assets/loading/fundo.png" alt="" />
       </div>
+      {/* Vetor, não o PNG do título da hero: a animação de abertura amplia o
+          logo bem além do tamanho final, e no raster isso borrava. */}
       <div className="loading__logo">
-        <img src="/assets/titulo.png" alt="" />
+        <img src="/assets/loading/titulo-vetor.svg" alt="" />
         <div className="loading__shine" />
       </div>
     </div>

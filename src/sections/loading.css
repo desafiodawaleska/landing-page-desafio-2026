@@ -68,7 +68,20 @@
   will-change: transform;
 }
 
-.loading__logo img,
+/* Desenhado no tamanho natural do SVG (2187x930) e reduzido por transform, em
+   vez de encolhido pela largura. Assim o navegador rasteriza na resolução
+   cheia, e o `loader-logo` — que amplia o logo bem além do tamanho final —
+   continua nítido. 2187 * 0,3333 = 729, o mesmo tamanho do título da hero. */
+.loading__logo img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2187px;
+  height: 930px;
+  transform: scale(0.3333);
+  transform-origin: 0 0;
+}
+
 .loading__shine {
   position: absolute;
   left: 0;
@@ -91,8 +104,8 @@
   background-size: 300% 100%;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  -webkit-mask-image: url(/assets/titulo.png);
-  mask-image: url(/assets/titulo.png);
+  -webkit-mask-image: url(/assets/loading/titulo-vetor.svg);
+  mask-image: url(/assets/loading/titulo-vetor.svg);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   animation: shine-sweep calc(5.9s * var(--ld, 1)) cubic-bezier(0.4, 0.1, 0.5, 0.9)

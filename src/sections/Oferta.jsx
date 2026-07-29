@@ -25,43 +25,49 @@ export default function Oferta({ ctaHref }) {
       onMouseMove={onMouseMove}
       onMouseLeave={() => setTransform('translate3d(0,0,0)')}
     >
-      {/* Fundo laranja até as bordas da tela. */}
-      <div className="oferta__bleed" aria-hidden="true" />
+      {/* O palco ocupa a largura visível, pinta o laranja e é quem recorta —
+          por isso o anel pode sair pela direita sem vazar na vertical. É também
+          o container das consultas de container: acima de 1920px de canvas o
+          bloco de texto vira duas colunas, senão sobra uma área branca enorme
+          no meio do card. */}
+      <div className="oferta__stage">
+        <div className="oferta__card" />
 
-      <div className="oferta__card" />
+        <div className="oferta__content">
+          <div className="oferta__col">
+            <div className="oferta__kicker">Faça parte do desafio, por apenas</div>
+            <div className="oferta__price-wrap">
+              <div className="oferta__price">
+                <span>{PRICE}</span>
+              </div>
+              <div className="oferta__price-shine" aria-hidden="true">
+                <span>{PRICE}</span>
+              </div>
+            </div>
+          </div>
 
-      <div className="oferta__photos">
-        <div className="oferta__photo-box">
-          <img className="oferta__photo-bg" ref={bgPhoto} src="/assets/s5/foto-cf-ext.png" alt="" />
+          <div className="oferta__col oferta__col--acao">
+            <a className="cta oferta__cta" href={ctaHref}>
+              <span>Quero entrar agora</span>
+            </a>
+            <div className="oferta__note">As vagas da turma são limitadas. Garanta a sua.</div>
+          </div>
         </div>
-        <img
-          className="oferta__photo-cut"
-          ref={cutPhoto}
-          src="/assets/s5/foto-sf.png"
-          alt="Waleska"
-        />
-      </div>
 
-      <div className="oferta__kicker">Faça parte do desafio, por apenas</div>
+        <div className="oferta__photos">
+          <div className="oferta__photo-box">
+            <img className="oferta__photo-bg" ref={bgPhoto} src="/assets/s5/foto-cf-ext.png" alt="" />
+          </div>
+          <img
+            className="oferta__photo-cut"
+            ref={cutPhoto}
+            src="/assets/s5/foto-sf.png"
+            alt="Waleska"
+          />
+        </div>
 
-      <div className="oferta__price">
-        <span>{PRICE}</span>
-      </div>
-      <div className="oferta__price-shine" aria-hidden="true">
-        <span>{PRICE}</span>
-      </div>
-
-      <a className="cta oferta__cta" href={ctaHref}>
-        <span>Quero entrar agora</span>
-      </a>
-
-      <div className="oferta__note">As vagas da turma são limitadas. Garanta a sua.</div>
-
-      {/* Último no DOM, como no original: o anel passa por cima do card branco
-          e da foto. A faixa em volta só existe para recortá-lo na altura da
-          seção — papel que era do overflow da .oferta. */}
-      <div className="oferta__ring-band" aria-hidden="true">
-        <img className="oferta__ring" src="/assets/s5/ring-text.svg" alt="" />
+        {/* Último no DOM, como no original: passa por cima do card e da foto. */}
+        <img className="oferta__ring" src="/assets/s5/ring-text.svg" alt="" aria-hidden="true" />
       </div>
     </section>
   );
