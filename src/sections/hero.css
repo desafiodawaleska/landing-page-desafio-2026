@@ -69,16 +69,25 @@
 }
 
 /* Fica na posição do design e acompanha o canvas, sem ancorar na borda da
-   tela. Chegou a ser ancorada à direita para encostar na borda em telas
-   largas, mas isso a descolava do título — a composição precisa andar junta.
-   Por isso volta também a foto do design (943x1024) no lugar da versão com
-   mais corpo, que só existia para servir a essa ancoragem. */
+   tela: ancorá-la à direita a descolava do título, e a composição precisa
+   andar junta.
+
+   Usa a versão com mais corpo, não a do design. O `foto-waleska.png` de
+   943x1024 tem a silhueta encostada na borda direita do próprio arquivo — ela
+   já vem cortada. Em 1440 esse corte cai em canvas 1442, logo depois da borda
+   do canvas, então ficava escondido; com a sangria mostrando além de 1440 ele
+   aparecia como um talho reto no braço dela. Aqui a silhueta termina em 1527
+   com 189px de folga transparente depois, ou seja, o corpo fecha inteiro.
+
+   O -15 no topo é o encaixe entre os dois recortes: o de 943x1024 fica em
+   (0,15) dentro deste, medido por correlação. Por isso em 1440 a composição
+   não se mexe. */
 .hero__photo {
   position: absolute;
   left: calc(499px + var(--vw, 1440px) / 2 - 720px);
-  top: 0;
-  width: 943px;
-  height: 1024px;
+  top: -15px;
+  width: 1218px;
+  height: 1500px;
   animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.13s * var(--ld, 1)) both;
 }
 
