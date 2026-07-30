@@ -1,0 +1,86 @@
+/* Botão de voltar ao topo.
+
+   Fica em `position: fixed`, fora do canvas escalado de propósito: se
+   estivesse dentro, encolheria junto com a página e viraria um alvo pequeno
+   demais em janela baixa. Aqui o tamanho é sempre o mesmo, em px de tela.
+
+   Branco com borda laranja: os fundos do site vão do creme da hero ao
+   #1e0100 das seções escuras e ao #ff2801 da Oferta. Branco sozinho sumiria
+   sobre o creme e sobre o card branco da Oferta; a borda laranja garante o
+   contorno nesses dois casos, e o preenchimento branco garante o contraste
+   nos fundos escuros e no laranja. */
+.ao-topo {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid #ff2801;
+  background: #ffffff;
+  color: #ff2801;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* escondido até passar do limiar, sem sair do fluxo — assim a transição
+     tem de onde partir */
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 260ms ease, transform 260ms ease, visibility 260ms,
+    background 200ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+
+.ao-topo--visivel {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Mesma inversão dos CTAs do site: o fundo assume a cor do traço e vice-versa. */
+.ao-topo:hover,
+.ao-topo:focus-visible {
+  background: #ff2801;
+  color: #ffffff;
+}
+
+.ao-topo:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 40, 1, 0.35);
+}
+
+.ao-topo:active {
+  transform: translate3d(0, 1px, 0);
+}
+
+.ao-topo svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* No celular a área de toque precisa dos 44px cheios, mas a margem pode ser
+   menor para não brigar com a barra do navegador. */
+@media (max-width: 767px) {
+  .ao-topo {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ao-topo {
+    transition: opacity 120ms ease, visibility 120ms;
+    transform: none;
+  }
+  .ao-topo--visivel {
+    transform: none;
+  }
+}

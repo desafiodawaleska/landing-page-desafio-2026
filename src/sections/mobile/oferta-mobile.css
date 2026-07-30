@@ -35,13 +35,24 @@
 }
 
 /* O recorte dela fica fora da caixa: é o que deixa a cabeça passar por cima
-   da borda superior. Anda com o mesmo delta da foto de fundo. */
+   da borda superior. Anda com o mesmo delta da foto de fundo.
+
+   Medidas corrigidas em relação ao protótipo, que desenhava os dois em escalas
+   diferentes — 340/893 = 0,3807 no fundo e 292/809 = 0,3609 aqui, 5,5% de
+   diferença. Era isso que fazia ela aparecer duplicada. Correlacionando os
+   pixels opacos do recorte contra o fundo, a razão certa é 1:1, ou seja, os
+   dois na mesma escala: 809 e 650 a 0,3807 dão 308 x 247,5.
+
+   O topo ficaria em -7 pelo encaixe ótimo, mas o conteúdo opaco começa a 12px
+   do topo da imagem (4,6px na tela), o que cortaria 2,4px do cabelo na borda
+   da seção. -5 fica dentro da precisão da medição (o passo da varredura vale
+   ~1px de canvas) e não corta nada. */
 .oferta-m__photo-cut {
   position: absolute;
-  left: 63px;
-  top: 4px;
-  width: 292px;
-  height: 235px;
+  left: 58px;
+  top: -5px;
+  width: 308px;
+  height: 247.5px;
   transition: transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: transform;
 }

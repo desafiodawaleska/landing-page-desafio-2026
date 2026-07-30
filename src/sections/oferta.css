@@ -34,9 +34,19 @@
 /* ---- bloco de texto ------------------------------------------------------
    Em coluna, reproduzindo o empilhamento do design: as margens abaixo são as
    distâncias exatas entre os blocos em 1440 (200 / 222 / 385 / 496 no canvas). */
+/* Centralizado na área branca livre, não ancorado a 85px da borda do card.
+   A área livre vai da borda esquerda do card até onde a foto começa; como a
+   foto é ancorada à direita, essa área cresce só para um lado, e um `left`
+   fixo deixava o bloco visivelmente torto conforme a tela alargava.
+
+   Com `left` e `right` definindo a faixa e `margin-inline: auto`, o bloco
+   centraliza dentro dela. Em 1440 a conta devolve 169,5 — os mesmos 170 do
+   design. */
 .oferta__content {
   position: absolute;
-  left: 170px;
+  left: 85px;
+  right: calc(68px + 594px);
+  margin-inline: auto;
   top: 200px;
   width: 524px;
   display: flex;

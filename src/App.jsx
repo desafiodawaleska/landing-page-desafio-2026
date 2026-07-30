@@ -5,6 +5,7 @@ import Beneficios from './sections/Beneficios.jsx';
 import Trajetoria from './sections/Trajetoria.jsx';
 import Oferta from './sections/Oferta.jsx';
 import Loading from './sections/Loading.jsx';
+import VoltarAoTopo from './VoltarAoTopo.jsx';
 import HeroTablet from './sections/tablet/HeroTablet.jsx';
 import BeneficiosTablet from './sections/tablet/BeneficiosTablet.jsx';
 import TrajetoriaTablet from './sections/tablet/TrajetoriaTablet.jsx';
@@ -126,14 +127,20 @@ export default function App() {
   // têm, com durações diferentes.
   const intro = useIntro(!isTablet, isMobile ? LOADING_MS * MOBILE_LOADING_SCALE : LOADING_MS);
 
+  // O botão de voltar ao topo fica fora do ScaledCanvas nas três versões: ele
+  // é `position: fixed` e precisa manter o tamanho em px de tela, senão
+  // encolheria junto com o canvas e viraria um alvo pequeno demais.
   if (isMobile) {
     return (
-      <ScaledCanvas designWidth={390} viewportWidth={viewportWidth} maxScale={Infinity}>
-        <HeroMobile ctaHref={CTA_HREF} intro={intro} />
-        <BeneficiosMobile />
-        <TrajetoriaMobile />
-        <OfertaMobile ctaHref={CTA_HREF} />
-      </ScaledCanvas>
+      <>
+        <ScaledCanvas designWidth={390} viewportWidth={viewportWidth} maxScale={Infinity}>
+          <HeroMobile ctaHref={CTA_HREF} intro={intro} />
+          <BeneficiosMobile />
+          <TrajetoriaMobile />
+          <OfertaMobile ctaHref={CTA_HREF} />
+        </ScaledCanvas>
+        <VoltarAoTopo />
+      </>
     );
   }
 
@@ -142,32 +149,38 @@ export default function App() {
   // versões assim — ver CONTEXTO.md.
   if (isTablet) {
     return (
-      <div style={{ width: '100%', maxWidth: `${TABLET_MAX}px`, margin: '0 auto', background: '#160100' }}>
-        <HeroTablet ctaHref={CTA_HREF} />
-        <BeneficiosTablet />
-        <TrajetoriaTablet />
-        <OfertaTablet ctaHref={CTA_HREF} />
-      </div>
+      <>
+        <div style={{ width: '100%', maxWidth: `${TABLET_MAX}px`, margin: '0 auto', background: '#160100' }}>
+          <HeroTablet ctaHref={CTA_HREF} />
+          <BeneficiosTablet />
+          <TrajetoriaTablet />
+          <OfertaTablet ctaHref={CTA_HREF} />
+        </div>
+        <VoltarAoTopo />
+      </>
     );
   }
 
   return (
-    <ScaledCanvas
-      designWidth={1440}
-      viewportWidth={viewportWidth}
-      viewportHeight={viewportHeight}
-      bleedWidth={DESKTOP_BLEED}
-      fitHeight={HERO_FIT_HEIGHT}
-      minScale={DESKTOP_MIN_SCALE}
-    >
-      <Hero ctaHref={CTA_HREF} intro={intro} />
-      <Beneficios />
-      <Trajetoria />
-      <Oferta ctaHref={CTA_HREF} />
-      {/* Depois das seções de propósito: a .hero tem isolation: isolate, então
-          nada de dentro dela passa por cima do resto da página. Aqui, na raiz
-          do canvas, o z-index do loading vale contra tudo. */}
-      {intro && <Loading />}
-    </ScaledCanvas>
+    <>
+      <ScaledCanvas
+        designWidth={1440}
+        viewportWidth={viewportWidth}
+        viewportHeight={viewportHeight}
+        bleedWidth={DESKTOP_BLEED}
+        fitHeight={HERO_FIT_HEIGHT}
+        minScale={DESKTOP_MIN_SCALE}
+      >
+        <Hero ctaHref={CTA_HREF} intro={intro} />
+        <Beneficios />
+        <Trajetoria />
+        <Oferta ctaHref={CTA_HREF} />
+        {/* Depois das seções de propósito: a .hero tem isolation: isolate, então
+            nada de dentro dela passa por cima do resto da página. Aqui, na raiz
+            do canvas, o z-index do loading vale contra tudo. */}
+        {intro && <Loading />}
+      </ScaledCanvas>
+      <VoltarAoTopo />
+    </>
   );
 }
