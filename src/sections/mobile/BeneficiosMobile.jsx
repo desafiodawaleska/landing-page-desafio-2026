@@ -1,19 +1,25 @@
 import './beneficios-mobile.css';
 
-const MARQUEE_ITEMS = Array.from({ length: 4 }).flatMap(() => [
-  '30 dias',
-  'Desafio da Waleska',
-]);
+const MARQUEE_ITEMS = Array.from({ length: 4 }).flatMap(() => ['30 dias', 'Desafio da Waleska']);
 
-// Ordem e quebras de linha do design mobile — difere do desktop.
+// Ordem, tamanhos de ícone e quebras de linha do protótipo mobile — todos
+// diferem do desktop. O `delay` escalona o `item-pop`, que no celular faz o
+// papel do hover.
 const BENEFITS = [
-  { icon: 'icone-1.png', lines: ['Consulta com', 'endocrinologista'] },
-  { icon: 'icone-5.png', lines: ['Consulta com nutri e plano alimentar individualizado'] },
-  { icon: 'icone-2.png', lines: ['Grupo exclusivo', 'da turma'] },
-  { icon: 'icone-3.png', lines: ['Treinos para', 'fazer em casa'] },
-  { icon: 'icone-7.png', lines: ['Cardápio, lista de substituição e receitas'] },
-  { icon: 'icone-6.svg', lines: ['Suporte da equipe', 'durante os 30 dias'], height: 65 },
-  { icon: 'icone-4.png', lines: ['Check-ins semanais', 'e sistema de selos'], size: 60, wide: true },
+  { icon: 'icone-1.png', w: 56, h: 56, delay: 0, lines: ['Consulta com', 'endocrinologista'] },
+  { icon: 'icone-4.png', w: 53, h: 53, delay: 1.2, lines: ['Check-ins semanais', 'e sistema de selos'] },
+  { icon: 'icone-2.png', w: 56, h: 56, delay: 2.4, lines: ['Grupo exclusivo', 'da turma'] },
+  { icon: 'icone-3.png', w: 56, h: 56, delay: 3.6, lines: ['Treinos para', 'fazer em casa'] },
+  { icon: 'icone-7.png', w: 56, h: 56, delay: 4.8, lines: ['Cardápio, lista de substituição e receitas'] },
+  { icon: 'icone-6.svg', w: 56, h: 57, delay: 6, lines: ['Suporte da equipe', 'durante os 30 dias'] },
+  {
+    icon: 'icone-5.png',
+    w: 56,
+    h: 56,
+    delay: 7.2,
+    largo: true,
+    lines: ['Consulta com nutri e plano', 'alimentar individualizado'],
+  },
 ];
 
 export default function BeneficiosMobile() {
@@ -22,10 +28,14 @@ export default function BeneficiosMobile() {
       <img className="beneficios-m__glow" src="/assets/s2/gradiente.png" alt="" />
       <div className="beneficios-m__frame" aria-hidden="true" />
 
-      <div className="marquee-m">
-        <div className="marquee-m__track">
+      {/* As duas metades precisam ser idênticas: o `marquee-run` desloca -50%,
+          e é isso que faz a emenda passar despercebida. O protótipo trazia a
+          segunda com gap e corpo diferentes, o que faria o loop saltar a cada
+          volta — desvio deliberado. */}
+      <div className="beneficios-m__marquee">
+        <div className="beneficios-m__track">
           {[0, 1].map((group) => (
-            <div className="marquee-m__group" key={group} aria-hidden={group === 1}>
+            <div className="beneficios-m__group" key={group} aria-hidden={group === 1}>
               {MARQUEE_ITEMS.map((text, i) => (
                 <span key={i}>{text}</span>
               ))}
@@ -41,13 +51,13 @@ export default function BeneficiosMobile() {
 
       <div className="beneficios-m__grid">
         {BENEFITS.map((b) => (
-          <div className={`benefit-m${b.wide ? ' benefit-m--wide' : ''}`} key={b.icon}>
+          <div
+            className={`benefit-m${b.largo ? ' benefit-m--largo' : ''}`}
+            key={b.icon}
+            style={{ animationDelay: `${b.delay}s` }}
+          >
             <div className="benefit-m__icon">
-              <img
-                src={`/assets/s2/${b.icon}`}
-                alt=""
-                style={{ width: `${b.size ?? 64}px`, height: `${b.height ?? b.size ?? 64}px` }}
-              />
+              <img src={`/assets/s2/${b.icon}`} alt="" style={{ width: `${b.w}px`, height: `${b.h}px` }} />
             </div>
             <p>
               {b.lines.map((line, i) => (
