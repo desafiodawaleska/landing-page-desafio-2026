@@ -1,13 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import './trajetoria-mobile.css';
 
+// Mesmos seis pares do desktop e do tablet — ver comentário em Trajetoria.jsx.
 const SLIDES = [
-  { src: '/assets/s3/antes-1.png', label: 'Antes' },
-  { src: '/assets/s3/depois-1.png', label: 'Depois' },
-  { src: '/assets/s3/antes-2.png', label: 'Antes' },
-  { src: '/assets/s3/depois-2.png', label: 'Depois' },
-  { src: '/assets/s3/antes-3.png', label: 'Antes' },
-  { src: '/assets/s3/depois-3.png', label: 'Depois' },
+  { src: '/assets/s3/antes-1.webp', label: 'Antes' },
+  { src: '/assets/s3/depois-1.webp', label: 'Depois' },
+  { src: '/assets/s3/antes-2.webp', label: 'Antes' },
+  { src: '/assets/s3/depois-2.webp', label: 'Depois' },
+  { src: '/assets/s3/antes-3.webp', label: 'Antes' },
+  { src: '/assets/s3/depois-3.webp', label: 'Depois' },
+  { src: '/assets/s3/antes-4.webp', label: 'Antes' },
+  { src: '/assets/s3/depois-4.webp', label: 'Depois' },
+  { src: '/assets/s3/antes-5.webp', label: 'Antes' },
+  { src: '/assets/s3/depois-5.webp', label: 'Depois' },
+  { src: '/assets/s3/antes-6.webp', label: 'Antes' },
+  { src: '/assets/s3/depois-6.webp', label: 'Depois' },
 ];
 
 const N = SLIDES.length;

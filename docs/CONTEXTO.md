@@ -189,11 +189,30 @@ do elemento — os `span` do kicker são `display: block` dentro de um `<p>` de
 
 ## Trocar as fotos do carrossel
 
-Substituir os arquivos em `public/assets/s3/` mantendo os nomes:
-`antes-1.png`, `depois-1.png`, `antes-2.png`, … Proporção ideal 323×448
-(retrato ~1:1,39). A ordem é sempre antes → depois. Para mudar a
-quantidade de pares, editar a lista `SLIDES` em `Trajetoria.jsx` **e**
+São **6 pares** de fotos reais, em `public/assets/s3/`, nomeados
+`antes-1.webp` … `antes-6.webp` e `depois-1.webp` … `depois-6.webp`. A
+ordem é sempre antes → depois.
+
+Exportados em **646×896** — 2× o card do desktop (323×448, retrato
+~1:1,39). O card do mobile é 230×341, um pouco mais estreito, e o CSS
+recorta a diferença. WebP em qualidade 82: as 12 somam 419 kB, contra
+~30 MB dos originais.
+
+O recorte é **ancorado no topo**. As fontes são retratos mais altos que o
+card (0,49 a 0,75 contra os 0,72 do alvo), então sobra altura: cortar por
+baixo tira pé e chão, cortar centrado comeria parte da cabeça. Em foto de
+antes/depois o que importa é o tronco, e a cabeça ancora a leitura.
+
+Para mudar a quantidade de pares, editar a lista `SLIDES` nos **três**
+arquivos: `Trajetoria.jsx`, `tablet/TrajetoriaTablet.jsx` e
 `mobile/TrajetoriaMobile.jsx`.
+
+**HEIC do iPhone não passa pelo sharp.** O libheif barra por limite de
+segurança ("Number of references in iref box exceeds the security
+limits") — são arquivos com muitas referências internas. O decodificador
+do Windows lê sem reclamar; o caminho é converter para PNG via WIC
+(`System.Windows.Media.Imaging.BitmapDecoder` no PowerShell) antes de
+entregar ao sharp.
 
 ## Animações (as duas versões)
 
@@ -302,7 +321,13 @@ Larguras usadas como referência: 1440, 2545, 3425 e 375.
 - **Favicon** — não existe; o navegador pede `/favicon.ico` e recebe 404.
   É o único erro de console. Aguardando o ícone da marca.
 - **Seção 4** — prevista entre Trajetória e Oferta, ainda não desenhada.
-- **Fotos reais do carrossel** — hoje as 6 posições usam 2 fotos-modelo.
+- **Resolução do par 1 do carrossel** — as duas fotos-modelo originais são
+  210×430 e sobem 3× para caber no card, então ficam visivelmente mais
+  moles que os outros cinco pares, que descem de ~2268px. Trocar assim que
+  houver o original em alta.
+- **Fotos horizontais sobrando** — `LP/S3/` tem `Depois-20` a `Depois-41`
+  em paisagem (até 7728×5152), sem par de "antes". Ficaram de fora do
+  carrossel, que é retrato. Candidatas à Seção 4.
 - **`ctaHref`** — aponta para `#inscricao` (`src/App.jsx`), ainda sem
   destino real.
 
