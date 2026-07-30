@@ -1,7 +1,12 @@
+/* Hero mobile — canvas de 390x693, coordenadas diretas do protótipo
+   `Hero Desafio Waleska Mobile.dc.html`.
+
+   Não há faixa de sangria aqui: o canvas de 390 é escalado para preencher a
+   largura do aparelho, então nunca sobra borda. */
 .hero-m {
   position: relative;
   width: 390px;
-  height: 812px;
+  height: 693px;
   overflow: hidden;
   background: #f6efe9;
   isolation: isolate;
@@ -9,41 +14,62 @@
   --cta-fg: #260100;
 }
 
-.hero-m__bg {
-  position: absolute;
-  left: -430px;
-  top: -30px;
-  width: 1250px;
-  height: 889px;
-  object-fit: cover;
-}
-
-.hero-m__grid {
-  position: absolute;
-  left: 20px;
-  top: 22px;
-  width: 350px;
-  height: 768px;
-  background-image: url('/assets/grid.png');
-  background-size: 585px 394px;
-  background-repeat: repeat;
-  opacity: 0.75;
-}
-
-.hero-m__warm {
+.hero-m__bg,
+.hero-m__warm,
+.hero-m__photo,
+.hero-m__squares {
   position: absolute;
   left: 0;
   top: 0;
   width: 390px;
-  height: 812px;
+  height: 693px;
+}
+
+.hero-m__bg {
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(1.95s * var(--ld, 1)) both;
+}
+
+.hero-m__warm {
   background: rgb(255, 245, 215);
   mix-blend-mode: multiply;
 }
 
+.hero-m__grid {
+  position: absolute;
+  left: 35px;
+  top: 33px;
+  width: 319px;
+  height: 623px;
+  opacity: 0.9;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.22s * var(--ld, 1)) both;
+}
+
+.hero-m__photo {
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.13s * var(--ld, 1)) both;
+}
+
+/* Depois da foto, como no desktop: a luz passa por cima dela. No mobile já
+   vem assim do protótipo. */
+.hero-m__light {
+  position: absolute;
+  left: 0;
+  top: 310px;
+  width: 390px;
+  height: 383px;
+  mix-blend-mode: multiply;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.04s * var(--ld, 1)) both;
+}
+
+/* Os quadrados entram como grupo, num fade só: cada um já tem a pulsação
+   própria, e animar a entrada em cada um brigaria com ela. */
+.hero-m__squares {
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.31s * var(--ld, 1)) both;
+}
+
 .hero-m__square {
   position: absolute;
-  width: 65px;
-  height: 65px;
+  width: 53px;
+  height: 53px;
   animation-name: sq-pulse;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
@@ -51,52 +77,48 @@
 
 .hero-m__kicker {
   position: absolute;
-  left: 24px;
+  left: 47px;
   top: 42px;
   margin: 0;
-  font-size: 13px;
-  line-height: 17px;
+  font-size: 8px;
+  line-height: 11px;
   color: #2b0700;
   text-transform: uppercase;
   white-space: nowrap;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.4s * var(--ld, 1)) both;
 }
 
 .hero-m__kicker span {
   display: block;
+  letter-spacing: 0.22em;
+  font-weight: 800;
 }
 
 .hero-m__kicker span:first-child {
   font-weight: 500;
-  letter-spacing: 0.24em;
 }
 
-.hero-m__kicker span:last-child {
-  font-weight: 800;
-  letter-spacing: 0.2445em;
-}
-
+/* `fade-hold` segura o título real invisível até o pouso do título da
+   abertura, para a troca passar despercebida. */
 .hero-m__title-wrap {
   position: absolute;
-  left: 24px;
-  top: 96px;
-  width: 342px;
-  height: 145px;
+  left: 33px;
+  top: 379px;
+  width: 321px;
+  height: 137px;
+  animation: fade-hold calc(3s * var(--ld, 1)) linear both;
 }
 
-.hero-m__title {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 342px;
-  height: 145px;
-}
-
+.hero-m__title,
 .hero-m__title-shine {
   position: absolute;
   left: 0;
   top: 0;
-  width: 342px;
-  height: 145px;
+  width: 321px;
+  height: 137px;
+}
+
+.hero-m__title-shine {
   background-image: linear-gradient(
     100deg,
     rgba(255, 255, 255, 0) 38%,
@@ -108,35 +130,32 @@
   background-size: 260% 100%;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  -webkit-mask-image: url('/assets/titulo.png');
-  mask-image: url('/assets/titulo.png');
+  -webkit-mask-image: url(/assets/m/titulo.webp);
+  mask-image: url(/assets/m/titulo.webp);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  animation: shine-sweep 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.4s infinite;
+  animation: shine-sweep 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) calc(3.4s * var(--ld, 1)) infinite;
 }
 
 .hero-m__days-wrap {
   position: absolute;
-  left: 24px;
-  top: 250px;
-  width: 137px;
-  height: 36px;
+  left: 147px;
+  top: 521px;
+  width: 129px;
+  height: 34px;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.49s * var(--ld, 1)) both;
 }
 
-.hero-m__days {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 137px;
-  height: 36px;
-}
-
+.hero-m__days,
 .hero-m__days-shine {
   position: absolute;
   left: 0;
   top: 0;
-  width: 137px;
-  height: 36px;
+  width: 129px;
+  height: 34px;
+}
+
+.hero-m__days-shine {
   background-image: linear-gradient(
     100deg,
     rgba(255, 255, 255, 0) 36%,
@@ -148,69 +167,136 @@
   background-size: 280% 100%;
   background-repeat: no-repeat;
   mix-blend-mode: screen;
-  -webkit-mask-image: url('/assets/30-dias.png');
-  mask-image: url('/assets/30-dias.png');
+  -webkit-mask-image: url(/assets/m/30-dias.png);
+  mask-image: url(/assets/m/30-dias.png);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  animation: shine-sweep 7.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 0.8s infinite;
+  animation: shine-sweep 7.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) calc(3.2s * var(--ld, 1)) infinite;
 }
 
 .hero-m__support {
   position: absolute;
-  left: 24px;
-  top: 304px;
+  left: 0;
+  top: 576px;
   margin: 0;
-  font-size: 13px;
-  line-height: 19px;
-  letter-spacing: 0.3em;
+  width: 390px;
+  text-align: center;
+  font-size: 9px;
+  line-height: 12px;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
   font-weight: 500;
-  color: #2b0700;
+  color: #ffffff;
   text-transform: uppercase;
-  white-space: nowrap;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.58s * var(--ld, 1)) both;
 }
 
-.hero-m__cta {
-  left: 24px;
-  top: 386px;
-  width: 268px;
-  height: 64px;
+/* Dois seletores para vencer o `animation` de .cta, que tem a mesma
+   especificidade e apagaria a entrada — mesmo caso do CTA do desktop. */
+.cta.hero-m__cta {
+  left: 89px;
+  top: 615px;
+  width: 213px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade-rise calc(420ms * var(--ld, 1)) ease calc(2.67s * var(--ld, 1)) both,
+    cta-shake 5.2s ease-in-out calc(3.1s * var(--ld, 1)) infinite;
 }
 
 .hero-m__cta span {
-  position: absolute;
-  left: 22px;
-  top: 26px;
-  font-size: 17px;
-  line-height: 17px;
+  font-size: 15px;
+  line-height: 15px;
   font-style: italic;
   font-weight: 800;
-  letter-spacing: 0.2408em;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.hero-m__photo-box {
+/* ---- abertura -----------------------------------------------------------
+   O protótipo traz o fundo escuro do loader com `display: none` no mobile:
+   aqui a abertura é só o logo sobre o creme da própria seção, sem a tela
+   preta que o desktop usa. Mantido como está desenhado — e é o que permite o
+   loader viver dentro da seção, já que não precisa cobrir a página.
+
+   O logo ocupa as mesmas coordenadas do título real e viaja até ele. */
+.hero-m__loader {
+  position: absolute;
+  left: 33px;
+  top: 379px;
+  width: 321px;
+  height: 137px;
+  z-index: 56;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  animation: loader-logo-m calc(3s * var(--ld, 1)) cubic-bezier(0.5, 0.05, 0.2, 1) both;
+}
+
+/* Desenhado no tamanho natural do SVG e reduzido por transform: o navegador
+   rasteriza na resolução cheia, então a ampliação da abertura não borra.
+   963 * 0,3333 = 321, o tamanho do título. */
+.hero-m__loader img {
   position: absolute;
   left: 0;
-  bottom: 0;
-  width: 390px;
-  height: 360px;
-  overflow: hidden;
+  top: 0;
+  width: 963px;
+  height: 411px;
+  transform: scale(0.3333);
+  transform-origin: 0 0;
 }
 
-.hero-m__photo {
+.hero-m__loader-shine {
   position: absolute;
-  left: -71px;
-  top: -62px;
-  width: 532px;
-  height: 578px;
+  left: 0;
+  top: 0;
+  width: 321px;
+  height: 137px;
+  background-image: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 214, 150, 0.55) 42%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 214, 150, 0.55) 58%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  -webkit-mask-image: url(/assets/loading/titulo-vetor.svg);
+  mask-image: url(/assets/loading/titulo-vetor.svg);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  animation: shine-sweep calc(5.9s * var(--ld, 1)) cubic-bezier(0.4, 0.1, 0.5, 0.9)
+    calc(0.14s * var(--ld, 1)) both;
 }
 
-.hero-m__light {
-  position: absolute;
-  left: -70px;
-  bottom: -40px;
-  width: 560px;
-  height: 304px;
-  mix-blend-mode: multiply;
+/* Deslocamento próprio do mobile: o logo nasce acima e desce até o título.
+   O do desktop tem outro percurso, por isso não dá para reusar. */
+@keyframes loader-logo-m {
+  0% {
+    opacity: 0;
+    transform: translate(1.8px, -101.1px) scale(0.72);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(1.8px, -101.1px) scale(1.14);
+  }
+  28%,
+  58% {
+    opacity: 1;
+    transform: translate(1.8px, -101.1px) scale(1.08);
+  }
+  92%,
+  99% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0, 0) scale(1);
+  }
 }

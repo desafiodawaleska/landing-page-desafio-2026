@@ -21,6 +21,13 @@ const CTA_HREF = '#inscricao';
 // fim — as animações em si são todas CSS.
 const LOADING_MS = 3000;
 
+// O mobile roda a mesma abertura em metade do tempo. Todos os tempos do
+// design são `calc(X * var(--ld))`, então basta --ld valer 0,5 que duração e
+// atrasos encolhem juntos, sem recalibrar nada. Decisão do cliente: manter a
+// abertura no celular, mas curta — é a principal porta de entrada e 3s antes
+// do conteúdo custa caro em conexão móvel.
+const MOBILE_LOADING_SCALE = 0.5;
+
 // Abaixo disso entra o layout mobile de 390px.
 const MOBILE_BREAKPOINT = 768;
 
@@ -87,7 +94,7 @@ function useViewport() {
 // do conteúdo, exatamente o que `prefers-reduced-motion` existe para evitar.
 // Sem intro, --ld cai para 0 e a hero aparece direto, que é o mesmo caminho do
 // prop `showLoading` do design.
-function useIntro(enabled) {
+function useIntro(enabled, durationMs = LOADING_MS) {
   const [intro] = useState(
     () => enabled && !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   );
@@ -101,12 +108,12 @@ function useIntro(enabled) {
     document.body.style.overflow = 'hidden';
     const timer = setTimeout(() => {
       document.body.style.overflow = previous;
-    }, LOADING_MS);
+    }, durationMs);
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = previous;
     };
-  }, [intro]);
+  }, [intro, durationMs]);
 
   return intro;
 }
@@ -115,13 +122,14 @@ export default function App() {
   const { width: viewportWidth, height: viewportHeight } = useViewport();
   const isMobile = viewportWidth < MOBILE_BREAKPOINT;
   const isTablet = !isMobile && viewportWidth <= TABLET_MAX;
-  // A intro é só do desktop: nem o design mobile nem o do tablet a incluem.
-  const intro = useIntro(!isMobile && !isTablet);
+  // O tablet segue sem abertura — o design dele não a inclui. Mobile e desktop
+  // têm, com durações diferentes.
+  const intro = useIntro(!isTablet, isMobile ? LOADING_MS * MOBILE_LOADING_SCALE : LOADING_MS);
 
   if (isMobile) {
     return (
       <ScaledCanvas designWidth={390} viewportWidth={viewportWidth} maxScale={Infinity}>
-        <HeroMobile ctaHref={CTA_HREF} />
+        <HeroMobile ctaHref={CTA_HREF} intro={intro} />
         <BeneficiosMobile />
         <TrajetoriaMobile />
         <OfertaMobile ctaHref={CTA_HREF} />
