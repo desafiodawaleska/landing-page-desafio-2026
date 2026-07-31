@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import ScaledCanvas from './ScaledCanvas.jsx';
 import Hero from './sections/Hero.jsx';
 import Beneficios from './sections/Beneficios.jsx';
+import Video from './sections/Video.jsx';
 import Trajetoria from './sections/Trajetoria.jsx';
+import Faq from './sections/Faq.jsx';
 import Oferta from './sections/Oferta.jsx';
 import Loading from './sections/Loading.jsx';
 import VoltarAoTopo from './VoltarAoTopo.jsx';
@@ -173,7 +175,13 @@ export default function App() {
       >
         <Hero ctaHref={CTA_HREF} intro={intro} />
         <Beneficios />
+        {/* Vídeo e FAQ só existem no desktop: o handoff de 31/07 trouxe as duas
+            apenas no protótipo de 1440. Decisão do cliente foi seguir assim por
+            ora, então no celular e no tablet a página continua Hero →
+            Benefícios → Trajetória → Oferta. */}
+        <Video ctaHref={CTA_HREF} />
         <Trajetoria />
+        <Faq />
         <Oferta ctaHref={CTA_HREF} />
         {/* Depois das seções de propósito: a .hero tem isolation: isolate, então
             nada de dentro dela passa por cima do resto da página. Aqui, na raiz

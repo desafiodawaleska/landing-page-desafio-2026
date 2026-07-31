@@ -1,0 +1,157 @@
+/* Seção FAQ — entre Trajetória e Oferta.
+   O conteúdo vai de x=238 (foto) a x=1202 (fim da coluna): já centrado nos
+   1440 do canvas, com 238 sobrando de cada lado. Como o canvas é centrado na
+   janela, as coordenadas do design bastam — só a faixa de sangria precisa de
+   --vw, porque é a única peça que tem de alcançar a borda da tela. */
+.faq {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  background: #ffffff;
+
+  /* Uma só curva para o acordeão inteiro: alturas, padding e o giro da seta
+     precisam terminar no mesmo instante, senão a linha aberta parece assentar
+     depois das outras. */
+  --faq-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.faq__bleed {
+  position: absolute;
+  left: calc(720px - var(--vw, 1440px) / 2);
+  top: 0;
+  width: var(--vw, 1440px);
+  height: 1024px;
+  background: #ffffff;
+}
+
+.faq__photo {
+  position: absolute;
+  left: 238px;
+  top: 35px;
+  width: 480px;
+  height: 889px;
+}
+
+/* Mesma caixa da foto. O overflow recorta os trechos da hélice que passam
+   fora dela — o traçado sai de -190 e chega a 452 de propósito, para a fita
+   entrar e sair pelas bordas em vez de nascer e morrer no meio. */
+.faq__fita {
+  position: absolute;
+  left: 238px;
+  top: 35px;
+  width: 480px;
+  height: 889px;
+  overflow: hidden;
+  pointer-events: none;
+  font-family: 'Red Hat Display', system-ui, sans-serif;
+}
+
+.faq__col {
+  position: absolute;
+  left: 760px;
+  top: 118px;
+  width: 442px;
+}
+
+.faq__kicker {
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: #ff3300;
+  text-transform: uppercase;
+}
+
+.faq__title {
+  margin: 26px 0 0;
+  font-size: 46px;
+  line-height: 44px;
+  font-weight: 800;
+  letter-spacing: 0.0766em;
+  text-indent: 0.0766em;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+/* Altura fixa: a caixa nunca cresce. Quem se ajusta são as linhas — ver o
+   cálculo em Faq.jsx. O overflow é a rede de segurança caso a soma erre por
+   arredondamento. */
+.faq__box {
+  margin-top: 36px;
+  box-sizing: border-box;
+  height: 642px;
+  border: 2px solid #ff2801;
+  padding: 16px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  overflow: hidden;
+}
+
+.faq__item {
+  flex: 0 0 auto;
+  overflow: hidden;
+  transition: height 560ms var(--faq-ease);
+}
+
+.faq__pergunta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 0;
+  background: #ff2801;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  overflow: hidden;
+  transition: height 560ms var(--faq-ease), padding 560ms var(--faq-ease);
+}
+
+/* Uma linha só, com reticências: quando as perguntas fechadas encolhem para
+   19px, deixar o texto quebrar empurraria a altura para fora da conta. */
+.faq__label {
+  font-weight: 500;
+  color: #ffffff;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: font-size 400ms var(--faq-ease);
+}
+
+.faq__chevron {
+  flex: 0 0 auto;
+  transition: transform 480ms var(--faq-ease), opacity 260ms ease;
+}
+
+.faq__resposta {
+  overflow-x: hidden;
+  transition: height 560ms var(--faq-ease);
+}
+
+.faq__texto {
+  box-sizing: border-box;
+  background: #d22000;
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.faq__texto p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: 400;
+  color: #ffffff;
+  text-wrap: pretty;
+}
+
+/* Travessão pendurado fora da coluna de texto. */
+.faq__bullet {
+  padding-left: 14px;
+  text-indent: -14px;
+}

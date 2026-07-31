@@ -23,6 +23,8 @@ src/
   ScaledCanvas.jsx     escala um canvas de largura fixa para caber na tela
   styles.css           @font-face + animações compartilhadas
   sections/            desktop, canvas de 1440px
+                       ordem: Hero, Benefícios, Vídeo, Trajetória, FAQ, Oferta
+                       (Vídeo e FAQ só existem aqui — ver Pendências)
   sections/Loading.jsx tela de abertura (fora da hero — ver seção própria)
   sections/tablet/     tablet, 768–1024, fluido (não usa ScaledCanvas)
   sections/mobile/     mobile, canvas de 390px
@@ -50,12 +52,28 @@ células do grid). Redigramar com flex/grid quebraria a composição. O
 faixa (`.<secao>__bleed`) que vai de ponta a ponta da tela, centrada no
 canvas. Sem ela sobrava o fundo do `body` nas laterais em telas largas.
 A largura visível em px de canvas é exposta pelo `ScaledCanvas` na variável
-CSS `--vw`. Para converter uma coordenada do canvas para dentro de uma
-faixa:
+CSS `--vw`.
+
+**Atenção à âncora — é fácil errar aqui.** O canvas de 1440 é *centrado* na
+janela, então a coordenada do design já está centrada. Só quem precisa de
+`--vw` é o que tem de alcançar ou acompanhar uma borda da tela:
 
 ```css
+/* borda esquerda da tela (é onde toda faixa de sangria começa) */
+left: calc(720px - var(--vw) / 2);
+
+/* preso à borda direita: fica sempre a (1440 - x) da direita visível */
 left: calc(<x>px + var(--vw) / 2 - 720px);
+
+/* centrado: a coordenada do design, sem conta nenhuma */
+left: <x>px;
 ```
+
+A segunda fórmula é a da foto da hero, que é ancorada à direita. Aplicá-la a
+um bloco centrado empurra tudo para a direita conforme a tela cresce — foi
+exatamente o erro que cometi ao montar Vídeo e FAQ, e a medição pegou: num
+ultrawide de 2560 a margem esquerda deu 1178px contra 246px na direita.
+Antes de escolher, pergunte de qual borda aquele elemento depende.
 
 Em 1440 todas essas contas devolvem os valores originais do design — é o
 critério que uso para saber que não quebrei nada.
@@ -291,6 +309,30 @@ abertura passa por baixo do fundo, que é ancorado no topo do canvas.
 O `--ld` serve de câmera lenta para conferir: subir para 10 espalha a intro
 por 30s sem mudar proporção nenhuma.
 
+## O acordeão do FAQ
+
+A caixa tem altura fixa e **nunca cresce**: 642px, menos 4 de borda e 32 de
+padding, sobram 606px de interior. Quem se ajusta são as linhas.
+
+Fechado, as 9 perguntas dividem o interior em partes iguais (55,8px cada,
+com 13px de intervalo). Aberto, a escolhida fica com 57px de pergunta mais
+a altura real da resposta, e o que sobra é repartido entre as outras oito —
+que encolhem até um piso de 19px, ainda mostrando a pergunta. Nos dois
+estados a coluna soma exatamente 606.
+
+Duas armadilhas, ambas herdadas do protótipo e mantidas de propósito:
+
+- A altura da resposta é medida **no clique**, não na montagem. Medir antes
+  da fonte carregar guarda um valor errado; há também uma renderização extra
+  depois do `document.fonts.ready`.
+- As perguntas são de linha única com reticências (`text-overflow`). Se
+  quebrassem em duas linhas, a altura sairia da conta e a caixa estouraria.
+
+Hoje a resposta mais alta mede 289px contra 293 disponíveis — cabe, mas por
+pouco. Texto novo maior que isso passa a rolar dentro do painel (é o que o
+`overflowY: auto` condicional cobre). Se acontecer com frequência, o certo é
+rever a altura da caixa com o cliente, não deixar rolagem virar regra.
+
 ## Como verificar mudanças de responsividade
 
 O que pegou os bugs reais foi medição, não olhar. Duas técnicas:
@@ -320,7 +362,15 @@ Larguras usadas como referência: 1440, 2545, 3425 e 375.
   existe ou rediagrama no Claude Design, e quais seções entram.
 - **Favicon** — não existe; o navegador pede `/favicon.ico` e recebe 404.
   É o único erro de console. Aguardando o ícone da marca.
-- **Seção 4** — prevista entre Trajetória e Oferta, ainda não desenhada.
+- **Vídeo e FAQ no mobile e no tablet** — as duas seções novas (handoff de
+  31/07) vieram só no protótipo de 1440, e o cliente decidiu seguir assim
+  por ora. No celular e no tablet a página continua Hero → Benefícios →
+  Trajetória → Oferta. Se forem adaptadas depois, o FAQ é o caso difícil: a
+  caixa de altura fixa depende de caberem 9 perguntas em 606px.
+- **Arquivo do vídeo** — a seção Vídeo está montada e o player funciona,
+  mas não há MP4. Sem fonte ela fica no estado de repouso (quadro laranja
+  com o play desenhado, sem interação). Para ligar, basta apontar a
+  constante `VIDEO_SRC` no topo de `src/sections/Video.jsx`.
 - **Resolução do par 1 do carrossel** — as duas fotos-modelo originais são
   210×430 e sobem 3× para caber no card, então ficam visivelmente mais
   moles que os outros cinco pares, que descem de ~2268px. Trocar assim que
