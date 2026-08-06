@@ -118,16 +118,20 @@ export default function Faq() {
       <svg className="faq__fita" viewBox="0 0 480 889" aria-hidden="true">
         <defs>
           <path id="faq-helice" fill="none" d={HELICE} />
-          <radialGradient id="faq-buraco">
-            <stop offset="84%" stopColor="#000000" stopOpacity="1" />
-            <stop offset="100%" stopColor="#000000" stopOpacity="0" />
-          </radialGradient>
+          {/* Máscara pela silhueta real dela, em vez das quatro elipses do
+              protótipo. As elipses erravam nos dois sentidos: escondiam texto
+              sobre o fundo e deixavam letra em cima do braço, da mão e da
+              coxa. Branco = a fita aparece, preto = ela está na frente.
+              Como o arquivo foi gerado, ver tools/mascara-faq.mjs. */}
           <mask id="faq-corpo" maskUnits="userSpaceOnUse" x="0" y="0" width="480" height="889">
-            <rect x="0" y="0" width="480" height="889" fill="#ffffff" />
-            <ellipse cx="248" cy="338" rx="104" ry="80" fill="url(#faq-buraco)" />
-            <ellipse cx="306" cy="252" rx="62" ry="78" fill="url(#faq-buraco)" />
-            <ellipse cx="292" cy="584" rx="90" ry="62" fill="url(#faq-buraco)" />
-            <ellipse cx="133" cy="452" rx="36" ry="46" fill="url(#faq-buraco)" />
+            <image
+              href="/assets/s4/mascara-corpo.webp"
+              x="0"
+              y="0"
+              width="480"
+              height="889"
+              preserveAspectRatio="none"
+            />
           </mask>
         </defs>
         <text

@@ -358,6 +358,30 @@ erro no tracking vira 19px de deriva no fim dos 1880px da hélice, e a
 sobreposição despenca mesmo com os parâmetros certos. Foi o caminho que
 tentei primeiro e ele apontava justamente para os valores errados.
 
+### A máscara: a fita passa atrás dela
+
+O protótipo escondia o texto com quatro elipses, e elas erravam nos dois
+sentidos — comiam letra sobre o fundo e deixavam letra em cima do braço, da
+mão e da coxa dela. Hoje a máscara é a **silhueta real**, em
+`public/assets/s4/mascara-corpo.webp` (2 kB), gerada por
+`tools/mascara-faq.mjs`. Branco = a fita aparece; preto = ela está na frente.
+
+Duas armadilhas que o script documenta, e que qualquer refação vai reencontrar:
+
+- **Segmentar só por cor não funciona.** O braço esquerdo dela encosta na
+  sombra da montanha e os dois são praticamente pretos; os arbustos ao sol
+  têm exatamente a luminância e a temperatura da pele. Por isso o script tem
+  dois contornos traçados à mão que limitam onde a segmentação pode crescer —
+  e o braço esquerdo fica num contorno **separado e estreito**, senão a mancha
+  vaza para os arbustos e come o "DESAFI" que o design mostra ali.
+- **Buracos internos precisam ser preenchidos de verdade** (inundação a partir
+  da borda), não só com fechamento morfológico: um brilho na manga abria um
+  vão de ~20x25px por onde a letra reaparecia sobre o ombro.
+
+A máscara sai em metade da resolução e desfocada de propósito: não há detalhe
+a perder e o SVG a estica de volta com suavização. Em tamanho cheio o PNG
+dava 44 kB.
+
 ## O acordeão do FAQ
 
 A caixa tem altura fixa e **nunca cresce**: 656px, menos 4 de borda e 32 de
