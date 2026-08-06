@@ -46,30 +46,45 @@
   font-family: 'Red Hat Display', system-ui, sans-serif;
 }
 
+/* Posições vindas do mockup do design (uploads/P4-4.png), não do protótipo:
+   o protótipo punha o kicker 7px acima do lugar e encurtava a caixa em 14px.
+
+   O alvo é a tinta do "FAQ" nascer em y=125, que é o topo do retângulo da
+   foto — o asset tem 889px de altura mas os primeiros 90 são só o cabelo dela
+   sobre fundo transparente, então o retângulo começa em 35+90. Os 2,5px de
+   desconto são a distância entre o topo da caixa de linha e o topo da letra
+   (entrelinha + a diferença entre a ascendente da fonte e a altura de
+   caixa-alta). */
 .faq__col {
   position: absolute;
   left: 760px;
-  top: 118px;
+  top: 122.5px;
   width: 442px;
 }
 
+/* Mesmo tamanho do "Toda a minha" da Trajetória (17px). Sem text-indent: ali
+   ele compensa o letter-spacing de um texto centralizado, mas aqui o texto é
+   alinhado à esquerda — o indent só empurrava a palavra inteira para a
+   direita sem motivo. */
 .faq__kicker {
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 17px;
+  line-height: 17px;
   font-weight: 600;
   letter-spacing: 0.4em;
-  text-indent: 0.4em;
   color: #ff3300;
   text-transform: uppercase;
 }
 
+/* Sem text-indent, pelo mesmo motivo do kicker: aqui o texto quebra em duas
+   linhas com <br>, e o indent do protótipo original só se aplica à primeira
+   linha (é assim que a propriedade funciona) — por isso o P de "PERGUNTAS"
+   ficava deslocado e o F de "FREQUENTES" não. */
 .faq__title {
-  margin: 26px 0 0;
+  margin: 12px 0 0;
   font-size: 46px;
   line-height: 44px;
   font-weight: 800;
   letter-spacing: 0.0766em;
-  text-indent: 0.0766em;
   color: #200400;
   text-transform: uppercase;
 }
@@ -78,9 +93,9 @@
    cálculo em Faq.jsx. O overflow é a rede de segurança caso a soma erre por
    arredondamento. */
 .faq__box {
-  margin-top: 36px;
+  margin-top: 28.5px;
   box-sizing: border-box;
-  height: 642px;
+  height: 656px;
   border: 2px solid #ff2801;
   padding: 16px 15px;
   display: flex;
@@ -143,8 +158,8 @@
 
 .faq__texto p {
   margin: 0;
-  font-size: 13px;
-  line-height: 19px;
+  font-size: 16px;
+  line-height: 23px;
   font-weight: 400;
   color: #ffffff;
   text-wrap: pretty;

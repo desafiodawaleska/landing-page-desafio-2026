@@ -5,16 +5,25 @@ import { FAQ_ITENS } from './faq-itens.js';
 
 const N = FAQ_ITENS.length;
 
-// Medidas da caixa, todas do design. A caixa tem 642px de altura com borda de
-// 2px e padding vertical de 16px, então sobram 606px de interior — e é essa
-// soma que o acordeão precisa fechar sempre, aberto ou fechado.
-const INNER = 606;
+// Medidas da caixa, tiradas do mockup do design (uploads/P4-4.png): a caixa
+// vai de y=268 a y=923, ou seja 656px de altura, e fecha rente ao pé da foto.
+// Com borda de 2px e padding vertical de 16px sobram 620px de interior — e é
+// essa soma que o acordeão precisa fechar sempre, aberto ou fechado.
+const INNER = 620;
 const GAP = 13;
 const FULL = 57; // altura da pergunta aberta
 const THIN = 19; // altura mínima de uma pergunta recolhida
 
-const FRASE = 'DESAFIO DA WALESKA 30 DIAS ';
+// A fita alterna dois pesos, igual ao anel giratório da Oferta: o nome em 500
+// e o "30 DIAS" em 800. Os valores saíram de medir a área de tinta de cada
+// letra no mockup e comparar com a fonte renderizada — ver CONTEXTO.md.
+const CICLO = [
+  { texto: 'DESAFIO DA WALESKA ', peso: 500 },
+  { texto: '30 DIAS ', peso: 800 },
+];
 const REPETICOES = 6;
+const CORPO = 24; // font-size, medido no mockup
+const TRACKING = 10.8; // letter-spacing, ajustado pelo passo entre letras
 const VELOCIDADE = 26; // px por segundo ao longo da hélice
 
 // A fita repete a mesma frase seis vezes. Medindo o comprimento total e
@@ -123,13 +132,18 @@ export default function Faq() {
         </defs>
         <text
           mask="url(#faq-corpo)"
-          fontSize="30"
-          fontWeight="600"
-          letterSpacing="7"
-          fill="#ff2801"
+          fontSize={CORPO}
+          letterSpacing={TRACKING}
+          fill="#ffffff"
         >
           <textPath ref={fita} href="#faq-helice" startOffset="0">
-            {FRASE.repeat(REPETICOES)}
+            {Array.from({ length: REPETICOES }, (_, volta) =>
+              CICLO.map((parte) => (
+                <tspan key={`${volta}-${parte.peso}`} fontWeight={parte.peso}>
+                  {parte.texto}
+                </tspan>
+              )),
+            )}
           </textPath>
         </text>
       </svg>
@@ -163,7 +177,7 @@ export default function Faq() {
                     padding: inteiro ? '10px 22px 10px 18px' : '0 22px 0 18px',
                   }}
                 >
-                  <span className="faq__label" style={{ fontSize: inteiro ? '15.5px' : '13.5px', lineHeight: inteiro ? '20px' : '16px' }}>
+                  <span className="faq__label" style={{ fontSize: inteiro ? '18px' : '15px', lineHeight: inteiro ? '22px' : '17px' }}>
                     {item.q}
                   </span>
                   <svg

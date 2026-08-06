@@ -309,16 +309,65 @@ abertura passa por baixo do fundo, que é ancorado no topo do canvas.
 O `--ld` serve de câmera lenta para conferir: subir para 10 espalha a intro
 por 30s sem mudar proporção nenhuma.
 
+## A seção FAQ
+
+**O protótipo não é a fonte da verdade aqui — o mockup é.** O handoff traz
+`uploads/P4-4.png`, o desenho original da seção em 1440×1024, e ele não bate
+com o `.dc.html` em três pontos. Quem manda é o mockup:
+
+| | protótipo | mockup (usado) |
+|---|---|---|
+| topo do "FAQ" | 118 | **125** |
+| topo do título | 158 | **157** |
+| caixa | 282, altura 642 | **268, altura 656** |
+
+Os 125 não são arbitrários: é o topo do **retângulo** da foto. O asset tem
+889px de altura, mas os primeiros 90 são só o cabelo dela sobre fundo
+transparente — o retângulo só começa em 35+90. Alinhar pelo topo do arquivo
+deixa a tag flutuando 90px acima do que se vê. A caixa, do outro lado,
+termina rente ao pé da foto (924 nos dois).
+
+No CSS o alvo é a **tinta** da letra, não a caixa de linha: os 2,5px de
+desconto em `.faq__col` são entrelinha + a diferença entre a ascendente da
+fonte e a altura de caixa-alta.
+
+Cuidado com `text-indent` em título de duas linhas: ele só afeta a primeira,
+então "PERGUNTAS" saía deslocado e "FREQUENTES" não. O protótipo usa o indent
+para compensar o tracking de textos centralizados; aqui o texto é alinhado à
+esquerda e ele não tem função.
+
+### A fita de texto sobre a foto
+
+Corre pela hélice de `faq-helice.js` (que veio do handoff e está correta —
+conferi sobrepondo o traçado à fita extraída do mockup). O resto foi medido:
+
+- **corpo 24, peso 500** para "DESAFIO DA WALESKA"
+- **peso 800** para "30 DIAS", igual ao anel giratório da Oferta
+- **tracking 10,8**, branco
+
+Como medi, caso precise refazer: recortei a região da foto no mockup e
+subtraí o asset limpo — a diferença é a fita. Filtrei os blocos com forma de
+letra (o diff também pega o contorno do corpo dela e da cerca). Daí saem duas
+grandezas que não dependem de rotação nem da fase da animação: a **área de
+tinta de cada letra**, que dá o corpo e o peso comparando com a fonte
+renderizada em canvas, e o **passo centro-a-centro entre letras vizinhas**,
+que dá o tracking.
+
+Não tente casar por sobreposição de pixels ao longo de todo o traçado: 1% de
+erro no tracking vira 19px de deriva no fim dos 1880px da hélice, e a
+sobreposição despenca mesmo com os parâmetros certos. Foi o caminho que
+tentei primeiro e ele apontava justamente para os valores errados.
+
 ## O acordeão do FAQ
 
-A caixa tem altura fixa e **nunca cresce**: 642px, menos 4 de borda e 32 de
-padding, sobram 606px de interior. Quem se ajusta são as linhas.
+A caixa tem altura fixa e **nunca cresce**: 656px, menos 4 de borda e 32 de
+padding, sobram 620px de interior. Quem se ajusta são as linhas.
 
-Fechado, as 9 perguntas dividem o interior em partes iguais (55,8px cada,
+Fechado, as 9 perguntas dividem o interior em partes iguais (57,3px cada,
 com 13px de intervalo). Aberto, a escolhida fica com 57px de pergunta mais
 a altura real da resposta, e o que sobra é repartido entre as outras oito —
 que encolhem até um piso de 19px, ainda mostrando a pergunta. Nos dois
-estados a coluna soma exatamente 606.
+estados a coluna soma exatamente 620.
 
 Duas armadilhas, ambas herdadas do protótipo e mantidas de propósito:
 
@@ -328,10 +377,11 @@ Duas armadilhas, ambas herdadas do protótipo e mantidas de propósito:
 - As perguntas são de linha única com reticências (`text-overflow`). Se
   quebrassem em duas linhas, a altura sairia da conta e a caixa estouraria.
 
-Hoje a resposta mais alta mede 289px contra 293 disponíveis — cabe, mas por
-pouco. Texto novo maior que isso passa a rolar dentro do painel (é o que o
-`overflowY: auto` condicional cobre). Se acontecer com frequência, o certo é
-rever a altura da caixa com o cliente, não deixar rolagem virar regra.
+Com a fonte em 16px (decisão do cliente, o design vinha com 13), **duas das
+nove respostas não cabem** e rolam dentro do painel — as duas listas mais
+longas, que pedem 383 e 429px contra 307 disponíveis. É o que o `overflowY:
+auto` condicional cobre. Se incomodar, as saídas são aumentar a caixa (mas
+ela já fecha rente ao pé da foto) ou encurtar esses dois textos.
 
 ## Como verificar mudanças de responsividade
 
