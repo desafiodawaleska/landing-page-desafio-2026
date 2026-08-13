@@ -384,8 +384,23 @@ dava 44 kB.
 
 ## O acordeão do FAQ
 
-A caixa tem altura fixa e **nunca cresce**: 656px, menos 4 de borda e 32 de
-padding, sobram 620px de interior. Quem se ajusta são as linhas.
+**Só o desktop tem a caixa de altura fixa.** Tablet e mobile usam
+`AcordeaoFaq.jsx`, onde a caixa simplesmente cresce ao abrir. O truque da
+altura fixa existe porque no desktop a caixa divide a linha com a foto e as
+duas terminam juntas; empilhado não há nada para casar, e espremer nove
+perguntas mais uma resposta num quadro fixo deixaria o texto pequeno demais
+para o celular. A troca compensa: com a caixa crescendo, **as nove respostas
+cabem inteiras** no mobile, contra duas que rolam por dentro no desktop.
+
+Também compartilhados pelas três versões: `FitaFaq.jsx` (foto + fita, com o
+SVG de viewBox fixo escalando junto com o contêiner) e `usar-player.js` (o
+play/pause do vídeo). Aqui eu fujo de propósito da regra da casa de duplicar
+por breakpoint — o carrossel duplica porque a lógica muda de verdade entre as
+versões, mas essas três são idênticas, e três cópias só criariam três lugares
+para desencontrar.
+
+No desktop a caixa tem altura fixa e **nunca cresce**: 656px, menos 4 de
+borda e 32 de padding, sobram 620px de interior. Quem se ajusta são as linhas.
 
 Fechado, as 9 perguntas dividem o interior em partes iguais (57,3px cada,
 com 13px de intervalo). Aberto, a escolhida fica com 57px de pergunta mais
@@ -436,15 +451,11 @@ Larguras usadas como referência: 1440, 2545, 3425 e 375.
   existe ou rediagrama no Claude Design, e quais seções entram.
 - **Favicon** — não existe; o navegador pede `/favicon.ico` e recebe 404.
   É o único erro de console. Aguardando o ícone da marca.
-- **Vídeo e FAQ no mobile e no tablet** — as duas seções novas (handoff de
-  31/07) vieram só no protótipo de 1440, e o cliente decidiu seguir assim
-  por ora. No celular e no tablet a página continua Hero → Benefícios →
-  Trajetória → Oferta. Se forem adaptadas depois, o FAQ é o caso difícil: a
-  caixa de altura fixa depende de caberem 9 perguntas em 606px.
-- **Arquivo do vídeo** — a seção Vídeo está montada e o player funciona,
-  mas não há MP4. Sem fonte ela fica no estado de repouso (quadro laranja
-  com o play desenhado, sem interação). Para ligar, basta apontar a
-  constante `VIDEO_SRC` no topo de `src/sections/Video.jsx`.
+- **Arquivo do vídeo** — a seção Vídeo está montada nas três versões e o
+  player funciona, mas não há MP4. Sem fonte ela fica no estado de repouso
+  (quadro laranja com o play desenhado, sem interação). Para ligar, basta
+  apontar `VIDEO_SRC` em `src/sections/video-fonte.js` — um lugar só para as
+  três versões.
 - **Resolução do par 1 do carrossel** — as duas fotos-modelo originais são
   210×430 e sobem 3× para caber no card, então ficam visivelmente mais
   moles que os outros cinco pares, que descem de ~2268px. Trocar assim que

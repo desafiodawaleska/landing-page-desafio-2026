@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './faq.css';
-import { HELICE } from './faq-helice.js';
+import FitaFaq from './FitaFaq.jsx';
 import { FAQ_ITENS } from './faq-itens.js';
 
 const N = FAQ_ITENS.length;
@@ -13,49 +13,6 @@ const INNER = 620;
 const GAP = 13;
 const FULL = 57; // altura da pergunta aberta
 const THIN = 19; // altura mínima de uma pergunta recolhida
-
-// A fita alterna dois pesos, igual ao anel giratório da Oferta: o nome em 500
-// e o "30 DIAS" em 800. Os valores saíram de medir a área de tinta de cada
-// letra no mockup e comparar com a fonte renderizada — ver CONTEXTO.md.
-const CICLO = [
-  { texto: 'DESAFIO DA WALESKA ', peso: 500 },
-  { texto: '30 DIAS ', peso: 800 },
-];
-const REPETICOES = 6;
-const CORPO = 24; // font-size, medido no mockup
-const TRACKING = 10.8; // letter-spacing, ajustado pelo passo entre letras
-const VELOCIDADE = 26; // px por segundo ao longo da hélice
-
-// A fita repete a mesma frase seis vezes. Medindo o comprimento total e
-// dividindo por seis chega-se ao passo de uma repetição; deslocar por esse
-// passo em módulo faz a sequência voltar ao início sem que se veja o corte.
-function useFita(ref) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
-    let passo = 0;
-    let raf = 0;
-    const medir = () => {
-      const total = el.getComputedTextLength();
-      return total > 0 ? total / REPETICOES : 0;
-    };
-
-    const tick = (t) => {
-      // A primeira medição pode sair zerada se a fonte ainda não carregou;
-      // por isso ela é refeita a cada quadro até dar um valor útil.
-      if (!passo) passo = medir();
-      if (passo) {
-        const offset = -(((t / 1000) * VELOCIDADE) % passo);
-        el.setAttribute('startOffset', offset.toFixed(1));
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [ref]);
-}
 
 // Altura de cada linha, com a caixa de altura fixa.
 //
@@ -76,13 +33,10 @@ function alturas(aberto, medidas) {
 }
 
 export default function Faq() {
-  const fita = useRef(null);
   const corpos = useRef([]);
   const [aberto, setAberto] = useState(-1);
   const [medidas, setMedidas] = useState({});
   const [, forcar] = useState(0);
-
-  useFita(fita);
 
   // As alturas das respostas dependem da métrica real do texto. Antes da fonte
   // carregar elas saem erradas, então uma renderização a mais depois do
@@ -110,47 +64,7 @@ export default function Faq() {
     <section className="faq">
       <div className="faq__bleed" aria-hidden="true" />
 
-      <img className="faq__photo" src="/assets/s4/foto.webp" alt="Waleska" />
-
-      {/* A fita corre por cima da foto, mas some onde passa pelo rosto e pelo
-          corpo: a máscara abre buracos de borda suave nesses pontos, então o
-          texto parece dar a volta por trás dela. */}
-      <svg className="faq__fita" viewBox="0 0 480 889" aria-hidden="true">
-        <defs>
-          <path id="faq-helice" fill="none" d={HELICE} />
-          {/* Máscara pela silhueta real dela, em vez das quatro elipses do
-              protótipo. As elipses erravam nos dois sentidos: escondiam texto
-              sobre o fundo e deixavam letra em cima do braço, da mão e da
-              coxa. Branco = a fita aparece, preto = ela está na frente.
-              Como o arquivo foi gerado, ver tools/mascara-faq.mjs. */}
-          <mask id="faq-corpo" maskUnits="userSpaceOnUse" x="0" y="0" width="480" height="889">
-            <image
-              href="/assets/s4/mascara-corpo.webp"
-              x="0"
-              y="0"
-              width="480"
-              height="889"
-              preserveAspectRatio="none"
-            />
-          </mask>
-        </defs>
-        <text
-          mask="url(#faq-corpo)"
-          fontSize={CORPO}
-          letterSpacing={TRACKING}
-          fill="#ffffff"
-        >
-          <textPath ref={fita} href="#faq-helice" startOffset="0">
-            {Array.from({ length: REPETICOES }, (_, volta) =>
-              CICLO.map((parte) => (
-                <tspan key={`${volta}-${parte.peso}`} fontWeight={parte.peso}>
-                  {parte.texto}
-                </tspan>
-              )),
-            )}
-          </textPath>
-        </text>
-      </svg>
+      <FitaFaq className="faq__fita" />
 
       <div className="faq__col">
         <div className="faq__kicker">FAQ</div>

@@ -1,0 +1,72 @@
+/* FAQ tablet — foto à esquerda, coluna de perguntas à direita, como no
+   desktop. Abaixo de ~700px de espaço útil os dois não cabem lado a lado sem
+   espremer as perguntas, e a foto vai para cima da coluna. */
+.faq-t {
+  position: relative;
+  background: #ffffff;
+  padding: clamp(44px, 7vh, 82px) clamp(28px, 5.5vw, 60px) clamp(48px, 7vh, 88px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: clamp(26px, 4.5vw, 52px);
+}
+
+/* Proporção do asset (480x889). A foto é a peça que cede primeiro: ela
+   encolhe até 240px antes de a linha quebrar. */
+.faq-t__fita {
+  flex: 0 1 clamp(240px, 33vw, 340px);
+  aspect-ratio: 480 / 889;
+  min-width: 240px;
+}
+
+.faq-t__col {
+  flex: 1 1 360px;
+  min-width: 0;
+  /* Alinha o "FAQ" com o topo do retângulo da foto, como no desktop: os
+     primeiros 90 dos 889px do asset são só o cabelo dela sobre fundo
+     transparente, então o retângulo começa a 10,1% da altura. */
+  padding-top: calc(clamp(240px, 33vw, 340px) * 889 / 480 * 0.1012);
+}
+
+.faq-t__kicker {
+  font-size: clamp(12px, 1.5vw, 15px);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  color: #ff3300;
+  text-transform: uppercase;
+}
+
+.faq-t__title {
+  margin: clamp(10px, 1.6vh, 16px) 0 clamp(20px, 3vh, 32px);
+  font-size: clamp(28px, 4.6vw, 46px);
+  line-height: 0.96;
+  font-weight: 800;
+  letter-spacing: 0.0766em;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+.faq-t .acordeao {
+  padding: clamp(10px, 1.4vw, 15px);
+  gap: clamp(8px, 1.2vw, 13px);
+}
+
+.faq-t .acordeao__pergunta {
+  padding: clamp(10px, 1.4vw, 14px) clamp(14px, 2vw, 20px);
+}
+
+.faq-t .acordeao__label {
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.3;
+}
+
+.faq-t .acordeao__texto {
+  padding: clamp(12px, 1.8vw, 16px) clamp(14px, 2vw, 18px) clamp(14px, 2vw, 18px);
+  gap: clamp(7px, 1vw, 9px);
+}
+
+.faq-t .acordeao__texto p {
+  font-size: clamp(12px, 1.5vw, 15px);
+  line-height: 1.45;
+}

@@ -1,0 +1,69 @@
+/* Acordeão do FAQ para tablet e mobile. Tamanhos são ajustados pela seção
+   que usa, em `.faq-t .acordeao__*` e `.faq-m .acordeao__*`. */
+.acordeao {
+  box-sizing: border-box;
+  border: 2px solid #ff2801;
+  display: flex;
+  flex-direction: column;
+
+  /* Uma só curva para tudo: altura, giro da seta e opacidade precisam
+     terminar no mesmo instante. */
+  --acordeao-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.acordeao__item {
+  flex: 0 0 auto;
+}
+
+.acordeao__pergunta {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 0;
+  background: #ff2801;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+/* Ao contrário do desktop, aqui a pergunta pode quebrar em duas linhas: como
+   a caixa cresce, não há conta de altura para estourar, e vale mais mostrar a
+   pergunta inteira do que cortá-la com reticências. */
+.acordeao__label {
+  font-weight: 500;
+  color: #ffffff;
+  text-align: left;
+}
+
+.acordeao__chevron {
+  flex: 0 0 auto;
+  transition: transform 420ms var(--acordeao-ease);
+}
+
+.acordeao__resposta {
+  overflow: hidden;
+  transition: height 420ms var(--acordeao-ease);
+}
+
+.acordeao__texto {
+  box-sizing: border-box;
+  background: #d22000;
+  display: flex;
+  flex-direction: column;
+}
+
+.acordeao__texto p {
+  margin: 0;
+  font-weight: 400;
+  color: #ffffff;
+  text-wrap: pretty;
+}
+
+/* Travessão pendurado fora da coluna de texto. */
+.acordeao__bullet {
+  padding-left: 14px;
+  text-indent: -14px;
+}

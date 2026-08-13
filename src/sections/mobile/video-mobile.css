@@ -1,0 +1,153 @@
+/* Vídeo mobile — canvas de 390, mesma margem de 34px das outras seções
+   mobile (a Oferta abre o card em 34 e a hero apoia o grid em 35).
+
+   A ordem do desktop se mantém, só que empilhada: kicker, título, quadro,
+   nota e por fim o CTA na largura toda — no celular o botão largo é o alvo
+   mais fácil, e não há coluna à direita para ele dividir com a nota. */
+.video-m {
+  position: relative;
+  width: 390px;
+  background: #ffffff;
+  padding: 46px 34px 52px;
+  box-sizing: border-box;
+}
+
+.video-m__kicker {
+  font-size: 11px;
+  line-height: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: #ff3300;
+  text-transform: uppercase;
+}
+
+.video-m__title {
+  margin: 12px 0 0;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 800;
+  letter-spacing: 0.0766em;
+  color: #200400;
+  text-transform: uppercase;
+}
+
+/* 322x181 — os 16:9 do quadro de 1000x563 do design, na largura útil. */
+.video-m__stage {
+  position: relative;
+  margin-top: 20px;
+  width: 322px;
+  height: 181px;
+  overflow: hidden;
+  background: #ff2801;
+}
+
+.video-m__media {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 322px;
+  height: 181px;
+  object-fit: cover;
+  background: #200400;
+}
+
+/* O padding embaixo desconta a barra de progresso, para o círculo ficar
+   centrado na área de imagem e não no retângulo todo. */
+.video-m__toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 322px;
+  height: 181px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 9px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.video-m__badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(32, 4, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1), background 300ms ease;
+}
+
+.video-m__toggle:active .video-m__badge {
+  transform: scale(0.94);
+  background: rgba(32, 4, 0, 0.34);
+}
+
+.video-m__pause {
+  display: flex;
+  gap: 5px;
+}
+
+.video-m__pause span {
+  width: 5px;
+  height: 18px;
+  background: #ffffff;
+}
+
+.video-m__play {
+  margin-left: 4px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 17px solid #ffffff;
+}
+
+.video-m__track {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 322px;
+  height: 9px;
+  background: rgba(32, 4, 0, 0.16);
+}
+
+.video-m__fill {
+  height: 9px;
+  background: #c41c00;
+  transition: width 120ms linear;
+}
+
+.video-m__note {
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: 500;
+  color: #200400;
+  text-wrap: pretty;
+}
+
+/* Dois seletores de classe, não um: a regra .cta do styles.css declara
+   `position: absolute` e `display: block`. Com a mesma especificidade quem
+   ganharia seria a ordem dos arquivos no bundle — o botão saía do fluxo e o
+   texto encostava na borda esquerda em vez de centralizar. */
+.cta.video-m__cta {
+  position: relative;
+  margin-top: 20px;
+  width: 322px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 12px;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.0937em;
+  text-indent: 0.0937em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  --cta-bg: #ff2801;
+  --cta-fg: #200400;
+}

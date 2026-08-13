@@ -24,26 +24,13 @@
   background: #ffffff;
 }
 
-.faq__photo {
-  position: absolute;
-  left: 238px;
-  top: 35px;
-  width: 480px;
-  height: 889px;
-}
-
-/* Mesma caixa da foto. O overflow recorta os trechos da hélice que passam
-   fora dela — o traçado sai de -190 e chega a 452 de propósito, para a fita
-   entrar e sair pelas bordas em vez de nascer e morrer no meio. */
+/* Foto e fita vêm do componente compartilhado FitaFaq; aqui só a caixa. */
 .faq__fita {
   position: absolute;
   left: 238px;
   top: 35px;
   width: 480px;
   height: 889px;
-  overflow: hidden;
-  pointer-events: none;
-  font-family: 'Red Hat Display', system-ui, sans-serif;
 }
 
 /* Posições vindas do mockup do design (uploads/P4-4.png), não do protótipo:

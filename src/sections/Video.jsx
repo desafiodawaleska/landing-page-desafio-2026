@@ -1,14 +1,6 @@
 import { useRef, useState } from 'react';
 import './video.css';
-
-// Fonte do vídeo. Ponto único de troca: assim que o MP4 entrar em
-// public/assets/s6/, basta apontar aqui — por exemplo
-// '/assets/s6/waleska.mp4' — que o player liga sozinho.
-//
-// Vazio, a seção fica no estado de repouso: o quadro laranja com o botão de
-// play desenhado, sem interação. É o mesmo caminho do prop `videoSrc` do
-// protótipo, que também nasce vazio.
-const VIDEO_SRC = '';
+import { VIDEO_SRC } from './video-fonte.js';
 
 export default function Video({ ctaHref }) {
   const video = useRef(null);

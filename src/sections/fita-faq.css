@@ -1,0 +1,27 @@
+/* Foto + fita de texto do FAQ. Quem define o tamanho é a seção que usa —
+   aqui as duas camadas só preenchem o contêiner. */
+.fita-faq {
+  position: relative;
+}
+
+.fita-faq__foto {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* O overflow recorta os trechos da hélice que passam fora da caixa: o traçado
+   sai de -190 e chega a 452 de propósito, para a fita entrar e sair pelas
+   bordas em vez de nascer e morrer no meio. */
+.fita-faq__svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  font-family: 'Red Hat Display', system-ui, sans-serif;
+}

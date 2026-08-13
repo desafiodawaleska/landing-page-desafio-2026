@@ -10,11 +10,15 @@ import Loading from './sections/Loading.jsx';
 import VoltarAoTopo from './VoltarAoTopo.jsx';
 import HeroTablet from './sections/tablet/HeroTablet.jsx';
 import BeneficiosTablet from './sections/tablet/BeneficiosTablet.jsx';
+import VideoTablet from './sections/tablet/VideoTablet.jsx';
 import TrajetoriaTablet from './sections/tablet/TrajetoriaTablet.jsx';
+import FaqTablet from './sections/tablet/FaqTablet.jsx';
 import OfertaTablet from './sections/tablet/OfertaTablet.jsx';
 import HeroMobile from './sections/mobile/HeroMobile.jsx';
 import BeneficiosMobile from './sections/mobile/BeneficiosMobile.jsx';
+import VideoMobile from './sections/mobile/VideoMobile.jsx';
 import TrajetoriaMobile from './sections/mobile/TrajetoriaMobile.jsx';
+import FaqMobile from './sections/mobile/FaqMobile.jsx';
 import OfertaMobile from './sections/mobile/OfertaMobile.jsx';
 
 const CTA_HREF = '#inscricao';
@@ -138,7 +142,9 @@ export default function App() {
         <ScaledCanvas designWidth={390} viewportWidth={viewportWidth} maxScale={Infinity}>
           <HeroMobile ctaHref={CTA_HREF} intro={intro} />
           <BeneficiosMobile />
+          <VideoMobile ctaHref={CTA_HREF} />
           <TrajetoriaMobile />
+          <FaqMobile />
           <OfertaMobile ctaHref={CTA_HREF} />
         </ScaledCanvas>
         <VoltarAoTopo />
@@ -155,7 +161,9 @@ export default function App() {
         <div style={{ width: '100%', maxWidth: `${TABLET_MAX}px`, margin: '0 auto', background: '#160100' }}>
           <HeroTablet ctaHref={CTA_HREF} />
           <BeneficiosTablet />
+          <VideoTablet ctaHref={CTA_HREF} />
           <TrajetoriaTablet />
+          <FaqTablet />
           <OfertaTablet ctaHref={CTA_HREF} />
         </div>
         <VoltarAoTopo />
@@ -175,10 +183,6 @@ export default function App() {
       >
         <Hero ctaHref={CTA_HREF} intro={intro} />
         <Beneficios />
-        {/* Vídeo e FAQ só existem no desktop: o handoff de 31/07 trouxe as duas
-            apenas no protótipo de 1440. Decisão do cliente foi seguir assim por
-            ora, então no celular e no tablet a página continua Hero →
-            Benefícios → Trajetória → Oferta. */}
         <Video ctaHref={CTA_HREF} />
         <Trajetoria />
         <Faq />
