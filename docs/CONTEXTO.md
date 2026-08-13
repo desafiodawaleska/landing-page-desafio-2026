@@ -3,7 +3,7 @@
 Documento de handoff. Leia antes de mexer no código: registra as decisões
 já tomadas e o porquê delas, para não serem desfeitas por engano.
 
-Última revisão: 28/07/2026.
+Última revisão: 06/08/2026.
 
 ## O que é
 
@@ -23,8 +23,8 @@ src/
   ScaledCanvas.jsx     escala um canvas de largura fixa para caber na tela
   styles.css           @font-face + animações compartilhadas
   sections/            desktop, canvas de 1440px
-                       ordem: Hero, Benefícios, Vídeo, Trajetória, FAQ, Oferta
-                       (Vídeo e FAQ só existem aqui — ver Pendências)
+                       ordem, nas três versões: Hero, Benefícios, Vídeo,
+                       Trajetória, FAQ, Oferta
   sections/Loading.jsx tela de abertura (fora da hero — ver seção própria)
   sections/tablet/     tablet, 768–1024, fluido (não usa ScaledCanvas)
   sections/mobile/     mobile, canvas de 390px
@@ -213,13 +213,26 @@ ordem é sempre antes → depois.
 
 Exportados em **646×896** — 2× o card do desktop (323×448, retrato
 ~1:1,39). O card do mobile é 230×341, um pouco mais estreito, e o CSS
-recorta a diferença. WebP em qualidade 82: as 12 somam 419 kB, contra
+recorta a diferença. WebP em qualidade 82: as 12 somam 652 kB, contra
 ~30 MB dos originais.
 
-O recorte é **ancorado no topo**. As fontes são retratos mais altos que o
-card (0,49 a 0,75 contra os 0,72 do alvo), então sobra altura: cortar por
-baixo tira pé e chão, cortar centrado comeria parte da cabeça. Em foto de
-antes/depois o que importa é o tronco, e a cabeça ancora a leitura.
+**O carrossel só alterna antes → depois; não são pares da mesma pessoa.**
+Vale registrar porque é o contrário do que o nome sugere, e eu já travei uma
+vez tentando casar quem era quem antes de trocar as fotos.
+
+Regra do recorte, que depende da proporção da fonte:
+
+- **Fonte mais larga que o card** → corta a largura **pelo centro**. É o caso
+  das fotos que o cliente já enquadrou: mexer na vertical desfaria o trabalho
+  dele.
+- **Fonte mais alta que o card** → corta a altura **pelo topo**. Cortar por
+  baixo tira pé e chão; cortar centrado comeria parte da cabeça. Em foto de
+  antes/depois o que importa é o tronco, e a cabeça ancora a leitura.
+
+Os slots 1 (`antes-1` e `depois-1`) são as duas fotos que vieram do design, e
+o cliente pediu para mantê-las. Elas vêm de fontes de 210×430 e sobem 3× para
+caber no card, então ficam visivelmente mais moles e com enquadramento mais
+fechado que as outras cinco.
 
 Para mudar a quantidade de pares, editar a lista `SLIDES` nos **três**
 arquivos: `Trajetoria.jsx`, `tablet/TrajetoriaTablet.jsx` e
@@ -456,7 +469,7 @@ Larguras usadas como referência: 1440, 2545, 3425 e 375.
   (quadro laranja com o play desenhado, sem interação). Para ligar, basta
   apontar `VIDEO_SRC` em `src/sections/video-fonte.js` — um lugar só para as
   três versões.
-- **Resolução do par 1 do carrossel** — as duas fotos-modelo originais são
+- **Resolução do par 1 do carrossel** — mantido a pedido do cliente. As duas fotos-modelo originais são
   210×430 e sobem 3× para caber no card, então ficam visivelmente mais
   moles que os outros cinco pares, que descem de ~2268px. Trocar assim que
   houver o original em alta.
