@@ -69,8 +69,24 @@ no `.env`) — a Vercel redireciona a raiz para ele sozinha.
 Login em [registro.br](https://registro.br) → **Meus domínios** →
 `desafiodawal.com.br` → aba **DNS**.
 
-Se o domínio usa os DNS do próprio Registro.br (é o padrão de quem não
-mexeu em nada), a tela é **"Editar Zona"**. Adicione:
+O domínio nasceu no modo **"DNS Simples"** (nameservers automáticos
+`a.auto.dns.br` / `b.auto.dns.br`, que também assinam o DNSSEC sozinhos).
+Esse modo não deixa adicionar registro `A`/`CNAME` direto — é por isso que
+existe o botão para migrar ao **"nível avançado"**. A migração é interna do
+Registro.br (troca de `auto.dns.br` para os nameservers próprios de zona
+avançada deles) e por relato leva **cerca de 2 horas** para ativar. Não mexe
+no domínio em outros registradores nem exige recriar o DNSSEC — ele é
+preservado pela própria migração.
+
+> **Não confundir com "Alterar Servidores DNS".** Essa é outra tela, que
+> delega o DNS inteiro para um terceiro (por exemplo, os nameservers da
+> própria Vercel, `ns1.vercel-dns.com` / `ns2.vercel-dns.com`). Funcionaria,
+> mas exigiria recriar manualmente qualquer registro que não seja o do site
+> (e-mail, TXT de verificação etc.) do zero na Vercel, e quebra o DNSSEC
+> atual se não for coordenado. Para este domínio, ficar na infraestrutura do
+> próprio Registro.br (nível avançado) é o caminho mais simples e seguro.
+
+Depois que o nível avançado ativar, a tela vira o editor de zona. Adicione:
 
 | Tipo | Nome | Dados/Valor | TTL |
 |---|---|---|---|
@@ -88,19 +104,17 @@ Cuidados específicos do Registro.br:
 - Registro.br **não deixa outro registro convivendo com um CNAME no mesmo
   nome** (regra do DNS, não peculiaridade deles) — se já existir algo em
   `www`, apague antes de criar o CNAME.
-- Se o **DNSSEC** estiver ativado no domínio, ele segue funcionando normal
-  com esses registros; só evite editar a zona e o DNSSEC ao mesmo tempo.
-- Se, em vez disso, a tela mostrar **"DNS Simples"** (redirecionamento/hoster
-  pronto) em vez de "Editar Zona", o domínio está usando o assistente
-  simplificado — troque para os nameservers próprios do Registro.br
-  primeiro (opção na mesma aba) para liberar o editor de zona avançado.
+- O DNSSEC segue ativo e funcionando com esses registros — a migração para o
+  nível avançado é quem cuida disso, nada a fazer aqui.
 
 ### 4.3 Esperar
 
-A propagação leva de alguns minutos a algumas horas — no Registro.br, às
-vezes até 24h, por causa do TTL antigo em cache nos resolvedores. A Vercel
-emite o certificado HTTPS sozinha assim que o DNS resolver — não há nada a
-fazer além de esperar o painel sair de "Invalid Configuration" para "Valid".
+Some a espera da migração para o nível avançado (~2h, ver 4.2) com a
+propagação do DNS em si, que leva de alguns minutos a algumas horas — no
+Registro.br, às vezes até 24h, por causa do TTL antigo em cache nos
+resolvedores. A Vercel emite o certificado HTTPS sozinha assim que o DNS
+resolver — não há nada a fazer além de esperar o painel sair de "Invalid
+Configuration" para "Valid".
 
 Para conferir sem depender do cache do navegador:
 
@@ -127,9 +141,10 @@ publicado). Falta só:
 
 - [x] `VITE_SITE_URL` com o domínio real (`www.desafiodawal.com.br`)
 - [x] Repositório oficial no ar (`desafiodawaleska/landing-page-desafio-2026`, branch `main`)
+- [x] Projeto criado na Vercel, importando o repositório oficial
+- [x] Domínio adicionado na Vercel
 - [ ] `CHECKOUT_URL` preenchido e testado clicando nos três CTAs (hero, vídeo, oferta)
-- [ ] Projeto criado na Vercel, importando o repositório oficial
-- [ ] Domínio adicionado na Vercel e DNS configurado no Registro.br
+- [ ] Nível avançado do DNS ativo no Registro.br e registros `A`/`CNAME` criados
 - [ ] Domínio raiz e `www` respondendo em HTTPS
 - [ ] Card de compartilhamento aparecendo no WhatsApp
 - [ ] LP aberta no celular de verdade, não só no emulador
