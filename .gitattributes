@@ -1,0 +1,21 @@
+# Normaliza os finais de linha: no repositorio tudo e LF, independente de
+# quem edita (Windows, macOS ou Linux). Evita diffs fantasma de milhares de
+# linhas quando o projeto troca de maquina.
+* text=auto eol=lf
+
+# Binarios: nunca mexer no conteudo.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.avif  binary
+*.gif   binary
+*.ico   binary
+*.mp4   binary
+*.webm  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.zip   binary
+*.pdf   binary

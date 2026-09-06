@@ -1,2 +1,13 @@
 node_modules
 dist
+
+# Saidas locais da Vercel CLI
+.vercel
+
+# Sobrescritas locais do .env (o .env versionado tem so o dominio publico,
+# que nao e segredo). Chave de API, pixel ou token entram aqui.
+.env.local
+.env.*.local
+
+# Lixo do sistema
+.DS_Store
