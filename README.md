@@ -4,12 +4,35 @@ Landing page de campanha. React + Vite, deploy na Vercel a partir da `main`.
 
 ## Rodar localmente
 
+Precisa de Node 20.19 ou mais novo (a `.nvmrc` fixa a 22, que é a que a
+Vercel usa no build).
+
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 Sobe em `http://localhost:5173`. Para o build de produção, `npm run build`.
+
+> Trocando de máquina (Windows ↔ macOS): apague `node_modules` antes do
+> `npm ci`. O `esbuild` e o `sharp` trazem binário compilado por
+> sistema/arquitetura, e a pasta copiada de outra máquina não roda.
+
+## Domínio
+
+O domínio público fica em **uma linha só**, `VITE_SITE_URL` no `.env`. Dele
+saem o `canonical`, as tags Open Graph/Twitter e o JSON-LD do `index.html`,
+mais o `robots.txt` e o `sitemap.xml`, gerados no build.
+
+Enquanto o valor for `https://SEU-DOMINIO.com.br`, a LP funciona normalmente
+— só os metadados de compartilhamento é que apontam para um domínio que não
+existe. Trocar antes de divulgar o link.
+
+## Destino do CTA
+
+Os nove botões da página leem `CHECKOUT_URL` de `src/config.js`. Com o campo
+vazio, todos rolam até a seção Oferta (âncora `#inscricao`). Preencher com a
+URL do checkout liga os nove de uma vez.
 
 ## Antes de mexer no código
 

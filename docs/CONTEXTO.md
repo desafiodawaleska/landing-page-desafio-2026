@@ -476,8 +476,38 @@ Larguras usadas como referência: 1440, 2545, 3425 e 375.
 - **Fotos horizontais sobrando** — `LP/S3/` tem `Depois-20` a `Depois-41`
   em paisagem (até 7728×5152), sem par de "antes". Ficaram de fora do
   carrossel, que é retrato. Candidatas à Seção 4.
-- **`ctaHref`** — aponta para `#inscricao` (`src/App.jsx`), ainda sem
-  destino real.
+- **`ctaHref`** — sai de `src/config.js`. Enquanto `CHECKOUT_URL` estiver
+  vazio, os nove CTAs rolam até a seção Oferta, que agora carrega o
+  `id="inscricao"` nas três versões. Antes disso a âncora não existia em
+  lugar nenhum e todos os botões da página eram links mortos. Para ligar o
+  checkout de verdade, basta preencher `CHECKOUT_URL` — um lugar só.
+- **`titulo.png`** — é o único PNG pesado que sobrou em `public/` (212 KB) e
+  é baixado duas vezes, como `<img>` e como `mask-image` do brilho. Não foi
+  convertido para WebP junto com os outros por causa do uso em máscara;
+  vale medir antes de trocar.
+
+## Imagens
+
+A arte de origem é PNG, mas o que vai para o ar é WebP: a conversão dos oito
+arquivos mais pesados cortou 5,16 MB (81%) do peso da página — de 6,23 MB para
+1,92 MB baixados no desktop. Os PNGs originais continuam versionados em
+`arte-original/`, fora de `public/` para não subirem no deploy; são a fonte
+para regerar os WebP se a qualidade precisar de ajuste.
+
+Imagens abaixo da dobra levam `loading="lazy"`. Hero e Loading ficam de fora
+de propósito: são a primeira tela, e adiar a foto principal atrasaria o LCP
+em vez de melhorar.
+
+## Domínio e SEO
+
+`VITE_SITE_URL` no `.env` é o único lugar com o domínio. Dele saem o
+`canonical`, as tags Open Graph e Twitter e o JSON-LD do `index.html`, mais o
+`robots.txt` e o `sitemap.xml`, que o `vite.config.js` gera no build em vez de
+existirem como arquivos estáticos — assim não há como um deles ficar apontando
+para um domínio antigo.
+
+O card de compartilhamento é `public/og.jpg`, montado a partir dos assets da
+hero. Regerar se a arte da campanha mudar.
 
 ## Fluxo de trabalho
 
