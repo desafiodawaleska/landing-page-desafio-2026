@@ -34,6 +34,13 @@ Os nove botões da página leem `CHECKOUT_URL` de `src/config.js`. Com o campo
 vazio, todos rolam até a seção Oferta (âncora `#inscricao`). Preencher com a
 URL do checkout liga os nove de uma vez.
 
+## Publicar
+
+O passo a passo de GitHub, Vercel e DNS na GoDaddy está em
+**[docs/DEPLOY.md](docs/DEPLOY.md)**, incluindo as pegadinhas da GoDaddy
+(o registro `A` de estacionamento e o "Forwarding") que quebram o domínio
+de formas difíceis de diagnosticar.
+
 ## Antes de mexer no código
 
 Leia **[docs/CONTEXTO.md](docs/CONTEXTO.md)**. Ele registra as decisões já
