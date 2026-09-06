@@ -56,7 +56,7 @@ export default function FitaFaq({ className = '' }) {
 
   return (
     <div className={`fita-faq ${className}`.trim()}>
-      <img className="fita-faq__foto" src="/assets/s4/foto.webp" alt="Waleska" />
+      <img loading="lazy" decoding="async" className="fita-faq__foto" src="/assets/s4/foto.webp" alt="Waleska" />
 
       {/* A fita corre por cima da foto, mas some onde cruza o corpo dela: a
           máscara é a silhueta recortada da própria imagem, então o texto

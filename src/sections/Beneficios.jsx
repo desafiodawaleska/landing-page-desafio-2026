@@ -115,6 +115,8 @@ export default function Beneficios() {
         >
           <div className="benefit__icon" style={{ height: `${b.boxHeight}px` }}>
             <img
+              loading="lazy"
+              decoding="async"
               src={`/assets/s2/${b.icon}`}
               alt=""
               style={{

@@ -27,14 +27,14 @@ export default function Hero({ ctaHref, intro = false }) {
           não altera o fundo. Os quadrados laranja vêm depois, então ficam à
           frente da luz. */}
       <div className="hero__bleed">
-        <img className="hero__bg" src="/assets/logo-fundo.png" alt="" />
+        <img className="hero__bg" src="/assets/logo-fundo.webp" alt="" />
         <img className="hero__grid" src="/assets/grid.png" alt="" />
         <div className="hero__warm" aria-hidden="true" />
-        <img className="hero__photo" src="/assets/hero-foto-wide.png" alt="Waleska" />
+        <img className="hero__photo" src="/assets/hero-foto-wide.webp" alt="Waleska" />
         {/* Depois da foto: a luz do canto inferior direito passa por cima dela,
             e não por baixo. Fica entre a foto e os quadrados soltos, que estão
             fora da faixa e continuam no topo da pilha. */}
-        <img className="hero__light" src="/assets/luz.png" alt="" />
+        <img className="hero__light" src="/assets/luz.webp" alt="" />
       </div>
 
       <div className="hero__squares" aria-hidden="true">

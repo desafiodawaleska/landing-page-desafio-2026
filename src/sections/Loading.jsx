@@ -12,7 +12,7 @@ export default function Loading() {
   return (
     <div className="loading" aria-hidden="true">
       <div className="loading__backdrop">
-        <img className="loading__bg" src="/assets/loading/fundo.png" alt="" />
+        <img className="loading__bg" src="/assets/loading/fundo.webp" alt="" />
       </div>
       {/* Vetor, não o PNG do título da hero: a animação de abertura amplia o
           logo bem além do tamanho final, e no raster isso borrava. */}

@@ -15,12 +15,12 @@ const SQUARES = [
 export default function HeroTablet({ ctaHref }) {
   return (
     <section className="hero-t">
-      <img className="hero-t__bg" src="/assets/logo-fundo.png" alt="" />
+      <img className="hero-t__bg" src="/assets/logo-fundo.webp" alt="" />
       <div className="hero-t__warm" aria-hidden="true" />
-      <img className="hero-t__photo" src="/assets/foto-waleska.png" alt="Waleska" />
+      <img className="hero-t__photo" src="/assets/foto-waleska.webp" alt="Waleska" />
       {/* Depois da foto: a luz do canto inferior direito passa por cima dela.
           O grid e os quadrados vêm em seguida e seguem no topo da pilha. */}
-      <img className="hero-t__light" src="/assets/luz.png" alt="" />
+      <img className="hero-t__light" src="/assets/luz.webp" alt="" />
 
       <div className="hero-t__grid" aria-hidden="true">
         <img className="hero-t__grid-img" src="/assets/grid.png" alt="" />

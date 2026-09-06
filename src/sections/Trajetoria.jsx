@@ -125,6 +125,8 @@ export default function Trajetoria() {
                   }}
                 >
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src="/assets/s3/moldura.png"
                     alt=""
                     style={{ position: 'absolute', left: 0, top: 0, width: '329px', height: '488px' }}

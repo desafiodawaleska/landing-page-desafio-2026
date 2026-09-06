@@ -25,7 +25,7 @@ const BENEFITS = [
 export default function BeneficiosMobile() {
   return (
     <section className="beneficios-m">
-      <img className="beneficios-m__glow" src="/assets/s2/gradiente.png" alt="" />
+      <img loading="lazy" decoding="async" className="beneficios-m__glow" src="/assets/s2/gradiente.webp" alt="" />
       <div className="beneficios-m__frame" aria-hidden="true" />
 
       {/* As duas metades precisam ser idênticas: o `marquee-run` desloca -50%,
@@ -57,7 +57,7 @@ export default function BeneficiosMobile() {
             style={{ animationDelay: `${b.delay}s` }}
           >
             <div className="benefit-m__icon">
-              <img src={`/assets/s2/${b.icon}`} alt="" style={{ width: `${b.w}px`, height: `${b.h}px` }} />
+              <img loading="lazy" decoding="async" src={`/assets/s2/${b.icon}`} alt="" style={{ width: `${b.w}px`, height: `${b.h}px` }} />
             </div>
             <p>
               {b.lines.map((line, i) => (

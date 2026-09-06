@@ -153,6 +153,8 @@ export default function TrajetoriaTablet() {
                   }}
                 >
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src="/assets/s3/moldura.png"
                     alt=""
                     style={{ width: `${cardW}px`, height: `${Math.round(cardW * R_OPEN)}px` }}

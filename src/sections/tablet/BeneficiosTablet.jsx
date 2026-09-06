@@ -51,7 +51,7 @@ export default function BeneficiosTablet() {
           {BENEFITS.map((b) => (
             <div className="benefit-t" key={b.icon}>
               <div className="benefit-t__icon">
-                <img src={`/assets/s2/${b.icon}`} alt="" className={b.short ? 'is-short' : ''} />
+                <img loading="lazy" decoding="async" src={`/assets/s2/${b.icon}`} alt="" className={b.short ? 'is-short' : ''} />
               </div>
               <p>{b.label}</p>
             </div>
