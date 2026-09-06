@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import './oferta-tablet.css';
+import { ANCORA_OFERTA } from '../../config.js';
 
 export default function OfertaTablet({ ctaHref }) {
   const cf = useRef(null);
@@ -24,7 +25,7 @@ export default function OfertaTablet({ ctaHref }) {
   };
 
   return (
-    <section className="oferta-t" onPointerMove={move} onPointerLeave={reset}>
+    <section className="oferta-t" id={ANCORA_OFERTA} onPointerMove={move} onPointerLeave={reset}>
       <div className="oferta-t__card">
         <div className="oferta-t__col">
           <div className="oferta-t__lead">Faça parte do desafio, por apenas</div>
@@ -49,14 +50,14 @@ export default function OfertaTablet({ ctaHref }) {
 
         <div className="oferta-t__photo">
           <div className="oferta-t__photo-clip">
-            <img ref={cf} src="/assets/s5/foto-cf-ext.png" alt="" />
+            <img loading="lazy" decoding="async" ref={cf} src="/assets/s5/foto-cf-ext.webp" alt="" />
           </div>
-          <img ref={sf} className="oferta-t__photo-front" src="/assets/s5/foto-sf.png" alt="Waleska" />
+          <img loading="lazy" decoding="async" ref={sf} className="oferta-t__photo-front" src="/assets/s5/foto-sf.webp" alt="Waleska" />
         </div>
       </div>
 
       <div className="oferta-t__ring" aria-hidden="true">
-        <img src="/assets/s5/ring-text.svg" alt="" />
+        <img loading="lazy" decoding="async" src="/assets/s5/ring-text.svg" alt="" />
       </div>
     </section>
   );

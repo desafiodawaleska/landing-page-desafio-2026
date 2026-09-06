@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CTA_HREF } from './config.js';
 import ScaledCanvas from './ScaledCanvas.jsx';
 import Hero from './sections/Hero.jsx';
 import Beneficios from './sections/Beneficios.jsx';
@@ -20,8 +21,6 @@ import VideoMobile from './sections/mobile/VideoMobile.jsx';
 import TrajetoriaMobile from './sections/mobile/TrajetoriaMobile.jsx';
 import FaqMobile from './sections/mobile/FaqMobile.jsx';
 import OfertaMobile from './sections/mobile/OfertaMobile.jsx';
-
-const CTA_HREF = '#inscricao';
 
 // Duração total da intro, do primeiro frame até o último elemento da hero
 // entrar. Bate com os 3s do `loader-logo`. Serve só para soltar a rolagem no

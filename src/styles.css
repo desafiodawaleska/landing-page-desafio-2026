@@ -26,6 +26,20 @@ body {
   overflow-x: hidden;
 }
 
+/* Os CTAs levam para a âncora #inscricao (a seção Oferta) enquanto o checkout
+   não entra. Rolar de salto até lá faz o usuário perder a referência de onde
+   está; o deslize mantém a leitura da página. Quem pede menos animação recebe
+   o salto, que é o comportamento padrão do navegador. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 a {
   color: #ff3300;
   text-decoration: none;

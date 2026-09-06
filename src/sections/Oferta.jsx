@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import './oferta.css';
+import { ANCORA_OFERTA } from '../config.js';
 
 const PRICE = 'R$297';
 
@@ -22,6 +23,7 @@ export default function Oferta({ ctaHref }) {
   return (
     <section
       className="oferta"
+      id={ANCORA_OFERTA}
       onMouseMove={onMouseMove}
       onMouseLeave={() => setTransform('translate3d(0,0,0)')}
     >
@@ -56,18 +58,20 @@ export default function Oferta({ ctaHref }) {
 
         <div className="oferta__photos">
           <div className="oferta__photo-box">
-            <img className="oferta__photo-bg" ref={bgPhoto} src="/assets/s5/foto-cf-ext.png" alt="" />
+            <img loading="lazy" decoding="async" className="oferta__photo-bg" ref={bgPhoto} src="/assets/s5/foto-cf-ext.webp" alt="" />
           </div>
           <img
+            loading="lazy"
+            decoding="async"
             className="oferta__photo-cut"
             ref={cutPhoto}
-            src="/assets/s5/foto-sf.png"
+            src="/assets/s5/foto-sf.webp"
             alt="Waleska"
           />
         </div>
 
         {/* Último no DOM, como no original: passa por cima do card e da foto. */}
-        <img className="oferta__ring" src="/assets/s5/ring-text.svg" alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" className="oferta__ring" src="/assets/s5/ring-text.svg" alt="" aria-hidden="true" />
       </div>
     </section>
   );

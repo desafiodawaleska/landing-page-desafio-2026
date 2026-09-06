@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import './oferta-mobile.css';
+import { ANCORA_OFERTA } from '../../config.js';
 
 const PRICE = 'R$297';
 
@@ -25,14 +26,17 @@ export default function OfertaMobile({ ctaHref }) {
   return (
     <section
       className="oferta-m"
+      id={ANCORA_OFERTA}
       onPointerMove={onPointerMove}
       onPointerLeave={() => setTransform('translate3d(0,0,0)')}
     >
       <div className="oferta-m__photo-box">
-        <img className="oferta-m__photo-bg" ref={bgPhoto} src="/assets/s5m/foto-cf.webp" alt="" />
+        <img loading="lazy" decoding="async" className="oferta-m__photo-bg" ref={bgPhoto} src="/assets/s5m/foto-cf.webp" alt="" />
       </div>
 
       <img
+        loading="lazy"
+        decoding="async"
         className="oferta-m__photo-cut"
         ref={cutPhoto}
         src="/assets/s5m/foto-sf.webp"
@@ -42,7 +46,7 @@ export default function OfertaMobile({ ctaHref }) {
       {/* Antes do card: o anel passa por cima da foto e por baixo do branco,
           que é o contrário do desktop. */}
       <div className="oferta-m__ring-clip" aria-hidden="true">
-        <img className="oferta-m__ring" src="/assets/s5/ring-text.svg" alt="" />
+        <img loading="lazy" decoding="async" className="oferta-m__ring" src="/assets/s5/ring-text.svg" alt="" />
       </div>
 
       <div className="oferta-m__card" />
