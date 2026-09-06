@@ -3,6 +3,49 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- O domínio sai de VITE_SITE_URL (.env). Um lugar só: canonical, Open
+         Graph, Twitter e o JSON-LD abaixo leem todos a mesma variável. -->
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+
+    <title>Desafio da Waleska — 30 dias para mudar seus hábitos</title>
+    <meta
+      name="description"
+      content="30 dias de acompanhamento com médico e nutricionista para mudar seus hábitos de verdade. Sem fórmula mágica: apenas hábito e constância. Vagas limitadas por turma."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#160100" />
+    <meta name="author" content="Desafio da Waleska" />
+
+    <!-- Open Graph: como o link aparece no WhatsApp, Instagram e Facebook —
+         principais canais de tráfego de uma campanha assim. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Desafio da Waleska" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:title" content="Desafio da Waleska — 30 dias para mudar seus hábitos" />
+    <meta
+      property="og:description"
+      content="30 dias de acompanhamento com médico e nutricionista. Sem fórmula mágica: apenas hábito e constância. Vagas limitadas por turma."
+    />
+    <meta property="og:image" content="%VITE_SITE_URL%/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Waleska ao lado do letreiro Desafio da Waleska, 30 dias" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Desafio da Waleska — 30 dias para mudar seus hábitos" />
+    <meta
+      name="twitter:description"
+      content="30 dias de acompanhamento com médico e nutricionista. Sem fórmula mágica: apenas hábito e constância."
+    />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og.jpg" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <link
       rel="preload"
       href="/fonts/RedHatDisplay.woff2"
@@ -10,7 +53,24 @@
       type="font/woff2"
       crossorigin
     />
-    <title>Desafio da Waleska — 30 dias</title>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Desafio da Waleska — 30 dias",
+        "description": "Programa de 30 dias para mudança de hábitos com acompanhamento de médico e nutricionista.",
+        "image": "%VITE_SITE_URL%/og.jpg",
+        "brand": { "@type": "Brand", "name": "Desafio da Waleska" },
+        "offers": {
+          "@type": "Offer",
+          "url": "%VITE_SITE_URL%/",
+          "price": "297.00",
+          "priceCurrency": "BRL",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

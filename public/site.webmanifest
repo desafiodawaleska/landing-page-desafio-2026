@@ -1,0 +1,15 @@
+{
+  "name": "Desafio da Waleska — 30 dias",
+  "short_name": "Desafio 30 dias",
+  "description": "30 dias para mudar seus hábitos, com médico e nutri ao seu lado.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#160100",
+  "theme_color": "#160100",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
