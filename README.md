@@ -24,9 +24,8 @@ O domínio público fica em **uma linha só**, `VITE_SITE_URL` no `.env`. Dele
 saem o `canonical`, as tags Open Graph/Twitter e o JSON-LD do `index.html`,
 mais o `robots.txt` e o `sitemap.xml`, gerados no build.
 
-Enquanto o valor for `https://SEU-DOMINIO.com.br`, a LP funciona normalmente
-— só os metadados de compartilhamento é que apontam para um domínio que não
-existe. Trocar antes de divulgar o link.
+Hoje aponta para `https://www.desafiodawal.com.br`, domínio registrado no
+Registro.br. Ver [docs/DEPLOY.md](docs/DEPLOY.md) para o DNS.
 
 ## Destino do CTA
 
@@ -36,10 +35,11 @@ URL do checkout liga os nove de uma vez.
 
 ## Publicar
 
-O passo a passo de GitHub, Vercel e DNS na GoDaddy está em
-**[docs/DEPLOY.md](docs/DEPLOY.md)**, incluindo as pegadinhas da GoDaddy
-(o registro `A` de estacionamento e o "Forwarding") que quebram o domínio
-de formas difíceis de diagnosticar.
+Repositório oficial:
+[`desafiodawaleska/landing-page-desafio-2026`](https://github.com/desafiodawaleska/landing-page-desafio-2026)
+(branch `main`), ligado à Vercel. O passo a passo completo — Vercel e DNS no
+Registro.br, com as pegadinhas específicas do editor de zona deles — está em
+**[docs/DEPLOY.md](docs/DEPLOY.md)**.
 
 ## Antes de mexer no código
 

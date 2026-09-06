@@ -1,50 +1,36 @@
-# Publicar: GitHub → Vercel → domínio GoDaddy
+# Publicar: GitHub → Vercel → domínio Registro.br
 
 Ordem importa. Cada etapa depende da anterior estar de pé.
 
 ---
 
-## 1. Antes de qualquer coisa: dois campos
+## 1. Antes de qualquer coisa: um campo
 
-Sem esses dois preenchidos a LP sobe, mas sobe furada.
+Sem ele a LP sobe, mas sobe sem converter.
 
 | Onde | Campo | O que acontece se ficar como está |
 |---|---|---|
-| `.env` | `VITE_SITE_URL` | Compartilhar o link no WhatsApp puxa imagem e canonical de um domínio que não existe |
 | `src/config.js` | `CHECKOUT_URL` | Os nove CTAs rolam até o preço e param ali — ninguém consegue comprar |
 
 `CHECKOUT_URL` vazio **não quebra** a página: é um estado intermediário
-válido para publicar e testar. `VITE_SITE_URL` errado atrapalha só o
-compartilhamento, não a navegação.
+válido para publicar e testar. `VITE_SITE_URL` (`.env`) já está preenchido
+com `https://www.desafiodawal.com.br`.
 
 ---
 
 ## 2. GitHub
 
-O repositório já existe: `eusouandrew/Desafio-30-dias`. O trabalho está na
-branch `integracao`, e é ela que tem tudo o que foi feito.
+**Feito.** O repositório oficial é
+[`desafiodawaleska/landing-page-desafio-2026`](https://github.com/desafiodawaleska/landing-page-desafio-2026),
+branch `main`, com tudo integrado — CTA corrigido, imagens otimizadas, SEO e
+domínio.
 
-```bash
-git push origin integracao
-```
+Esse repositório é separado do repositório pessoal onde o projeto foi
+desenvolvido (`eusouandrew/Desafio-30-dias`), que continua existindo como
+histórico de trabalho mas não é mais para onde apontar o deploy.
 
-Isso publica a branch e faz a Vercel gerar uma **preview** com URL própria,
-sem tocar em produção. Confira a preview antes do passo seguinte.
-
-Aprovada, integre:
-
-```bash
-git checkout main
-git merge integracao
-git push origin main
-```
-
-> **Atenção — a produção está desatualizada.** A `main` está 17 commits atrás
-> da `integracao`. Tudo que veio depois de "Versiona os scripts que derivaram
-> os números do CSS" — loading, layout tablet, mobile completo, Vídeo, FAQ,
-> carrossel com as fotos reais — nunca chegou ao ar. O merge acima é o que
-> corrige isso, e é uma mudança grande de uma vez: vale olhar a preview com
-> calma antes.
+Para atualizações futuras, o fluxo é o padrão: branch → PR ou push direto em
+`main` → a Vercel publica sozinha a partir dela.
 
 ---
 
@@ -54,69 +40,84 @@ O `vercel.json` já traz tudo configurado: framework, comando de build, pasta
 de saída, cache e cabeçalhos de segurança. Não precisa mexer no painel além
 de ligar o repositório.
 
-Se o projeto ainda não existir: **Add New → Project → importar o repositório**.
-As opções de build vêm do `vercel.json`; deixe como a Vercel detectar.
+Projeto ainda não existe: **Add New → Project → importar
+`desafiodawaleska/landing-page-desafio-2026`**. As opções de build vêm do
+`vercel.json`; deixe como a Vercel detectar.
 
 Confira em **Settings → Git** que a Production Branch é `main`.
 
-> O CONTEXTO.md registra **dois** projetos Vercel apontando para o mesmo
-> repositório (`desafio-30-dias` e `desafio-30-dias-zbow`). Os dois publicam
-> da `main`, ou seja, cada push sobe duas vezes e só um deles vai receber o
-> domínio. Decida qual fica e apague o outro — dois projetos vivos no mesmo
-> repo é fonte garantida de confusão sobre "qual link é o certo".
-
 ---
 
-## 4. Domínio na GoDaddy
+## 4. Domínio no Registro.br
+
+`desafiodawal.com.br` foi comprado no Registro.br, não na GoDaddy — a
+gestão de DNS de um `.com.br` fica sempre lá, mesmo que o registrador
+mostrado em algum lugar seja outro.
 
 ### 4.1 Na Vercel
 
-**Settings → Domains → Add**. Some o domínio raiz (`seudominio.com.br`) e
-também o `www`. A Vercel mostra os registros que ela quer — use os que
-**ela** exibir; os abaixo são os valores padrão dela hoje.
+**Settings → Domains → Add**. Some o domínio raiz (`desafiodawal.com.br`) e
+também o `www` (`www.desafiodawal.com.br`, que é o valor de `VITE_SITE_URL`
+hoje). A Vercel mostra os registros que ela quer — use os que **ela**
+exibir; os abaixo são os valores padrão dela hoje.
 
-### 4.2 Na GoDaddy
+Marque **`www.desafiodawal.com.br` como o domínio principal** (é o que está
+no `.env`) — a Vercel redireciona a raiz para ele sozinha.
 
-Em **My Products → DNS → Manage Zones**, no domínio:
+### 4.2 No Registro.br
 
-| Tipo | Nome | Valor | TTL |
+Login em [registro.br](https://registro.br) → **Meus domínios** →
+`desafiodawal.com.br` → aba **DNS**.
+
+Se o domínio usa os DNS do próprio Registro.br (é o padrão de quem não
+mexeu em nada), a tela é **"Editar Zona"**. Adicione:
+
+| Tipo | Nome | Dados/Valor | TTL |
 |---|---|---|---|
-| `A` | `@` | `76.76.21.21` | 600 |
-| `CNAME` | `www` | `cname.vercel-dns.com` | 600 |
+| `A` | (deixar em branco, ou `@`) | `76.76.21.21` | 3600 |
+| `CNAME` | `www` | `cname.vercel-dns.com.` | 3600 |
 
-Cuidados:
+Cuidados específicos do Registro.br:
 
-- **Apague o registro `A` de `@` que já existe.** A GoDaddy cria um
-  apontando para a página de estacionamento dela. Dois registros `A` no `@`
-  fazem o domínio responder alternadamente entre a Vercel e a página de
-  "domínio à venda".
-- **Apague o `CNAME` de `www`** que aponta para `@`, pelo mesmo motivo.
-- **Não use o "Forwarding"/redirecionamento da GoDaddy.** Ele responde com um
-  frame ou um 302 que quebra o certificado e o SEO. Redirecionamento de `www`
-  para a raiz é a Vercel que faz, sozinha.
-- Se o domínio usar os nameservers da GoDaddy (o padrão), é nessa tela mesmo.
-  Se alguém já apontou os nameservers para outro lugar, o DNS não está aqui.
+- O campo de nome para o registro raiz costuma ficar **vazio** na interface
+  deles (não `@` como na maioria dos provedores) — o próprio painel indica
+  qual convenção usar.
+- **O valor do CNAME precisa terminar com ponto** (`cname.vercel-dns.com.`)
+  — é a notação de FQDN que o editor de zona do Registro.br exige; sem o
+  ponto final ele às vezes concatena o domínio de novo no final.
+- Registro.br **não deixa outro registro convivendo com um CNAME no mesmo
+  nome** (regra do DNS, não peculiaridade deles) — se já existir algo em
+  `www`, apague antes de criar o CNAME.
+- Se o **DNSSEC** estiver ativado no domínio, ele segue funcionando normal
+  com esses registros; só evite editar a zona e o DNSSEC ao mesmo tempo.
+- Se, em vez disso, a tela mostrar **"DNS Simples"** (redirecionamento/hoster
+  pronto) em vez de "Editar Zona", o domínio está usando o assistente
+  simplificado — troque para os nameservers próprios do Registro.br
+  primeiro (opção na mesma aba) para liberar o editor de zona avançado.
 
 ### 4.3 Esperar
 
-A propagação leva de alguns minutos a algumas horas. A Vercel emite o
-certificado HTTPS sozinha assim que o DNS resolver — não há nada a fazer
-além de esperar o painel sair de "Invalid Configuration" para "Valid".
+A propagação leva de alguns minutos a algumas horas — no Registro.br, às
+vezes até 24h, por causa do TTL antigo em cache nos resolvedores. A Vercel
+emite o certificado HTTPS sozinha assim que o DNS resolver — não há nada a
+fazer além de esperar o painel sair de "Invalid Configuration" para "Valid".
 
 Para conferir sem depender do cache do navegador:
 
 ```bash
-dig +short seudominio.com.br
+dig +short desafiodawal.com.br
+dig +short www.desafiodawal.com.br
 ```
 
 ### 4.4 Depois que o domínio responder
 
-1. Trocar `VITE_SITE_URL` no `.env` pelo domínio real e dar push — os
-   metadados de compartilhamento e o `sitemap.xml` só ficam corretos aí.
-2. Escolher, em **Settings → Domains**, qual é o domínio principal (com ou
-   sem `www`). O outro passa a redirecionar. O escolhido tem que ser o mesmo
-   que está no `VITE_SITE_URL`, senão o canonical aponta para o redirecionado.
-3. Testar o card de compartilhamento no
+`VITE_SITE_URL` já está com `https://www.desafiodawal.com.br` (feito e
+publicado). Falta só:
+
+1. Confirmar em **Settings → Domains** que `www.desafiodawal.com.br` é o
+   domínio principal — tem que ser o mesmo que está no `VITE_SITE_URL`,
+   senão o canonical aponta para o que redireciona.
+2. Testar o card de compartilhamento no
    [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
    — é ele que o WhatsApp usa de cache.
 
@@ -124,10 +125,11 @@ dig +short seudominio.com.br
 
 ## 5. Checklist final
 
+- [x] `VITE_SITE_URL` com o domínio real (`www.desafiodawal.com.br`)
+- [x] Repositório oficial no ar (`desafiodawaleska/landing-page-desafio-2026`, branch `main`)
 - [ ] `CHECKOUT_URL` preenchido e testado clicando nos três CTAs (hero, vídeo, oferta)
-- [ ] `VITE_SITE_URL` com o domínio real
-- [ ] `main` atualizada com a `integracao`
-- [ ] Um único projeto Vercel ligado ao repositório
+- [ ] Projeto criado na Vercel, importando o repositório oficial
+- [ ] Domínio adicionado na Vercel e DNS configurado no Registro.br
 - [ ] Domínio raiz e `www` respondendo em HTTPS
 - [ ] Card de compartilhamento aparecendo no WhatsApp
 - [ ] LP aberta no celular de verdade, não só no emulador
