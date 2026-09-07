@@ -55,7 +55,22 @@ export default function ScaledCanvas({
       style={{
         width: '100%',
         height: `${contentHeight * scale}px`,
-        overflow: 'hidden',
+        // `clip`, não `hidden`: os dois recortam igual, mas `hidden` cria um
+        // contêiner rolável, e este aqui tem transbordo de verdade — o
+        // `transform: scale()` encolhe o desenho do canvas, não a caixa de
+        // layout dele, que continua com a altura original. A sobra é a
+        // diferença entre as duas (com 5440 de conteúdo a 0,93 de escala,
+        // 361px).
+        //
+        // Isso importa porque, ao levar uma âncora para a vista (clique num
+        // `<a href="#inscricao">` ou URL aberta direto em `/#inscricao`), o
+        // navegador rola *todos* os ancestrais roláveis do alvo, não só a
+        // janela. Com `hidden` ele empurrava este invólucro para o fim do
+        // transbordo: a página inteira subia 361px, cortando o topo da hero
+        // e deixando uma faixa vazia do mesmo tamanho no fim — e sem volta,
+        // porque `window.scrollTo` mexe na janela, não neste elemento.
+        // `clip` recorta sem criar área rolável, então não há o que empurrar.
+        overflow: 'clip',
       }}
     >
       <div

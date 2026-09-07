@@ -17,7 +17,13 @@
   top: 0;
   width: var(--vw, 1440px);
   height: 712px;
-  overflow: hidden;
+  /* `clip` em vez de `hidden` pelo mesmo motivo do invólucro do ScaledCanvas:
+     o anel sai 276px pela direita e passa da base do palco, então aqui há
+     transbordo de verdade — e `hidden` faria disso uma área rolável. Como o
+     CTA da Oferta é focável e mora aqui dentro, um Tab até ele bastaria para
+     o navegador empurrar o palco para "trazer o foco à vista", desalinhando
+     a seção. `clip` recorta igual, sem criar o que rolar. */
+  overflow: clip;
   background: #ff2801;
   container-type: inline-size;
 }
