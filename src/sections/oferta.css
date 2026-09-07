@@ -52,7 +52,13 @@
 
    Verticalmente, `top/height/justify-content: center` centraliza o bloco na
    altura do card (543px) em vez do `top: 200px` fixo de antes — que não
-   olhava para a altura do conteúdo e deixava sobra desigual em cima e embaixo. */
+   olhava para a altura do conteúdo e deixava sobra desigual em cima e embaixo.
+
+   Todas as medidas do bloco (largura, fontes, espaçamentos) são as do design
+   × 1,15 — decisão do cliente, para o bloco ocupar mais da faixa livre sem
+   chegar a tocar a foto. Testado: em 1440px (o desktop mais estreito comum)
+   sobram 53px até a foto; o próximo múltiplo redondo (1,25) já encosta nela
+   a partir de 1512px. */
 .oferta__content {
   position: absolute;
   left: 85px;
@@ -60,7 +66,7 @@
   margin-inline: auto;
   top: 85px;
   height: 543px;
-  width: 524px;
+  width: 602.6px; /* 524 × 1,15 */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -73,12 +79,12 @@
 }
 
 .oferta__col--acao {
-  margin-top: 11.5px;
+  margin-top: 13.225px; /* 11,5 × 1,15 */
 }
 
 .oferta__kicker {
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 23px; /* 20 × 1,15 */
+  line-height: 23px;
   font-weight: 700;
   letter-spacing: 0.149em;
   text-indent: 0.149em;
@@ -89,9 +95,9 @@
 
 .oferta__price-wrap {
   position: relative;
-  width: 524px;
-  height: 151.5px;
-  margin-top: 2px;
+  width: 602.6px; /* 524 × 1,15 */
+  height: 174.225px; /* 151,5 × 1,15 */
+  margin-top: 2.3px;
 }
 
 .oferta__price,
@@ -101,8 +107,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 151.5px;
-  line-height: 151.5px;
+  font-size: 174.225px; /* 151,5 × 1,15 */
+  line-height: 174.225px;
   letter-spacing: 0.1033em;
   animation: price-weight 5.6s ease-in-out infinite;
 }
@@ -145,18 +151,18 @@
    o botão continuava fora do fluxo e a nota subia para o lugar dele. */
 .oferta__col > .oferta__cta {
   position: relative;
-  width: 524px;
-  height: 93px;
+  width: 602.6px; /* 524 × 1,15 */
+  height: 106.95px; /* 93 × 1,15 */
 }
 
 .oferta__cta span {
   position: absolute;
   left: 0;
-  top: 33px;
-  width: 524px;
+  top: 37.95px; /* 33 × 1,15 */
+  width: 602.6px;
   text-align: center;
-  font-size: 26.4px;
-  line-height: 26.4px;
+  font-size: 30.36px; /* 26,4 × 1,15 */
+  line-height: 30.36px;
   font-style: italic;
   font-weight: 800;
   letter-spacing: 0.0937em;
@@ -165,11 +171,11 @@
 }
 
 .oferta__note {
-  margin-top: 18px;
-  width: 524px;
+  margin-top: 20.7px; /* 18 × 1,15 */
+  width: 602.6px;
   text-align: center;
-  font-size: 15.1px;
-  line-height: 15.1px;
+  font-size: 17.365px; /* 15,1 × 1,15 */
+  line-height: 17.365px;
   font-weight: 700;
   letter-spacing: 0.132em;
   text-indent: 0.132em;
