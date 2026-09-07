@@ -18,7 +18,12 @@
     <meta name="author" content="Desafio da Waleska" />
 
     <!-- Open Graph: como o link aparece no WhatsApp, Instagram e Facebook —
-         principais canais de tráfego de uma campanha assim. -->
+         principais canais de tráfego de uma campanha assim.
+
+         O `?v=N` na imagem existe porque essas plataformas guardam o card em
+         cache pela URL, por semanas. Trocar o conteúdo de og.jpg sem trocar a
+         URL deixa o banner antigo no ar em todo mundo que já recebeu o link.
+         Ao regerar a imagem (tools/gerar-og.mjs), suba o número. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Desafio da Waleska" />
     <meta property="og:locale" content="pt_BR" />
@@ -28,7 +33,7 @@
       property="og:description"
       content="30 dias de acompanhamento com médico e nutricionista. Sem fórmula mágica: apenas hábito e constância. Vagas limitadas por turma."
     />
-    <meta property="og:image" content="%VITE_SITE_URL%/og.jpg" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og.jpg?v=2" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Waleska ao lado do letreiro Desafio da Waleska, 30 dias" />
@@ -39,7 +44,7 @@
       name="twitter:description"
       content="30 dias de acompanhamento com médico e nutricionista. Sem fórmula mágica: apenas hábito e constância."
     />
-    <meta name="twitter:image" content="%VITE_SITE_URL%/og.jpg" />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og.jpg?v=2" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
@@ -60,7 +65,7 @@
         "@type": "Product",
         "name": "Desafio da Waleska — 30 dias",
         "description": "Programa de 30 dias para mudança de hábitos com acompanhamento de médico e nutricionista.",
-        "image": "%VITE_SITE_URL%/og.jpg",
+        "image": "%VITE_SITE_URL%/og.jpg?v=2",
         "brand": { "@type": "Brand", "name": "Desafio da Waleska" },
         "offers": {
           "@type": "Offer",
