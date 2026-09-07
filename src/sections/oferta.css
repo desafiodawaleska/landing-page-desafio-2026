@@ -32,25 +32,38 @@
 }
 
 /* ---- bloco de texto ------------------------------------------------------
-   Em coluna, reproduzindo o empilhamento do design: as margens abaixo são as
-   distâncias exatas entre os blocos em 1440 (200 / 222 / 385 / 496 no canvas). */
-/* Centralizado na área branca livre, não ancorado a 85px da borda do card.
+   Empilhado (preço em cima, botão embaixo), único layout do desktop — é o que
+   existia antes de 1920px, e agora vale em qualquer largura. O layout em duas
+   colunas que só aparecia acima de 1920px foi removido: ele "parecia" mais
+   centralizado, mas não era mágica de resolução — só porque a faixa livre
+   (a que sobra antes da foto) passa a preencher quase todo o card acima
+   desse limiar. Abaixo dele, a mesma faixa livre ocupa só a metade esquerda
+   do card, então nenhum dos dois layouts fica de fato no centro do branco —
+   e ter dois layouts diferentes por causa disso criava inconsistência à toa.
+
+   Centralizado na área branca livre, não ancorado a 85px da borda do card.
    A área livre vai da borda esquerda do card até onde a foto começa; como a
    foto é ancorada à direita, essa área cresce só para um lado, e um `left`
    fixo deixava o bloco visivelmente torto conforme a tela alargava.
 
    Com `left` e `right` definindo a faixa e `margin-inline: auto`, o bloco
-   centraliza dentro dela. Em 1440 a conta devolve 169,5 — os mesmos 170 do
-   design. */
+   centraliza dentro dela horizontalmente. Em 1440 a conta devolve 169,5 — os
+   mesmos 170 do design.
+
+   Verticalmente, `top/height/justify-content: center` centraliza o bloco na
+   altura do card (543px) em vez do `top: 200px` fixo de antes — que não
+   olhava para a altura do conteúdo e deixava sobra desigual em cima e embaixo. */
 .oferta__content {
   position: absolute;
   left: 85px;
   right: calc(68px + 594px);
   margin-inline: auto;
-  top: 200px;
+  top: 85px;
+  height: 543px;
   width: 524px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .oferta__col {
@@ -219,37 +232,9 @@
   animation: ring-spin 44s linear infinite;
 }
 
-/* ---- telas largas -------------------------------------------------------
-   Com o card muito largo, a coluna única deixava um vazio branco enorme entre
-   o texto e a foto. Aqui os dois blocos ficam lado a lado, agrupados e
-   centralizados na área branca que sobra à esquerda da foto.
-
-   O limiar é 1920: abaixo disso as duas colunas (524 + 110 + 524) não caberiam
-   no espaço livre (largura - 85 - 68 - 594). */
-@container (min-width: 1920px) {
-  .oferta__content {
-    left: 85px;
-    right: calc(68px + 594px);
-    top: 85px;
-    width: auto;
-    height: 543px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 110px;
-  }
-
-  .oferta__col {
-    flex: 0 0 524px;
-  }
-
-  .oferta__col--acao {
-    margin-top: 0;
-  }
-}
-
-/* Mais largo ainda: com o card muito grande, mesmo as duas colunas deixam
-   sobra. Aqui a foto cresce para ocupar parte dela.
+/* ---- telas muito largas --------------------------------------------------
+   Com o card muito grande, mesmo o bloco empilhado deixa sobra. Aqui a foto
+   cresce para ocupar parte dela.
 
    É `scale`, não largura nova: ampliar uniformemente não deforma a Waleska nem
    o cenário, que era a condição. O teto vem da cabeça dela — o conteúdo opaco
