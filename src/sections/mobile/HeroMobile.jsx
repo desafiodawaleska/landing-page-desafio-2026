@@ -1,15 +1,32 @@
 import './hero-mobile.css';
 
-// Posições do protótipo `Hero Desafio Waleska Mobile.dc.html`. São três
-// quadrados cheios agora (o desktop tem dois) e quatro em outline.
+// Geometria do grid do fundo, em px de canvas — tem de bater com
+// `.hero-m__grid` no CSS. O PNG tem 884x1726 e é desenhado em 319x623 a partir
+// de (35, 33). Medido no próprio arquivo, ele traz 6 colunas e 11 linhas
+// cheias, o que dá uma célula de 53,10 x 52,67.
+const GRID_X = 35;
+const GRID_Y = 33;
+const CELL_W = (319 * (883 / 6)) / 884;
+const CELL_H = (623 * (1605 / 11)) / 1726;
+
+const colunaX = (i) => +(GRID_X + i * CELL_W).toFixed(2);
+const linhaY = (j) => +(GRID_Y + j * CELL_H).toFixed(2);
+
+// Posição por índice de célula, não em pixels soltos. O protótipo
+// `Hero Desafio Waleska Mobile.dc.html` traz as coordenadas arredondadas para
+// inteiros (301/35, 35/142, …) e elas não caem nas linhas: o erro horizontal
+// era de até 1,4px e o vertical de 2,0 a 4,4px, sempre para baixo. Derivar do
+// grid faz o encaixe deixar de depender de arredondamento.
+//
+// São três quadrados cheios (o desktop tem dois) e quatro em outline.
 const SQUARES = [
-  { src: 'quad-1.png', left: 301, top: 35, o1: 1, dim: 0.42, dur: 6.4, delay: -0.2 },
-  { src: 'quad-2.png', left: 35, top: 142, o1: 1, dim: 0.34, dur: 7.9, delay: -3.1 },
-  { src: 'quad-3.png', left: 302, top: 299, o1: 1, dim: 0.3, dur: 7.2, delay: -1.1 },
-  { src: 'borda-1.png', left: 88, top: 88, o1: 0.95, dim: 0.55, dur: 5.6, delay: -1.4 },
-  { src: 'borda-2.png', left: 248, top: 248, o1: 0.92, dim: 0.6, dur: 8.6, delay: -5.2 },
-  { src: 'borda-3.png', left: 88, top: 351, o1: 0.88, dim: 0.5, dur: 7.1, delay: -2.6 },
-  { src: 'borda-4.png', left: 35, top: 562, o1: 0.92, dim: 0.58, dur: 6.9, delay: -4.4 },
+  { src: 'quad-1.png', col: 5, row: 0, o1: 1, dim: 0.42, dur: 6.4, delay: -0.2 },
+  { src: 'quad-2.png', col: 0, row: 2, o1: 1, dim: 0.34, dur: 7.9, delay: -3.1 },
+  { src: 'quad-3.png', col: 5, row: 5, o1: 1, dim: 0.3, dur: 7.2, delay: -1.1 },
+  { src: 'borda-1.png', col: 1, row: 1, o1: 0.95, dim: 0.55, dur: 5.6, delay: -1.4 },
+  { src: 'borda-2.png', col: 4, row: 4, o1: 0.92, dim: 0.6, dur: 8.6, delay: -5.2 },
+  { src: 'borda-3.png', col: 1, row: 6, o1: 0.88, dim: 0.5, dur: 7.1, delay: -2.6 },
+  { src: 'borda-4.png', col: 0, row: 10, o1: 0.92, dim: 0.58, dur: 6.9, delay: -4.4 },
 ];
 
 export default function HeroMobile({ ctaHref, intro = false }) {
@@ -35,8 +52,8 @@ export default function HeroMobile({ ctaHref, intro = false }) {
             src={`/assets/m/${s.src}`}
             alt=""
             style={{
-              left: `${s.left}px`,
-              top: `${s.top}px`,
+              left: `${colunaX(s.col)}px`,
+              top: `${linhaY(s.row)}px`,
               '--o1': s.o1,
               '--dim': s.dim,
               animationDuration: `${s.dur}s`,

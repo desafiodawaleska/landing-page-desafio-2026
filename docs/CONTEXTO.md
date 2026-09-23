@@ -439,6 +439,33 @@ longas, que pedem 383 e 429px contra 307 disponíveis. É o que o `overflowY:
 auto` condicional cobre. Se incomodar, as saídas são aumentar a caixa (mas
 ela já fecha rente ao pé da foto) ou encurtar esses dois textos.
 
+## Quadrados soltos do mobile — posição por célula, não por pixel
+
+Os sete quadrados da hero mobile ficam **encaixados nas células do grid do
+fundo**, e é isso que faz a composição ler como intencional. O encaixe é
+frágil: a célula tem 53,10 x 52,67px de canvas e o quadrado 53x53, então
+qualquer arredondamento aparece.
+
+O protótipo `Hero Desafio Waleska Mobile.dc.html` traz as coordenadas
+arredondadas para inteiros (301/35, 35/142, 88/88…) e elas **não caem nas
+linhas**: medido em 23/09, o erro horizontal chegava a 1,4px e o vertical ia de
+2,0 a 4,4px, sempre para baixo. Dava para ver a olho.
+
+Por isso o `HeroMobile.jsx` guarda `col`/`row` — índice de célula — e calcula a
+posição a partir da geometria do grid (`GRID_X`, `GRID_Y`, `CELL_W`, `CELL_H`).
+Depois disso o pior erro ficou em 0,2px.
+
+**Se mexer no grid, mexa nas constantes junto.** Elas repetem o que está em
+`.hero-m__grid` no CSS — o PNG de 884x1726 desenhado em 319x623 a partir de
+(35, 33), com 6 colunas e 11 linhas cheias. As duas coisas precisam concordar;
+não há nada que verifique isso automaticamente.
+
+O desktop não tem esse problema: lá as coordenadas do design já caem nas
+células, e os quadrados seguem em px de canvas.
+
+Divergência deliberada do protótipo, como a ordem da luz. Vale trocar no Claude
+Design também, senão o próximo handoff traz o desalinhamento de volta.
+
 ## Preço — mudar o valor quase sempre mexe no `font-size`
 
 O preço vive em quatro lugares: `PRICE` em `Oferta.jsx` e em
