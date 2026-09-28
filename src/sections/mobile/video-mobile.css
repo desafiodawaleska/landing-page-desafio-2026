@@ -185,3 +185,35 @@
 .video-m__stage.is-tocando .video-m__toggle:focus-visible .video-m__badge {
   opacity: 1;
 }
+
+/* --- Botão "Ativar som" ----------------------------------------------
+   Aparece só quando o navegador recusou a reprodução com áudio e o vídeo
+   começou mudo — no celular esse é o caso mais comum, porque o iOS é o mais
+   rígido dos navegadores nesse ponto. Fica acima do `__toggle` sem z-index:
+   vem depois dele no DOM, e isso já basta para receber o clique em vez de
+   pausar o vídeo. */
+.video-m__som {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 28px;
+  padding: 0 11px;
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: rgba(32, 4, 0, 0.62);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.video-m__som:active {
+  background: #ff2801;
+  color: #200400;
+}

@@ -5,7 +5,19 @@ import { usarPlayer } from './usar-player.js';
 export default function Video({ ctaHref }) {
   // Mesmo hook do tablet e do mobile. Antes o desktop repetia a lógica aqui,
   // o que contrariava o motivo pelo qual o hook existe.
-  const { video, tocando, progresso, alternar, aoAvancar, aoTerminar } = usarPlayer();
+  const {
+    video,
+    palco,
+    tocando,
+    progresso,
+    semSom,
+    alternar,
+    ativarSom,
+    aoAvancar,
+    aoTocar,
+    aoPausar,
+    aoTerminar,
+  } = usarPlayer();
 
   return (
     <section className="video">
@@ -14,7 +26,7 @@ export default function Video({ ctaHref }) {
       <div className="video__kicker">A jornada da nossa capitã</div>
       <h2 className="video__title">Waleska Freitas</h2>
 
-      <div className={`video__stage${tocando ? ' is-tocando' : ''}`}>
+      <div className={`video__stage${tocando ? ' is-tocando' : ''}`} ref={palco}>
         {VIDEO_SRC && (
           <video
             className="video__media"
@@ -23,6 +35,8 @@ export default function Video({ ctaHref }) {
             playsInline
             preload="metadata"
             onTimeUpdate={aoAvancar}
+            onPlay={aoTocar}
+            onPause={aoPausar}
             onEnded={aoTerminar}
           />
         )}
@@ -54,6 +68,14 @@ export default function Video({ ctaHref }) {
               <span className="video__play" />
             </span>
           </div>
+        )}
+
+        {/* Só aparece quando o navegador recusou o áudio: o clique aqui é o
+            gesto que faltava para o som poder voltar. */}
+        {semSom && (
+          <button type="button" className="video__som" onClick={ativarSom}>
+            Ativar som
+          </button>
         )}
 
         <div className="video__track">

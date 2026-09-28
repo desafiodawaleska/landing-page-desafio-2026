@@ -3,14 +3,26 @@ import { VIDEO_SRC } from '../video-fonte.js';
 import { usarPlayer } from '../usar-player.js';
 
 export default function VideoTablet({ ctaHref }) {
-  const { video, tocando, progresso, alternar, aoAvancar, aoTerminar } = usarPlayer();
+  const {
+    video,
+    palco,
+    tocando,
+    progresso,
+    semSom,
+    alternar,
+    ativarSom,
+    aoAvancar,
+    aoTocar,
+    aoPausar,
+    aoTerminar,
+  } = usarPlayer();
 
   return (
     <section className="video-t">
       <div className="video-t__kicker">A jornada da nossa capitã</div>
       <h2 className="video-t__title">Waleska Freitas</h2>
 
-      <div className={`video-t__stage${tocando ? ' is-tocando' : ''}`}>
+      <div className={`video-t__stage${tocando ? ' is-tocando' : ''}`} ref={palco}>
         {VIDEO_SRC && (
           <video
             className="video-t__media"
@@ -19,6 +31,8 @@ export default function VideoTablet({ ctaHref }) {
             playsInline
             preload="metadata"
             onTimeUpdate={aoAvancar}
+            onPlay={aoTocar}
+            onPause={aoPausar}
             onEnded={aoTerminar}
           />
         )}
@@ -50,6 +64,14 @@ export default function VideoTablet({ ctaHref }) {
               <span className="video-t__play" />
             </span>
           </div>
+        )}
+
+        {/* Só aparece quando o navegador recusou o áudio: o clique aqui é o
+            gesto que faltava para o som poder voltar. */}
+        {semSom && (
+          <button type="button" className="video-t__som" onClick={ativarSom}>
+            Ativar som
+          </button>
         )}
 
         <div className="video-t__track">

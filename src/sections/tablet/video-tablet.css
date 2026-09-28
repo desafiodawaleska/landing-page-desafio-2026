@@ -198,3 +198,34 @@
 .video-t__stage.is-tocando .video-t__toggle:focus-visible .video-t__badge {
   opacity: 1;
 }
+
+/* --- Botão "Ativar som" ----------------------------------------------
+   Aparece só quando o navegador recusou a reprodução com áudio e o vídeo
+   começou mudo. Fica acima do `__toggle` sem z-index: vem depois dele no DOM,
+   e isso já basta para receber o clique em vez de pausar o vídeo. */
+.video-t__som {
+  position: absolute;
+  right: clamp(10px, 1.6vw, 20px);
+  top: clamp(10px, 1.6vw, 20px);
+  height: clamp(30px, 4.4vw, 40px);
+  padding: 0 clamp(12px, 1.8vw, 18px);
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: rgba(32, 4, 0, 0.55);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: clamp(10px, 1.3vw, 13px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 260ms ease, color 260ms ease;
+}
+
+.video-t__som:hover {
+  background: #ff2801;
+  color: #200400;
+}

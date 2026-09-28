@@ -3,14 +3,26 @@ import { VIDEO_SRC } from '../video-fonte.js';
 import { usarPlayer } from '../usar-player.js';
 
 export default function VideoMobile({ ctaHref }) {
-  const { video, tocando, progresso, alternar, aoAvancar, aoTerminar } = usarPlayer();
+  const {
+    video,
+    palco,
+    tocando,
+    progresso,
+    semSom,
+    alternar,
+    ativarSom,
+    aoAvancar,
+    aoTocar,
+    aoPausar,
+    aoTerminar,
+  } = usarPlayer();
 
   return (
     <section className="video-m">
       <div className="video-m__kicker">A jornada da nossa capitã</div>
       <h2 className="video-m__title">Waleska Freitas</h2>
 
-      <div className={`video-m__stage${tocando ? ' is-tocando' : ''}`}>
+      <div className={`video-m__stage${tocando ? ' is-tocando' : ''}`} ref={palco}>
         {VIDEO_SRC && (
           <video
             className="video-m__media"
@@ -19,6 +31,8 @@ export default function VideoMobile({ ctaHref }) {
             playsInline
             preload="metadata"
             onTimeUpdate={aoAvancar}
+            onPlay={aoTocar}
+            onPause={aoPausar}
             onEnded={aoTerminar}
           />
         )}
@@ -49,6 +63,14 @@ export default function VideoMobile({ ctaHref }) {
               <span className="video-m__play" />
             </span>
           </div>
+        )}
+
+        {/* Só aparece quando o navegador recusou o áudio: o clique aqui é o
+            gesto que faltava para o som poder voltar. */}
+        {semSom && (
+          <button type="button" className="video-m__som" onClick={ativarSom}>
+            Ativar som
+          </button>
         )}
 
         <div className="video-m__track">

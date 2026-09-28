@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 // Encaixa o canvas de largura fixa na janela via transform: scale(),
 // preservando as proporções exatas do design. O invólucro externo ocupa a
@@ -30,9 +30,17 @@ export default function ScaledCanvas({
   const inner = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);
 
-  useEffect(() => {
+  // Uma medição síncrona antes do primeiro desenho, e só depois o observador
+  // para as mudanças seguintes. A medição direta não é redundante: com apenas o
+  // ResizeObserver, `contentHeight` começava em 0 e dependia inteiramente de o
+  // observador disparar. Medido em 28/09 no painel do navegador: o invólucro
+  // ficou com `height: 0px` enquanto o conteúdo media 4082px, e a página não
+  // rolava de jeito nenhum. `useLayoutEffect` porque a altura precisa estar
+  // aplicada antes da pintura, senão o documento nasce sem rolagem.
+  useLayoutEffect(() => {
     const el = inner.current;
     if (!el) return undefined;
+    setContentHeight(el.offsetHeight);
     const observer = new ResizeObserver(() => setContentHeight(el.offsetHeight));
     observer.observe(el);
     return () => observer.disconnect();
