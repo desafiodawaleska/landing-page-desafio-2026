@@ -1,28 +1,11 @@
-import { useRef, useState } from 'react';
 import './video.css';
 import { VIDEO_SRC } from './video-fonte.js';
+import { usarPlayer } from './usar-player.js';
 
 export default function Video({ ctaHref }) {
-  const video = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  const togglePlay = () => {
-    const el = video.current;
-    if (!el) return;
-    if (el.paused) {
-      el.play();
-      setPlaying(true);
-    } else {
-      el.pause();
-      setPlaying(false);
-    }
-  };
-
-  const onTimeUpdate = () => {
-    const el = video.current;
-    if (el && el.duration) setProgress(el.currentTime / el.duration);
-  };
+  // Mesmo hook do tablet e do mobile. Antes o desktop repetia a lógica aqui,
+  // o que contrariava o motivo pelo qual o hook existe.
+  const { video, tocando, progresso, alternar, aoAvancar, aoTerminar } = usarPlayer();
 
   return (
     <section className="video">
@@ -31,7 +14,7 @@ export default function Video({ ctaHref }) {
       <div className="video__kicker">A jornada da nossa capitã</div>
       <h2 className="video__title">Waleska Freitas</h2>
 
-      <div className="video__stage">
+      <div className={`video__stage${tocando ? ' is-tocando' : ''}`}>
         {VIDEO_SRC && (
           <video
             className="video__media"
@@ -39,11 +22,8 @@ export default function Video({ ctaHref }) {
             src={VIDEO_SRC}
             playsInline
             preload="metadata"
-            onTimeUpdate={onTimeUpdate}
-            onEnded={() => {
-              setPlaying(false);
-              setProgress(1);
-            }}
+            onTimeUpdate={aoAvancar}
+            onEnded={aoTerminar}
           />
         )}
 
@@ -54,11 +34,11 @@ export default function Video({ ctaHref }) {
           <button
             type="button"
             className="video__toggle"
-            onClick={togglePlay}
-            aria-label={playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
+            onClick={alternar}
+            aria-label={tocando ? 'Pausar vídeo' : 'Reproduzir vídeo'}
           >
             <span className="video__badge">
-              {playing ? (
+              {tocando ? (
                 <span className="video__pause">
                   <span />
                   <span />
@@ -77,7 +57,7 @@ export default function Video({ ctaHref }) {
         )}
 
         <div className="video__track">
-          <div className="video__fill" style={{ width: `${(progress * 100).toFixed(2)}%` }} />
+          <div className="video__fill" style={{ width: `${(progresso * 100).toFixed(2)}%` }} />
         </div>
       </div>
 

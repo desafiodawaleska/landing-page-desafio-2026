@@ -320,8 +320,23 @@ se ancorar nele.
 cheia antes do conteúdo, exatamente o caso que a preferência existe para
 evitar. Também não roda no mobile: o design mobile veio sem ela.
 
-A rolagem fica travada durante os 3s (`App.jsx`). Sem isso, rolar no meio da
-abertura passa por baixo do fundo, que é ancorado no topo do canvas.
+**A trava de rolagem vai no `<html>` e barra os eventos** (`App.jsx`). Três
+coisas que custaram medição:
+
+1. **`body` não serve.** O `styles.css` põe `overflow-x: hidden` no `html`, e
+   isso já basta para o overflow do body **deixar de propagar** para a
+   viewport — quem rola a página passa a ser o html. A trava original mexia no
+   body e era inócua: medido em 28/09, a altura do documento seguia em 7978px e
+   a página rolava normalmente durante a abertura.
+2. **`overflow: hidden` sozinho também não bastou.** Com ele aplicado no html,
+   uma rolagem de roda real ainda levou a página a 800px. Por isso a trava
+   barra `wheel` e `touchmove` com `preventDefault`.
+3. **`passive: false` é obrigatório** nos dois ouvintes, senão o navegador
+   descarta o `preventDefault`. O touchmove existe porque o iOS ignora
+   `overflow` para rolagem por toque.
+
+Teclado fica de fora de propósito: bloquear setas e barra de espaço
+atrapalharia quem navega assim, por 3s de animação.
 
 O `--ld` serve de câmera lenta para conferir: subir para 10 espalha a intro
 por 30s sem mudar proporção nenhuma.
@@ -438,6 +453,29 @@ nove respostas não cabem** e rolam dentro do painel — as duas listas mais
 longas, que pedem 383 e 429px contra 307 disponíveis. É o que o `overflowY:
 auto` condicional cobre. Se incomodar, as saídas são aumentar a caixa (mas
 ela já fecha rente ao pé da foto) ou encurtar esses dois textos.
+
+## O botão do player some enquanto o vídeo toca
+
+Parado sobre a imagem, o emblema de play/pause tapa o vídeo. Enquanto toca ele
+vai a `opacity: 0` — mas **só o emblema**. O `__toggle` continua ocupando o
+palco inteiro, então tocar ou clicar em qualquer ponto pausa. É o que permite o
+comportamento pedido no celular: controle invisível, área inteira sensível.
+
+**A volta do emblema é por `(hover: hover)`, não por breakpoint.** A separação
+é por capacidade do aparelho: um tablet com mouse ganha o hover, um notebook
+com tela sensível ao toque não perde o toque. Por isso a regra é idêntica nas
+três versões — não há CSS por variante aqui.
+
+O `:focus-visible` também revela o emblema, senão quem navega por teclado
+perderia de vista o único controle da seção.
+
+**Cuidado ao mexer:** a regra usa `transition-property` e as irmãs, não o
+atalho `transition`. O atalho apagaria a transição de `transform`/`background`
+que a regra original do emblema declara para o efeito de pressionar — foi o que
+aconteceu na primeira tentativa.
+
+O estado vem de `usarPlayer()`, agora usado pelas três versões. O desktop
+duplicava a lógica; passou a usar o hook, que existe justamente para isso.
 
 ## O vídeo da seção "A jornada da nossa capitã"
 

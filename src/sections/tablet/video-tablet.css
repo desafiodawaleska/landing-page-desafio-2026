@@ -164,3 +164,37 @@
   color: #ff2801;
   box-shadow: inset 0 0 0 2px #ff2801;
 }
+
+/* Enquanto o vídeo toca, o emblema some — parado ali, ele tapa a imagem.
+   O botão continua ocupando o palco inteiro, então tocar em qualquer ponto
+   pausa; o que desaparece é só o desenho.
+
+   `(hover: hover)` traz o emblema de volta com o ponteiro sobre o vídeo. A
+   separação é por capacidade do aparelho, não por largura de tela: um tablet
+   com mouse ganha o hover, um notebook com tela sensível ao toque não perde o
+   toque. Por isso a regra é a mesma nas três versões.
+
+   O foco também revela o emblema, senão quem navega por teclado perderia de
+   vista o único controle da seção. */
+/* `transition-property` e amigos, não o atalho `transition`: o atalho
+   apagaria a transição de transform/background que a regra original do
+   emblema declara para o efeito de pressionar. */
+.video-t__badge {
+  transition-property: opacity, transform, background;
+  transition-duration: 220ms, 300ms, 300ms;
+  transition-timing-function: ease, cubic-bezier(0.2, 0.8, 0.2, 1), ease;
+}
+
+.video-t__stage.is-tocando .video-t__badge {
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .video-t__stage.is-tocando:hover .video-t__badge {
+    opacity: 1;
+  }
+}
+
+.video-t__stage.is-tocando .video-t__toggle:focus-visible .video-t__badge {
+  opacity: 1;
+}

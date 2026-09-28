@@ -106,18 +106,41 @@ function useIntro(enabled, durationMs = LOADING_MS) {
   );
 
   // Trava a rolagem enquanto a intro roda. O fundo dela é absoluto, ancorado
-  // no topo do canvas, então rolar nesses 3s passaria por baixo e mostraria a
-  // Benefícios no meio da abertura.
+  // no topo do canvas, então rolar nesses segundos passaria por baixo e
+  // mostraria a Benefícios no meio da abertura.
+  //
+  // A trava vai no <html>, não no <body>. O styles.css põe `overflow-x: hidden`
+  // no html, e isso basta para o overflow do body **deixar de propagar** para a
+  // viewport: quem rola a página passa a ser o html, e mexer no body não faz
+  // nada. Medido em 28/09 — com `body { overflow: hidden }` a altura do
+  // documento seguia em 7978px e a página rolava normalmente.
+  //
+  // O touchmove entra porque o iOS ignora `overflow: hidden` para a rolagem por
+  // toque. Precisa de `passive: false`, senão o preventDefault é descartado.
   useEffect(() => {
     if (!intro) return undefined;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const timer = setTimeout(() => {
-      document.body.style.overflow = previous;
-    }, durationMs);
+    const raiz = document.documentElement;
+    const anterior = raiz.style.overflow;
+    const segurar = (e) => e.preventDefault();
+
+    raiz.style.overflow = 'hidden';
+    // `overflow` sozinho não se mostrou suficiente na medição, e no iOS ele
+    // notoriamente não segura a rolagem por toque. Barrar os eventos é
+    // determinístico: `passive: false` é obrigatório, senão o navegador ignora
+    // o preventDefault. Teclado fica de fora de propósito — bloquear setas e
+    // barra de espaço atrapalharia quem navega assim por 3s de animação.
+    window.addEventListener('wheel', segurar, { passive: false });
+    window.addEventListener('touchmove', segurar, { passive: false });
+
+    const liberar = () => {
+      raiz.style.overflow = anterior;
+      window.removeEventListener('wheel', segurar);
+      window.removeEventListener('touchmove', segurar);
+    };
+    const timer = setTimeout(liberar, durationMs);
     return () => {
       clearTimeout(timer);
-      document.body.style.overflow = previous;
+      liberar();
     };
   }, [intro, durationMs]);
 

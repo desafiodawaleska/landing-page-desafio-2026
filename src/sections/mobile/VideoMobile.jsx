@@ -10,7 +10,7 @@ export default function VideoMobile({ ctaHref }) {
       <div className="video-m__kicker">A jornada da nossa capitã</div>
       <h2 className="video-m__title">Waleska Freitas</h2>
 
-      <div className="video-m__stage">
+      <div className={`video-m__stage${tocando ? ' is-tocando' : ''}`}>
         {VIDEO_SRC && (
           <video
             className="video-m__media"

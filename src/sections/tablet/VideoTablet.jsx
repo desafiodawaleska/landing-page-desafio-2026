@@ -10,7 +10,7 @@ export default function VideoTablet({ ctaHref }) {
       <div className="video-t__kicker">A jornada da nossa capitã</div>
       <h2 className="video-t__title">Waleska Freitas</h2>
 
-      <div className="video-t__stage">
+      <div className={`video-t__stage${tocando ? ' is-tocando' : ''}`}>
         {VIDEO_SRC && (
           <video
             className="video-t__media"
