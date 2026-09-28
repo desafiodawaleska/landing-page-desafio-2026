@@ -439,6 +439,51 @@ longas, que pedem 383 e 429px contra 307 disponíveis. É o que o `overflowY:
 auto` condicional cobre. Se incomodar, as saídas são aumentar a caixa (mas
 ela já fecha rente ao pé da foto) ou encurtar esses dois textos.
 
+## O vídeo da seção "A jornada da nossa capitã"
+
+O arquivo publicado é **reencodado**, nunca o master. O que veio do cliente em
+28/09 (`WALESKA001.mp4`) tinha **333 MB** — 1920x1080 a 16 Mbps, 2m52s. Isso
+não sobe: o GitHub **rejeita arquivos acima de 100 MB**.
+
+O que está em `public/assets/s6/waleska.mp4`: 1280x720, 1,7 Mbps, **35 MB**,
+com *faststart*. Mesma duração do original (172,6s).
+
+| | tamanho | bitrate |
+|---|---|---|
+| master entregue | 333 MB | 16.174 kbps |
+| publicado | 35 MB | 1.712 kbps |
+
+**Por que 720p.** O palco do mobile tem 322x181 de canvas e o do desktop
+1000x563 — 720p já sobra no primeiro e serve bem o segundo. 1080p daria 68 MB
+e passaria do limite de aviso do GitHub (50 MB) por pouco benefício: o vídeo é
+plano médio, não detalhe fino.
+
+**Por que faststart importa.** Ele põe o índice (`moov`) antes dos dados
+(`mdat`), então o navegador começa a tocar sem baixar o arquivo inteiro. O
+master não tinha; o reencode tem. Confere assim:
+
+```bash
+python3 -c "import sys;d=open(sys.argv[1],'rb').read(4096);print('moov' in str(d))" arquivo.mp4
+```
+
+**Como refazer.** O `avconvert` do macOS não serve: os presets dele usam
+bitrate de arquivamento e o 720p sai com 155 MB. Use o
+`docs/encode-video.swift`, que faz o encode por AVAssetWriter com bitrate
+explícito e roda sem instalar nada:
+
+```bash
+swift docs/encode-video.swift <origem> <destino> 1280 720 1600 128
+```
+
+Os dois últimos números são kbps de vídeo e de áudio. O master vinha com áudio
+a 320 kbps, exagero para voz — 128 basta.
+
+**A troca é em um lugar só.** `src/sections/video-fonte.js` exporta
+`VIDEO_SRC`, consumido pelas três variantes. Vazio, a seção fica no estado de
+repouso (quadro laranja com play desenhado, e o botão vira `<div>` para não
+oferecer ao teclado um controle morto). `VIDEO_SRC` aceita URL externa também
+— se um dia o arquivo sair do repositório, é só apontar para lá.
+
 ## Quadrados soltos do mobile — posição por célula, não por pixel
 
 Os sete quadrados da hero mobile ficam **encaixados nas células do grid do
