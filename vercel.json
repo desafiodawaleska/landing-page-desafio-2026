@@ -5,6 +5,13 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/grupo",
+      "destination": "https://chat.whatsapp.com/Imyf2UjCOorEQiS8TZyLxZ",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
