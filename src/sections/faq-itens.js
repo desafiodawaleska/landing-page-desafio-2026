@@ -48,7 +48,7 @@ export const FAQ_ITENS = [
   },
   {
     q: 'Quando começa a próxima turma?',
-    lead: 'A nova turma se inicia na segunda semana de agosto, período em que realizamos o envio das anamneses e o agendamento das consultas individuais com nossa equipe. Já a rotina prática e o acompanhamento diário do desafio no grupo começam oficialmente no dia 17/08.',
+    lead: 'Após a sua inscrição, realizamos o envio das anamneses e o agendamento das consultas individuais com nossa equipe. Já a rotina prática e o acompanhamento diário do desafio no grupo começam oficialmente no dia 20/10.',
     bullets: [],
   },
   {
