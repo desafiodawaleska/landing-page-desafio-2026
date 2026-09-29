@@ -1,4 +1,5 @@
 import './hero-tablet.css';
+import { CTA_ATTRS } from '../../config.js';
 
 // Posições em porcentagem da caixa do grid, não do canvas. É o que mantém os
 // quadrados encaixados nas células quando tudo é fluido: a caixa do grid tem
@@ -64,7 +65,7 @@ export default function HeroTablet({ ctaHref }) {
           O desafio que muda seus hábitos, com médico e nutri ao seu lado
         </p>
 
-        <a className="hero-t__cta" href={ctaHref}>
+        <a className="hero-t__cta" href={ctaHref} {...CTA_ATTRS}>
           Quero participar
         </a>
       </div>

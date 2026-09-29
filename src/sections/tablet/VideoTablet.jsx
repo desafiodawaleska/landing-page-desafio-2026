@@ -1,6 +1,7 @@
 import './video-tablet.css';
 import { VIDEO_SRC } from '../video-fonte.js';
 import { usarPlayer } from '../usar-player.js';
+import { CTA_ATTRS } from '../../config.js';
 
 export default function VideoTablet({ ctaHref }) {
   const {
@@ -86,7 +87,7 @@ export default function VideoTablet({ ctaHref }) {
           com médico e nutri ao seu lado
         </p>
 
-        <a className="video-t__cta" href={ctaHref}>
+        <a className="video-t__cta" href={ctaHref} {...CTA_ATTRS}>
           Quero entrar agora
         </a>
       </div>

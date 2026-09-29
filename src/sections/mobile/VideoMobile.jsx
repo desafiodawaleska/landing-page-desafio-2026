@@ -1,6 +1,7 @@
 import './video-mobile.css';
 import { VIDEO_SRC } from '../video-fonte.js';
 import { usarPlayer } from '../usar-player.js';
+import { CTA_ATTRS } from '../../config.js';
 
 export default function VideoMobile({ ctaHref }) {
   const {
@@ -82,7 +83,7 @@ export default function VideoMobile({ ctaHref }) {
         O desafio que muda seus hábitos, com médico e nutri ao seu lado
       </p>
 
-      <a className="cta video-m__cta" href={ctaHref}>
+      <a className="cta video-m__cta" href={ctaHref} {...CTA_ATTRS}>
         Quero entrar agora
       </a>
     </section>

@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import './oferta-mobile.css';
 import { ANCORA_OFERTA } from '../../config.js';
+import { CTA_ATTRS } from '../../config.js';
 
 const PRICE = 'R$79,99';
 
@@ -59,7 +60,7 @@ export default function OfertaMobile({ ctaHref }) {
         <span>{PRICE}</span>
       </div>
 
-      <a className="cta oferta-m__cta" href={ctaHref}>
+      <a className="cta oferta-m__cta" href={ctaHref} {...CTA_ATTRS}>
         <span>Quero entrar agora</span>
       </a>
 

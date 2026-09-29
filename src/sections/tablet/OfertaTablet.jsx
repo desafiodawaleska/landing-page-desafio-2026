@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import './oferta-tablet.css';
 import { ANCORA_OFERTA } from '../../config.js';
+import { CTA_ATTRS } from '../../config.js';
 
 export default function OfertaTablet({ ctaHref }) {
   const cf = useRef(null);
@@ -41,7 +42,7 @@ export default function OfertaTablet({ ctaHref }) {
             </div>
           </div>
 
-          <a className="oferta-t__cta" href={ctaHref}>
+          <a className="oferta-t__cta" href={ctaHref} {...CTA_ATTRS}>
             Quero entrar agora
           </a>
 

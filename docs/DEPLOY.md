@@ -6,10 +6,20 @@ Ordem importa. Cada etapa depende da anterior estar de pé.
 
 ## 1. Antes de qualquer coisa: um campo
 
-Sem ele a LP sobe, mas sobe sem converter.
+**Feito.** `CHECKOUT_URL` em `src/config.js` aponta para o evento na Sympla
+(`https://www.sympla.com.br/evento-online/desafio-da-wal-30-dias/3591400`) e
+os nove CTAs — três por versão — abrem nele em nova aba.
 
-| Onde | Campo | O que acontece se ficar como está |
-|---|---|---|
+O link entrou **sem** a query string de rastreio (`_gl`, `_gcl_au`, `_ga`) que
+vem quando se copia da barra do navegador: esses parâmetros identificam quem
+copiou, e publicados na LP fariam todo visitante chegar na Sympla como a mesma
+pessoa. Ao trocar o link, copie só até o ID do evento.
+
+`CHECKOUT_URL` vazio continua sendo um estado válido: os botões voltam a rolar
+até o preço. `VITE_SITE_URL` (`.env`) já está preenchido com
+`https://www.desafiodawal.com.br`.
+
+---|---|---|
 | `src/config.js` | `CHECKOUT_URL` | Os nove CTAs rolam até o preço e param ali — ninguém consegue comprar |
 
 `CHECKOUT_URL` vazio **não quebra** a página: é um estado intermediário

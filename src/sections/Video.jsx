@@ -1,6 +1,7 @@
 import './video.css';
 import { VIDEO_SRC } from './video-fonte.js';
 import { usarPlayer } from './usar-player.js';
+import { CTA_ATTRS } from '../config.js';
 
 export default function Video({ ctaHref }) {
   // Mesmo hook do tablet e do mobile. Antes o desktop repetia a lógica aqui,
@@ -89,7 +90,7 @@ export default function Video({ ctaHref }) {
         com médico e nutri ao seu lado
       </p>
 
-      <a className="cta video__cta" href={ctaHref}>
+      <a className="cta video__cta" href={ctaHref} {...CTA_ATTRS}>
         Quero entrar agora
       </a>
     </section>

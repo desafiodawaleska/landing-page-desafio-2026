@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import './oferta.css';
 import { ANCORA_OFERTA } from '../config.js';
+import { CTA_ATTRS } from '../config.js';
 
 const PRICE = 'R$79,99';
 
@@ -49,7 +50,7 @@ export default function Oferta({ ctaHref }) {
           </div>
 
           <div className="oferta__col oferta__col--acao">
-            <a className="cta oferta__cta" href={ctaHref}>
+            <a className="cta oferta__cta" href={ctaHref} {...CTA_ATTRS}>
               <span>Quero entrar agora</span>
             </a>
             <div className="oferta__note">As vagas da turma são limitadas. Garanta a sua.</div>

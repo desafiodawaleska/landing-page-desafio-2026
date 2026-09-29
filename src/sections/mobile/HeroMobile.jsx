@@ -1,4 +1,5 @@
 import './hero-mobile.css';
+import { CTA_ATTRS } from '../../config.js';
 
 // Geometria do grid do fundo, em px de canvas — tem de bater com
 // `.hero-m__grid` no CSS. O PNG tem 884x1726 e é desenhado em 319x623 a partir
@@ -85,7 +86,7 @@ export default function HeroMobile({ ctaHref, intro = false }) {
         com médico e nutri ao seu lado
       </p>
 
-      <a className="cta hero-m__cta" href={ctaHref}>
+      <a className="cta hero-m__cta" href={ctaHref} {...CTA_ATTRS}>
         <span>Quero participar</span>
       </a>
 

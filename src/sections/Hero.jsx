@@ -1,4 +1,5 @@
 import './hero.css';
+import { CTA_ATTRS } from '../config.js';
 
 const SQUARES = [
   { src: 'quad-1.png', left: 227, top: 85, o1: 1, dim: 0.42, dur: 6.4, delay: -0.2 },
@@ -79,7 +80,7 @@ export default function Hero({ ctaHref, intro = false }) {
         nutri ao seu lado
       </p>
 
-      <a className="cta hero__cta" href={ctaHref}>
+      <a className="cta hero__cta" href={ctaHref} {...CTA_ATTRS}>
         <span>Quero participar</span>
       </a>
     </section>
