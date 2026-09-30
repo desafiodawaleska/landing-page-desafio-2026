@@ -7,7 +7,7 @@ Ordem importa. Cada etapa depende da anterior estar de pé.
 ## 1. Antes de qualquer coisa: um campo
 
 **Feito.** `CHECKOUT_URL` em `src/config.js` aponta para o evento na Sympla
-(`https://www.sympla.com.br/evento-online/desafio-da-wal-30-dias/3591400`) e
+(`https://www.sympla.com.br/evento-online/desafio-da-wal---30-dias/3591400`) e
 os nove CTAs — três por versão — abrem nele em nova aba.
 
 O link entrou **sem** a query string de rastreio (`_gl`, `_gcl_au`, `_ga`) que

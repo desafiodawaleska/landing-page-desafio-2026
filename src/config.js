@@ -14,7 +14,7 @@
 // fosse a mesma pessoa, e a atribuição da campanha ficaria toda errada. A
 // própria Sympla e o Google geram os deles no clique.
 export const CHECKOUT_URL =
-  'https://www.sympla.com.br/evento-online/desafio-da-wal-30-dias/3591400';
+  'https://www.sympla.com.br/evento-online/desafio-da-wal---30-dias/3591400';
 
 // Âncora da seção Oferta. Serve de destino de fallback e continua útil depois
 // do checkout entrar no ar, para links internos.
