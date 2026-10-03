@@ -10,6 +10,11 @@
       "source": "/grupo",
       "destination": "https://chat.whatsapp.com/Imyf2UjCOorEQiS8TZyLxZ",
       "permanent": false
+    },
+    {
+      "source": "/entrar",
+      "destination": "https://www.sympla.com.br/evento-online/desafio-da-wal---30-dias/3591400",
+      "permanent": false
     }
   ],
   "headers": [
